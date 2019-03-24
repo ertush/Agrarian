@@ -20,7 +20,7 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](humidity Agrarian.PNG)
+![](humidity.PNG)
 
 
 ![](Luminosity.PNG)
