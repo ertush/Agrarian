@@ -16,6 +16,7 @@ To have the dashboard nodes on Node-red import the json from flows.json
  * DHT22
  * Capacitive Soil Moisture
  * 3.7 v Lithium rechargable battery
+ * 2 x 10K Ohm resistors
 
 ### Circuit
  
