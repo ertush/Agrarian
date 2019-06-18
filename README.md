@@ -10,10 +10,12 @@ To have the dashboard nodes on Node-red import the json from flows.json
 
 ### Parts
 
- * ESP8266 NodeMCU 12E
+ * ESP8266 NodeMCU 12-E
  * BMP180
  * LDR
  * DHT22
+ * Capacitive Soil Moisture
+ * 3.7 v Lithium rechargable battery
 
 ### Circuit
  
