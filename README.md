@@ -1,3 +1,5 @@
+![](Agrarian logo - horizontal.PNG)
+
 ## Agrarian Smart Farm Solution
 
 ### Installing
@@ -12,7 +14,7 @@ To have the dashboard nodes on Node-red import the json from flows.json
 
 ### Circuit
  
-![](curcuit.PNG)
+![](circuit.PNG)
 
 ### Dependecies
 
@@ -20,11 +22,7 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](humidity.PNG)
+![](Agrarian-Node-red-Dash.PNG)
 
 
-![](Luminosity.PNG)
-
-
-![](altitude.PNG)
   
