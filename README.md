@@ -1,4 +1,4 @@
-![](Agrarian logo - horizontal.PNG)
+![](Agrarian-logo-horizontal.PNG)
 
 ## Agrarian Smart Farm Solution
 
