@@ -10,7 +10,10 @@ To have the dashboard nodes on Node-red import the json from flows.json
 
 ### Parts
 
- ESP8266 NodeMCU 12E, BMP180, LDR, DHT11
+ * ESP8266 NodeMCU 12E
+ * BMP180
+ * LDR
+ * DHT22
 
 ### Circuit
  
