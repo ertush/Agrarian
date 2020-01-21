@@ -36,12 +36,12 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ![](Dashboard.PNG)
 
-![](Settings 1.PNG)
+![](Settings_1.PNG)
 
 ![](Capture.PNG)
 
-![](User profile 1.PNG)
+![](User_profile_1.PNG)
 
-![](Settings 2.PNG)
+![](Settings_2.PNG)
 
 ![](About.PNG)
