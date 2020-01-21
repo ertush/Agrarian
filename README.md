@@ -28,7 +28,20 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](Agrarian-Node-red-Dash.PNG)
+![](Welcome.PNG)
 
+![](Register.PNG)
 
-  
+![](Forgot.PNG)  
+
+![](Dashboard.PNG)
+
+![](Settings 1.PNG)
+
+![](Capture.PNG)
+
+![](User profile 1.PNG)
+
+![](Settings 2.PNG)
+
+![](About.PNG)
