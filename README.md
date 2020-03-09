@@ -21,6 +21,7 @@ To have the dashboard nodes on Node-red import the json from flows.json
 ### Arduino libraries to be installed
  
  * PubSubClient
+ * ESP8266Wifi
  * TinGPS
  * DHTesp
  * Adafruit_VEML6070
