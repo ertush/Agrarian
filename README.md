@@ -18,6 +18,14 @@ To have the dashboard nodes on Node-red import the json from flows.json
  * 3.7 v Lithium rechargable battery
  * 2 x 10K Ohm resistors
 
+### Arduino libraries to be installed
+ 
+ * PubSubClient
+ * TinGPS
+ * DHTesp
+ * Adafruit_VEML6070
+ * SoftwareSerial/NewSoftwareSerial
+
 ### Circuit
  
 ![](circuit.PNG)
