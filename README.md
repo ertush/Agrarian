@@ -37,7 +37,7 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](Welcome.PNG)
+![](/screenshots/Welcome.PNG)
 
 ![](Register.PNG)
 
