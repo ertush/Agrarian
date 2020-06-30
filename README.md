@@ -1,4 +1,4 @@
-![](Agrarian-logo-horizontal.PNG)
+![](/screenshots/Agrarian-Logo-1.png)
 
 ## Agrarian Smart Farm Solution
 
@@ -29,7 +29,7 @@ To have the dashboard nodes on Node-red import the json from flows.json
 
 ### Circuit
  
-![](circuit.PNG)
+![](/screenshots/Circuit.png)
 
 ### Dependecies
 
