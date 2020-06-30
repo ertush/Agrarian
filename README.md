@@ -41,13 +41,13 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ![](/screenshots/Register.png)
 
-![](/screenshots/Forgot Passwd.png)  
+![](/screenshots/ForgotPasswd.png)  
 
 ![](/screenshots/Dashboard-1.png)
 
 ![](/screenshots/Options-1.png)
 
-![](/screenshots/User Profile.png)
+![](/screenshots/UserProfile.png)
 
 ![](/screenshots/Options-2.png)
 
