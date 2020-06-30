@@ -45,6 +45,8 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ![](/screenshots/Dashboard-1.png)
 
+![](/screenshots/Dashboard-2.png)
+
 ![](/screenshots/Options-1.png)
 
 ![](/screenshots/UserProfile.png)
