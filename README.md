@@ -37,20 +37,18 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](/screenshots/Welcome.PNG)
+![](/screenshots/Welcome.png)
 
-![](Register.PNG)
+![](/screenshots/Register.png)
 
-![](Forgot.PNG)  
+![](/screenshots/Forgot Passwd.png)  
 
-![](Dashboard.PNG)
+![](/screenshots/Dashboard-1.png)
 
-![](Settings_1.PNG)
+![](/screenshots/Options-1.png)
 
-![](Capture.PNG)
+![](/screenshots/User Profile.png)
 
-![](User_profile_1.PNG)
+![](/screenshots/Options-2.png)
 
-![](Settings_2.PNG)
-
-![](About.PNG)
+![](/screenshots/About.png)
