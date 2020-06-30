@@ -29,7 +29,7 @@
 
 #define GREEN_LED 14      // D5 
 #define BLUE_LED 16       // D0 
-//#define BUZZER_PIN 15     // D8  proposed pin is DO
+//#define BUZZER_PIN 15   // D8  proposed pin is DO
 #define WIFI_CON 1
 #define MQTT_CON 2
 // Constants and Objects
@@ -273,29 +273,29 @@ void loop() {
 
 
     static char temperature[7];
-    dtostrf(t, 6, 2, temperature);
+    dtostrf(t, 2, 0, temperature); //initially 6, 2 as 6 for whole numbers and 2 for decimal places
 
         
     static char humidity[7];
-    dtostrf(h, 6, 2, humidity);
+    dtostrf(h, 2, 0, humidity);
 
             
 //    static char bmpAlt[7];
-//    dtostrf(bmp180Alt, 6, 2, bmpAlt);
+//    dtostrf(bmp180Alt, 2, 0, bmpAlt);
 //    
 //
 //    static char bmpPr[7];
-//    dtostrf(bmp180Pressure, 6, 2, bmpPr);
+//    dtostrf(bmp180Pressure, 2, 0, bmpPr);
 
 
     static char valueSoilm[7];
-    dtostrf(soilMoisture_3v3Val, 6, 2, valueSoilm);
+    dtostrf(soilMoisture_3v3Val, 2, 0, valueSoilm);
 
     static char tinyGPSAltVal[7];
-    dtostrf(tinyGPSAlt, 6, 2, tinyGPSAltVal);
+    dtostrf(tinyGPSAlt, 2, 0, tinyGPSAltVal);
 
     static char uv_lvl[6];
-    dtostrf(uv_index, 6, 2, uv_lvl);
+    dtostrf(uv_index, 2, 0, uv_lvl);
 
     static char loc_lat_txt[7];
     dtostrf(lat_loc, 6, 2, loc_lat_txt);
@@ -354,10 +354,10 @@ void loop() {
      Serial.print("\n");
 
      Serial.print("\nLAT : ");
-       Serial.print(lat_loc, 2);
-       Serial.print(", ");
+     Serial.print(lat_loc, 2);
+     Serial.print(", ");
      Serial.print("\nLNG : ");
-       Serial.print(lng_loc, 2);
+     Serial.print(lng_loc, 2);
      Serial.print("\n");
  
   }
