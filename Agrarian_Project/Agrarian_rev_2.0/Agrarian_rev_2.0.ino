@@ -11,12 +11,15 @@
 #include <PubSubClient.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
+
+
 #include "DHTesp.h"
-//#include "Buzzer.h"
 #include "SoilMoisture.h"
-//#include "SFE_BMP180.h"
 #include "Adafruit_VEML6070.h"
 #include "AgrarianConfig.h"
+#include "OTASupport.h"
+//#include "Buzzer.h"
+//#include "SFE_BMP180.h"
 
 // Sensor GPIO (inputs) Declaration
 
@@ -40,6 +43,7 @@ Adafruit_VEML6070 uv = Adafruit_VEML6070();
 TinyGPS gps;
 //SFE_BMP180 bmp180;
 SoftwareSerial ss(NEO_RX, NEO_TX);
+
 WiFiClient espClient;
 //Buzzer buzzer(BUZZER_PIN);
 PubSubClient client(espClient);
@@ -135,18 +139,19 @@ void blinkLeds(int event){
     }
 }
 
+/*
+void soundBazzer(){
+  
+ for(unsigned long start = millis(); millis() - start < 4000;){
+               
+    buzzer.on();
+    delay(2000);
+    buzzer.off();
+    delay(2000);
 
-//void soundBazzer(){
-//  
-//// for(unsigned long start = millis(); millis() - start < 4000;){
-//               
-//    buzzer.on();
-//    delay(2000);
-//    buzzer.off();
-//    delay(2000);
-//
-//// }
-//}
+ }
+}
+*/
 
 //===================== End of Custom Methods =====================//
 
@@ -159,7 +164,7 @@ void setup() {
   pinMode(BLUE_LED, OUTPUT);
 
   // Initialize bmp180
-//    bmp180.begin();
+  // bmp180.begin();
   
   Serial.begin(SERIAL_BAUD);
   // Neo 6M GPS setup
@@ -167,15 +172,24 @@ void setup() {
   
   //VEML6070 UV time integration
   uv.begin(VEML6070_1_T);
-  
+ 
   setup_wifi();
+
+  //OTA support
+  //Publish to esp8266/ota
+  
+  int ot_status = ota_support();
+  (ot_status == 0 ? client.publish("esp8266/ota", "OTA_SUPPORT_READY") : client.publish("esp8266/ota", "OTA_SUPPORT_FAILED")); 
+  
   client.setServer(MQTT_SVR, MQTT_PORT);
   client.setCallback(callback);
+
+  
 
 }
 
 void loop() {
-  
+  ArduinoOTA.handle();
   bool newData = false;
   unsigned long chars;
   unsigned short sentences, failed;
@@ -192,7 +206,6 @@ void loop() {
   if(!client.loop())
     client.connect("ESP8266Client", MQTT_USER, MQTT_PASS);
 
-    
   now = millis();
 
  //==================== Start NEO 6M GPS Reading =======================//
@@ -247,26 +260,31 @@ void loop() {
 
     // Check if any reads failed and exit early (to try again).
     if (isnan(h) || isnan(t)) {
+      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read DHT22 sensor!");
       Serial.println("\n[DEBUG] Failed to read DHT22 sensor!");
       return;
     }
 
     if (isnan(soilMoisture_3v3Val)) {
+      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read soil sensor!");
       Serial.println("\n[DEBUG] Failed to read soil sensor!");
       return;
     }
 
     if (isnan(tinyGPSAlt)) {
+      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read NEO_GPS Altitude sensor value!");
       Serial.println("\n[DEBUG] Failed to read NEO_GPS Altitude sensor value!");
       return;
     }
 
 //    if (isnan(bmp180Alt) || isnan(bmp180Pressure) || isnan(bmp180TempC)) {
+//      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read BMP180 sensor!");
 //      Serial.println("Failed to read BMP180 sensor!");
 //      return;
 //    }
     
     if (isnan(uv_index)) {
+      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read UV_6070 index sensor!");
       Serial.println("\n[DEBUG] Failed to read UV_6070 index sensor!");
       return;
     }
@@ -335,7 +353,7 @@ void loop() {
 //    Serial.print("\n");
 //
 //    Serial.print("\nAtmospheric Pressure: ");
-//     Serial.print(bmp180Pressure, 2);
+//    Serial.print(bmp180Pressure, 2);
 //    Serial.print(" [hPa]");
 //    Serial.print("\n");
 
