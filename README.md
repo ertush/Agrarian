@@ -1,6 +1,6 @@
 ![](/screenshots/Agrarian-Logo-1.png)
 
-![build](https://github.com/ertush/Agrarian/workflows/Greetings/badge.svg)
+![test](https://github.com/ertush/Agrarian/workflows/Greetings/badge.svg)
 ## Agrarian Smart Farm Solution
 
 ### Installing
