@@ -5,7 +5,7 @@ networks:
     driver: bridge 
 
 services:
-  node-red-backend:
+  node-red:
     container_name: node-red-agrarian
     hostname: node-red-agrarian
     build: ./agrarian/build 
@@ -17,7 +17,7 @@ services:
         - 1880:1880
   
     
-  mosquitto-broker:
+  mosquitto:
     container_name: mosquitto-broker
     hostname: mqtt-broker
     build: ./mosquitto/build
@@ -26,7 +26,7 @@ services:
     ports: 
         - 1883:1883
   
-  mongo:
+  mongo-db:
     container_name: mongo-db
     hostname: mongo
     image: mongo:latest
