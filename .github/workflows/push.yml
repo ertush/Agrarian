@@ -1,0 +1,25 @@
+name: agrarian-app-ci-workflow
+
+on: push
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the docker-compose stack
+      run: docker-compose -f Agrarian_Project/Build/docker-compose.yaml up -d
+    - name: Check running containers
+      run: docker ps -a
+    - name: Check log
+      run: docker logs node-red-agrarian
+    - name: Starting Smoke Test Suite
+    - name: Testing node-red-backend
+      run: docker run --network container:node-red-agrarian appropriate/curl -s --retry 10 --retry-connrefused http://localhost:1880/ 
+    - name: Testing mqtt-broker
+      run: docker run --network container:mosquitto-broker appropriate/curl -s --retry 10 --retry-connrefused http://localhost:1883/
+    - name: Testing mongo-db
+      run: docker run --network container:mosquitto-broker appropriate/curl -s --retry 10 --retry-connrefused http://localhost:27017/
