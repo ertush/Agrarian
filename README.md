@@ -1,6 +1,7 @@
 ![](/screenshots/Agrarian-Logo-1.png)
 
 ![agrarian-app-ci-workflow](https://github.com/ertush/Agrarian/workflows/agrarian-app-ci-workflow/badge.svg)
+![Test](https://github.com/ertush/Agrarian/workflows/Test/badge.svg)
 
 ## Agrarian Smart Farm Solution
 
