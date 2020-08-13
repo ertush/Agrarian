@@ -277,7 +277,7 @@ module.exports = {
         type: "credentials",
         users: [{
             username: "admin",
-            password: "$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy", //microTUSH77
+            password: "$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy", 
             permissions: "*"
         }]
     },
