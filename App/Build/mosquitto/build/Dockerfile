@@ -22,3 +22,5 @@ RUN touch /data/passfile ; mosquitto_passwd -b /data/passfile mqtt_user microARG
 EXPOSE 1883
 
 ENTRYPOINT [ "mosquitto", "-c", "/mosquitto/config/mosquitto.conf", "-p", "1883", "-v" ]
+
+LABEL Author="Eric Mutua" 

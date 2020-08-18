@@ -12,11 +12,11 @@ RUN apk update \
 RUN npm install -g --unsafe-perm node-red
 
 # expose port
-EXPOSE 1880 
+EXPOSE 1880
 
 # Set the default command to execute
 # when creating a new container
-CMD ["node-red", "-v", "-s /root/.node-red/config/settings.js", "--max-old-space-size=512", "/root/.node-red/config/flows_YOGA-510-RICO.json", " | /dev/null"]
+CMD ["node-red", "-v", "--port 443", "-s /root/.node-red/settings.js", "--max-old-space-size=512", "/root/.node-red/config/flows_YOGA-510-RICO.json", " | /dev/null"]
 
 LABEL Author="Eric Mutua" 
 
