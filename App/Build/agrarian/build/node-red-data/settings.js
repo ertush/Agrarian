@@ -78,7 +78,7 @@ module.exports = {
     // node-red from being able to decrypt your existing credentials and they will be
     // lost.
     credentialSecret: "microAGR@77",
-
+ 
     // By default, all user data is stored in a directory called `.node-red` under
     // the user's home directory. To use a different location, the following
     // property can be used
@@ -120,21 +120,21 @@ module.exports = {
     // -----------------
     // To password protect the Node-RED editor and admin API, the following
     // property can be used. See http://nodered.org/docs/security.html for details.
-    //adminAuth: {
-    //    type: "credentials",
-    //    users: [{
-    //        username: "admin",
-    //        password: "$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.",
-    //        permissions: "*"
-    //    }]
-    //},
-
+    adminAuth: {
+        type: "credentials",
+        users: [{
+            username: "admin",
+            password: "$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy", 
+            permissions: "*"
+        }]
+    },
+    
     // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
     // the static content (httpStatic), the following properties can be used.
     // The pass field is a bcrypt hash of the password.
     // See http://nodered.org/docs/security.html#generating-the-password-hash
-    //httpNodeAuth: {user:"user",pass:"$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN."},
-    //httpStaticAuth: {user:"user",pass:"$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN."},
+    httpNodeAuth: {user:"user", pass:"$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy"},
+    httpStaticAuth: {user:"user",pass:"$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy"},
 
     // The following property can be used to enable HTTPS
     // See http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
@@ -143,8 +143,8 @@ module.exports = {
     // this setting.
     //
     //https: {
-    //    key: fs.readFileSync('privatekey.pem'),
-    //    cert: fs.readFileSync('certificate.pem')
+    //    key: fs.readFileSync('/root/.node-red/agrarian.pem'),
+    //    cert: fs.readFileSync('/root/.node-red/agrarian-cert.pem')
     //},
 
     // The following property can be used to cause insecure HTTP connections to
@@ -273,16 +273,8 @@ module.exports = {
         }
     },
 
-    adminAuth: {
-        type: "credentials",
-        users: [{
-            username: "admin",
-            password: "$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy", 
-            permissions: "*"
-        }]
-    },
     
-    httpNodeAuth: {user:"user", pass:"$2b$08$TRfAp01jiIMLYfdF0jYO/e/NuK./9wEf/fvolW5uGaRWebwE/yhoy"}
+    
 }
 
 
