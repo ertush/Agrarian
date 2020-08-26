@@ -1,0 +1,14 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-email-out": "~0.1.1",
+        "node-red-dashboard": "~2.15.5",
+        "node-red-mongodb": "0.0.18",
+        "node-red-node-openweathermap": "~0.2.1",
+        "node-red-node-redis": "0.0.5",
+        "node-red-node-twilio": "~0.1.0"
+    }
+}
