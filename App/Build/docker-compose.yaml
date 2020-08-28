@@ -45,7 +45,7 @@ services:
         - WEBHOOK_BRANCH_LIST=test
     deploy:
         restart_policy:
-            condition: unless-stopped
+            condition: on-failure
             delay: 10s
             max_attempts: 3
             window: 120s
