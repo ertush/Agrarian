@@ -2,6 +2,7 @@ version: "3.0"
     
 services:
   node-red:
+    image: node-red:latest
     build: ./agrarian/build 
     networks: 
         - node-red-net
@@ -12,6 +13,7 @@ services:
   
     
   mosquitto:
+    image: eclipse-mosquitto:latest
     build: ./mosquitto/build
     networks: 
         - node-red-net
@@ -20,8 +22,6 @@ services:
   
   mongo-db:
     image: mongo:4.2.8-bionic
-    volumes: 
-        - ./mongo/build/mongo-db:/data/db   
     networks: 
         - node-red-net
     ports: 
@@ -31,7 +31,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: microTUSH77
         
   webhook:
-    image: staticfloat/docker-webhook
+    image: staticfloat/docker-
+    networks: 
+        - web-hook-net
     volumes:
         # Mount this code into /code
         - ./:/code
@@ -52,3 +54,4 @@ services:
          
 networks:
     node-red-net:
+    web-hook-net:
