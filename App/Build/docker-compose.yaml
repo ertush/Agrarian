@@ -2,7 +2,7 @@ version: "3.0"
     
 services:
   node-red:
-    image: node-red:latest
+    image: nodered/node-red:latest
     build: ./agrarian/build 
     networks: 
         - node-red-net
@@ -31,7 +31,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: microTUSH77
         
   webhook:
-    image: staticfloat/docker-
+    image: staticfloat/docker-webhook
     networks: 
         - web-hook-net
     volumes:
