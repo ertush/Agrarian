@@ -49,8 +49,8 @@ services:
         # Mount the docker socket
         - /var/run/docker.sock:/var/run/docker.sock
     environment:
-        - WEBHOOK_SECRET=${WEBHOOK_SECRET}
-        - WEBHOOK_HOOKS_DIR=/code/hooks
-        - WEBHOOK_BRANCH_LIST=master
+        - WEBHOOK_SECRET=hook_secret
+        - WEBHOOK_HOOKS_DIR=/code
+        - WEBHOOK_BRANCH_LIST=test
     expose:
         - 8000
