@@ -1,8 +1,13 @@
-version: "3.0"
-    
+version: "2.0"
+
+networks:
+  node-red-net:
+    driver: bridge 
+
 services:
   node-red:
-    image: nodered/node-red:latest
+    container_name: node-red-agrarian
+    hostname: node-red-agrarian
     build: ./agrarian/build 
     networks: 
         - node-red-net
@@ -13,7 +18,8 @@ services:
   
     
   mosquitto:
-    image: eclipse-mosquitto:latest
+    container_name: mosquitto-broker
+    hostname: mqtt-broker
     build: ./mosquitto/build
     networks: 
         - node-red-net
@@ -21,37 +27,16 @@ services:
         - 1883:1883
   
   mongo-db:
+    container_name: mongo_db
+    hostname: mongo
     image: mongo:4.2.8-bionic
+    volumes: 
+        - ./mongo/build/mongo-db:/data/db   
     networks: 
         - node-red-net
     ports: 
         - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: microTUSH77
-        
-  webhook:
-    image: staticfloat/docker-webhook
-    networks: 
-        - web-hook-net
-    volumes:
-        # Mount this code into /code
-        - ./:/code
-        # Mount the docker socket
-        - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-        - WEBHOOK_SECRET=hook_secret
-        - WEBHOOK_HOOKS_DIR=/code/hooks
-        - WEBHOOK_BRANCH_LIST=test
-    deploy:
-        restart_policy:
-            condition: on-failure
-            delay: 10s
-            max_attempts: 3
-            window: 120s
-    expose:
-        - 8000
-         
-networks:
-    node-red-net:
-    web-hook-net:
+      MONGO_INITDB_ROOT_PASSWORD: ricoTUSH77
+   
