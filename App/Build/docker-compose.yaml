@@ -16,7 +16,6 @@ services:
     ports: 
         - 1880:1880
   
-    
   mosquitto:
     container_name: mosquitto-broker
     hostname: mqtt-broker
@@ -29,9 +28,7 @@ services:
   mongo-db:
     container_name: mongo_db
     hostname: mongo
-    image: mongo:4.2.8-bionic
-    volumes: 
-        - ./mongo/build/mongo-db:/data/db   
+    image: mongo:4.2.8-bionic   
     networks: 
         - node-red-net
     ports: 
