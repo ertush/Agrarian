@@ -21,24 +21,24 @@ jobs:
     - name: Check log
       run: docker logs node-red-agrarian
     - name: Testing node-red-backend
-      run: docker run --network container:node-red-agrarian appropriate/curl:edge -s --retry 10 --retry-connrefused http://localhost:1880/ 
+      run: docker run --network container:node-red-agrarian appropriate/curl -s --retry 10 --retry-connrefused http://localhost:1880/ 
     - name: Testing mqtt-broker
       run: nc -q 2 localhost 1883
     - name: Testing mongo-db
       run: nc -q 2 localhost 27017
     
-  agrarian-deployment:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Deploy to Docker Host
-      uses: wshihadeh/docker-deployment-action@v1
-      with:
-        remote_docker_host: agrarian@134.122.83.169
-        ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-        ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
-        deployment_mode: docker-compose
-        args: up -d
-        deploy_path: '/home/agrarian/Agrarian/App/Build'
-        pre_deployment_command_args: 'git pull origin agrarian_docker_build'
-        docker_prune: 'true'
-        pull_images_first: 'true'
+  # agrarian-deployment:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Deploy to Docker Host
+  #     uses: wshihadeh/docker-deployment-action@v1
+  #     with:
+  #       remote_docker_host: agrarian@134.122.83.169
+  #       ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+  #       ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+  #       deployment_mode: docker-compose
+  #       args: up -d
+  #       deploy_path: '/home/agrarian/Agrarian/App/Build'
+  #       pre_deployment_command_args: 'git pull origin agrarian_docker_build'
+  #       docker_prune: 'true'
+  #       pull_images_first: 'true'
