@@ -1,7 +1,7 @@
 name: agrarian-app-ci-workflow
 on: push
 jobs:
-  agrarian-app:
+  agrarian-test-suite:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,24 +18,17 @@ jobs:
     - name: Testing mongo-db
       run: nc -q 2 localhost 27017
 
+  agrarian-deployment:
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Node.js
-      uses: actions/setup-node@v1
+    - name: Deploy to Docker Host
+      uses: wshihadeh/docker-deployment-action@v1
       with:
-        node-version: '10.x'
-    - name: Install npm dependencies
-      run: npm install
-    - name: Run build task
-      run: npm run build --if-present
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.1
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-    - name: Rebuild App
-      run: ssh agrarian@134.122.169.83 cd ./Agrarian/App/Build/docker-compose.yaml; sudo docker-compose up -d
+        remote_docker_host: agrarian@134.122.83.169
+        ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+        ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+        deployment_mode: docker-compose
+        args: up -d
+        deploy_path: '/home/agrarian/Agrarian/App/Build'
+        pre_deployment_command_args: 'cd '
+        docker_prune: 'true'
+        pull_images_first: 'true'
