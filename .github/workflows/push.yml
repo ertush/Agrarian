@@ -29,6 +29,6 @@ jobs:
         deployment_mode: docker-compose
         args: up -d
         deploy_path: '/home/agrarian/Agrarian/App/Build'
-        pre_deployment_command_args: 'cd '
+        pre_deployment_command_args: 'git pull origin agrarian_docker_build'
         docker_prune: 'true'
         pull_images_first: 'true'
