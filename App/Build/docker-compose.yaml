@@ -28,7 +28,7 @@ services:
   mongo-db:
     container_name: mongo_db
     hostname: mongo
-    image: mongo:4.2.8-bionic   
+    image: mongo:latest   
     networks: 
         - node-red-net
     ports: 
