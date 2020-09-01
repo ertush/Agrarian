@@ -7,6 +7,7 @@ on:
     - '!test'
     paths:
     - 'App/Build/**'
+    - '.github/workflows/**'
     - '!README.md'
 jobs:
   agrarian-test-suite:
