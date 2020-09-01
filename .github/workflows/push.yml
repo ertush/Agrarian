@@ -17,8 +17,7 @@ jobs:
       run: nc -q 2 localhost 1883
     - name: Testing mongo-db
       run: nc -q 2 localhost 27017
-
-  agrarian-deployment:
+      
     steps:
     - name: Deploy to Docker Host
       uses: wshihadeh/docker-deployment-action@v1
