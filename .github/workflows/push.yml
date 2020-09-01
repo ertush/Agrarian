@@ -20,6 +20,7 @@ jobs:
     
   agrarian-deployment:
     steps:
+      runs-on: ubuntu-latest
     - name: Deploy to Docker Host
       uses: wshihadeh/docker-deployment-action@v1
       with:
