@@ -7,6 +7,7 @@ on:
     - '!master'
     paths:
     - 'App/Build/**'
+    - '.github/workflows/**'
     - '!README.md'
 jobs:
   agrarian-app:
