@@ -1,8 +1,13 @@
 name: agrarian-app-ci-workflow
 on: 
   push:
-  - 'App/Build/**'
-  - '!README.md'
+    branches:
+    - 'agrarian_docker_build'
+    - '!test'
+    - '!master'
+    paths:
+    - 'App/Build/**'
+    - '!README.md'
 jobs:
   agrarian-app:
     runs-on: ubuntu-latest
