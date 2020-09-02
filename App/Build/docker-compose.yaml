@@ -1,39 +1,39 @@
-version: "2.0"
+version: "2.1"
 
 networks:
-  node-red-net:
+  agrarian-net:
     driver: bridge 
 
 services:
-  node-red:
-    container_name: node-red-agrarian
+  app:
+    container_name: agrarian
     hostname: node-red-agrarian
-    build: ./agrarian/build 
+    build: ./agrarian
     networks: 
-        - node-red-net
-    volumes:
-        - ./agrarian/build/node-red-data:/root/.node-red
+      - agrarian-net
     ports: 
-        - 1880:1880
+      - 1880:1880
   
-  mosquitto:
-    container_name: mosquitto-broker
+  mqtt-broker:
+    container_name: mqtt-broker
     hostname: mqtt-broker
-    build: ./mosquitto/build
+    build: ./mosquitto
     networks: 
-        - node-red-net
+      - agrarian-net
     ports: 
-        - 1883:1883
+      - 1883:1883
   
-  mongo-db:
-    container_name: mongo_db
-    hostname: mongo
+  database:
     image: mongo:latest
-    networks: 
-        - node-red-net
-    ports: 
-        - 27017:27017
+    container_name: mongo-db
+    networks:   
+      - agrarian-net
+    volumes: 
+      - ./mongo/init-mongo.js:/docker-entyrpoint-initdb.d/init-mongo.js:ro
     environment:
+      MONGO_INITDB_DATABASE: ag_data
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ricoTUSH77
+      MONGO_INITDB_ROOT_PASSWORD: ricoMG@77
+    ports: 
+      - '27017-27019:27017-27019'
    
