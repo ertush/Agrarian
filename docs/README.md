@@ -1,4 +1,4 @@
-![](/screenshots/Agrarian-Logo-1.png)
+![](/docs/screenshots/Agrarian-Logo-1.png)
 
 ![agrarian-app-ci-workflow](https://github.com/ertush/Agrarian/workflows/agrarian-app-ci-workflow/badge.svg)
 ![Test](https://github.com/ertush/Agrarian/workflows/Test/badge.svg)
@@ -32,7 +32,7 @@ To have the dashboard nodes on Node-red import the json from flows.json
 
 ### Circuit
  
-![](/screenshots/Circuit.png)
+![](/docs/screenshots/Circuit.png)
 
 ### Dependecies
 
@@ -40,20 +40,20 @@ Node-red, Mqttbroker e.g Mosquitto
 
 ### App dashboard
 
-![](/screenshots/Welcome.png)
+![](/docs/screenshots/Welcome.png)
 
-![](/screenshots/Register.png)
+![](/docs/screenshots/Register.png)
 
-![](/screenshots/ForgotPasswd.png)  
+![](/docs/screenshots/ForgotPasswd.png)  
 
-![](/screenshots/Dashboard-1.png)
+![](/docs/screenshots/Dashboard-1.png)
 
-![](/screenshots/Dashboard-2.png)
+![](/docs/screenshots/Dashboard-2.png)
 
-![](/screenshots/Options-1.png)
+![](/docs/screenshots/Options-1.png)
 
-![](/screenshots/UserProfile.png)
+![](/docs/screenshots/UserProfile.png)
 
-![](/screenshots/Options-2.png)
+![](/docs/screenshots/Options-2.png)
 
-![](/screenshots/About.png)
+![](/docs/screenshots/About.png)
