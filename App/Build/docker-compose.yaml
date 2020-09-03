@@ -24,16 +24,18 @@ services:
       - 1883:1883
   
   database:
-    image: mongo:latest
-    container_name: mongo-db
+    image: influxdb:alpine
+    container_name: influx-db
     networks:   
       - agrarian-net
     volumes: 
-      - ./mongo/init-mongo.js:/docker-entyrpoint-initdb.d/init-mongo.js:ro
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
     environment:
-      MONGO_INITDB_DATABASE: ag_data
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ricoMG@77
+      - INFLUXDB_DB=agrarian_db 
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD
+      - INFLUXDB_USER=agrarian
+      - INFLUXDB_USER_PASSWORD 
     ports: 
-      - '27017-27019:27017-27019'
+      - 8086:8086
    
