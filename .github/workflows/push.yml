@@ -20,10 +20,10 @@ jobs:
     - name: Check running containers
       run: docker ps -a
     - name: Testing node-red-backend
-      run: docker run --network build_node-red-net appropriate/curl -s --retry 10 --retry-connrefused http://localhost:1880/ 
+      run: curl -Is http://localhost:1880 | head -n 1 
     - name: Testing mqtt-broker
       run: nc -q 2 localhost 1883
-    - name: Testing mongo-db
+    - name: Testing influx-db
       run: nc -q 2 localhost 27017
 
   deploy:
