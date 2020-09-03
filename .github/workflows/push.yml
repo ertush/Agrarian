@@ -32,7 +32,7 @@ jobs:
     needs: [agrarian-test]
     steps:
     - name: Deploy agrarian docker-compose
-      uses: joelwmale/webhook-action@aed4f319dce44a4f73cdf0480b94df9e6dfc6cae
+      uses: joelwmale/webhook-action@master
     with:
       url: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
       headers: '{"repository": "ertush/agrarian"}'
