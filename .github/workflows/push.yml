@@ -25,12 +25,6 @@ jobs:
       run: nc -q 2 localhost 1883
     - name: Testing mongo-db
       run: nc -q 2 localhost 27017
-
-  deploy:
-    name: Deploy webhook call
-    runs-on: ubuntu-latest
-    needs: [agrarian-test]
-    steps:
     - name: Deploy agrarian docker-compose
     - uses: joelwmale/webhook-action@aed4f319dce44a4f73cdf0480b94df9e6dfc6cae
     with:
