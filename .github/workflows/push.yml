@@ -36,4 +36,4 @@ jobs:
       with:
         url: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
         headers: '{"repository": "ertush/agrarian"}'
-        body: '{"git_secret": ${{ secrets.GIT_SECRET }}}'
+        body: ${{secrets.GIT_SECRET }}
