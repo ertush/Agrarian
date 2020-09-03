@@ -31,8 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [agrarian-test]
     steps:
+    - uses: joelwmale/webhook-action@aed4f319dce44a4f73cdf0480b94df9e6dfc6cae
     - name: Deploy agrarian docker-compose
-    - uses: joelwmale/webhook-action@master
-    env:
-      WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
-      data: "{ 'deploy': 'true'}"
+    with:
+      url: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
+      headers: '{"repository": "ertush/agrarian"}'
+      body: \'{"git_secret": ${{ secrets.GIT_SECRET }}}\'
