@@ -33,7 +33,7 @@ jobs:
     steps:
     - name: Deploy agrarian docker-compose
       uses: joelwmale/webhook-action@master
-    with:
-      url: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
-      headers: '{"repository": "ertush/agrarian"}'
-      body: '{"git_secret": ${{ secrets.GIT_SECRET }}}'
+      with:
+        url: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
+        headers: '{"repository": "ertush/agrarian"}'
+        body: '{"git_secret": ${{ secrets.GIT_SECRET }}}'
