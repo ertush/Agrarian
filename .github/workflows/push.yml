@@ -24,7 +24,7 @@ jobs:
     - name: Testing mqtt-broker
       run: nc -q 2 localhost 1883
     - name: Testing influx-db
-      run: nc -q 2 localhost 27017
+      run: nc -q 2 localhost 8086
 
   deploy:
     name: Deploy webhook call
