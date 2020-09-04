@@ -20,6 +20,7 @@ RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production
 # RUN npm install node-red-node-smooth
 
 # Add Permissions to /data dir
-RUN chown -R 1000:1000 /data
+RUN chown -R 1000:1000 /data \
+    && chmod 755 /data
 
 LABEL Author="Eric Mutua" 
