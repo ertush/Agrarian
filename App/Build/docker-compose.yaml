@@ -9,6 +9,8 @@ services:
     container_name: agrarian
     hostname: node-red-agrarian
     build: ./agrarian
+    volumes: 
+      - ./agrarian/config:/data
     networks: 
       - agrarian-net
     ports: 
