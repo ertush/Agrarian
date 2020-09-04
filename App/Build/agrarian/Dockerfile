@@ -18,4 +18,8 @@ RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production
 # You should add extra nodes via your package.json file but you can also add them here:
 # WORKDIR /usr/src/node-red
 # RUN npm install node-red-node-smooth
+
+# Add Permissions to /data dir
+RUN sudo chown -R 1000:1000 /data
+
 LABEL Author="Eric Mutua" 

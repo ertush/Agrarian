@@ -31,7 +31,7 @@ services:
     networks:   
       - agrarian-net
     volumes: 
-      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ./influxdb/config/influxdb.conf:/etc/influxdb/influxdb.conf:ro
     environment:
       - INFLUXDB_DB=agrarian_db 
       - INFLUXDB_ADMIN_USER=admin
