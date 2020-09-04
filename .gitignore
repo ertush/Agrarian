@@ -2,3 +2,5 @@
 .config*
 .sessions*
 .flows*
+lib
+lib/flows
