@@ -2,5 +2,9 @@
 .config*
 .sessions*
 .flows*
+.npm
 lib
 lib/flows
+node_modules/
+package-lock.json
+
