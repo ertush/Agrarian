@@ -12,8 +12,6 @@ COPY ./config/mosquitto.conf /mosquitto/config/
 SHELL ["/bin/sh", "-c"]
 RUN touch /data/passfile ; mosquitto_passwd -b /data/passfile mqtt_user microARG77
 
-EXPOSE 1883
-
 ENTRYPOINT [ "mosquitto", "-c", "/mosquitto/config/mosquitto.conf", "-p", "1883", "-v" ]
 
 LABEL Author="Eric Mutua" 
