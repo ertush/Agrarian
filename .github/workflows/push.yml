@@ -19,12 +19,15 @@ jobs:
       run: docker-compose -f App/Build/docker-compose.yaml up -d
     - name: Check running containers
       run: docker ps -a
+    - name: Export IP Address for Host
+      run: export INFLUXDB_IP=$(echo $(docker inspect influx-db | grep IPAddress | awk -F ':' '{print $2}' | awk -F '"' '{print $2}' )) && \
+           export MQTT_BROKER_IP=$(echo $(docker inspect mqtt-broker | grep IPAddress | awk -F ':' '{print $2}' | awk -F '"' '{print $2}' ))
     - name: Testing node-red-backend
       run: curl -Is http://localhost:1880 | head -n 1 
     - name: Testing mqtt-broker
-      run: nc -q 2 localhost 1883
+      run: docker exec -it agrarian nc -q 2 $AGRARIAN_IP 1883
     - name: Testing influx-db
-      run: nc -q 2 localhost 8086
+      run: docker exec -it agrarian nc -q 2 $INFLUXDB_IP 8086
 
   deploy:
     name: Deploy webhook call
