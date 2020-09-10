@@ -1,5 +1,0 @@
-{
-    "secret": "${{ secrets.GIT_SECRET }}",
-    "db_user": "${{ secrets.INFLUXDB_USER_PASSWORD }}",
-    "db_admin": "${{ secrets.INFLUXDB_ADMIN_PASSWORD }}"
-}
