@@ -32,12 +32,12 @@ jobs:
     needs: [agrarian-test]
     steps:
     - name: Deploy agrarian docker-compose
-      env:
-        SECRET: ${{ secrets.GIT_SECRET }}
-        DB_USER: ${{ secrets.INFLUXDB_USER_PASSWORD }}
-        DB_ADMIN: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
+      # env:
+      #   SECRET: ${{ secrets.GIT_SECRET }}
+      #   DB_USER: ${{ secrets.INFLUXDB_USER_PASSWORD }}
+      #   DB_ADMIN: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
       uses: joelwmale/webhook-action@master
       with:
         url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
         headers: '{"Content-Type": "application/json"}'
-        body: '{"secret": "ricogit77", "db_user": "ricoUSR@77!", "db_admin": "ricoADM77!"}'
+        body: '{"secret": ${{ secrets.GIT_SECRET }}, "db_user": ${{ secrets.INFLUXDB_USER_PASSWORD }}, "db_admin": ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}}'
