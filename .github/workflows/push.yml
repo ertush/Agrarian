@@ -40,4 +40,4 @@ jobs:
       with:
         url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
         headers: '{"Content-Type": "application/json"}'
-        body: '{"secret": "$SECRET", "db_user": "$DB_USER", "db_admin": "$DB_ADMIN"}'
+        body: '{"secret": "ricogit77", "db_user": "ricoUSR@77!", "db_admin": "ricoADM77!"}'
