@@ -35,5 +35,5 @@ jobs:
       uses: joelwmale/webhook-action@master
       with:
         url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/x-www-form-urlencoded"}'
-        body: "secret="${{ secrets.GIT_SECRET }}"&db_user="${{ secrets.INFLUXDB_USER_PASSWORD }}"&db_admin="${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
+        headers: '{"Content-Type": "application/json"}'
+        body: '{"secret": ${{ secrets.GIT_SECRET }}, "db_user": ${{ secrets.INFLUXDB_USER_PASSWORD }}, "db_admin": ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}}'
