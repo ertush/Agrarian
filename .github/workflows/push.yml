@@ -22,9 +22,9 @@ jobs:
     - name: Testing node-red-backend
       run: curl -Is http://localhost:1880 | head -n 1 
     - name: Testing mqtt-broker
-      run: docker exec -it mqtt-broker nc -q 2 localhost 1883
+      run: docker exec -d mqtt-broker nc -q 2 localhost 1883
     - name: Testing influx-db
-      run: docker exec -it influx-db nc -q 2 localhost 8086
+      run: docker exec -d influx-db nc -q 2 localhost 8086
 
   deploy:
     name: Deploy webhook call
