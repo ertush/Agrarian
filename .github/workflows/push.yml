@@ -36,5 +36,5 @@ jobs:
       with:
         url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
         # ?secret=${{ secrets.GIT_SECRET }}&db_user=${{ secrets.INFLUXDB_USER_PASSWD }}&db_admin=${{ secrets.INFLUXDB_ADMIN_PASSWD }}
-        headers: '{"Content-Type": "application/json"}'
+        headers: "Content-Type: application/json"
         body: '{"secret": ${{ secrets.GIT_SECRET }}, "db_user": ${{ secrets.INFLUXDB_USER_PASSWD }}, "db_admin": ${{ secrets.INFLUXDB_ADMIN_PASSWD }}}'
