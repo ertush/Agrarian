@@ -11,10 +11,9 @@ COPY post.sh /curl
 RUN chmod +x /curl/post.sh
 
 # Generate HMAC for payload
-RUN PAYLOAD="{\"dbuser\":\"$INPUT_DBUSER\", \"dbadmin\":\"$INPUT_DBADMIN\", \"secret\":\"$INPUT_GITSECRET\"}" \
+RUN export PAYLOAD="{\"dbuser\":\"$INPUT_DBUSER\", \"dbadmin\":\"$INPUT_DBADMIN\", \"secret\":\"$INPUT_GITSECRET\"}" \
     && HMAC_SIG=$(ruby -ropenssl -e 'puts "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), "$INPUT_SECRETTOKEN", "$PAYLOAD")') \
-    && export HMAC_SIG=$HMAC_SIG \
-    && export PAYLOAD=$PAYLOAD
+    && export HMAC_SIG=$HMAC_SIG 
 
 ENTRYPOINT [ "/curl/post.sh", "$HMAC_SIG", "$PAYLOAD"]
 
