@@ -1,0 +1,34 @@
+name: custom-webhook
+description: custom webhook for git
+
+branding:
+  icon: terminal
+  color: green
+
+inputs:
+  dbuser:
+    description: influx db user passwd
+    required: true
+
+  dbadmin:
+    description: influx db admin passwd
+    required: true
+
+  gitsecret:
+    description: git secret
+    required: true
+
+  secrettoken:
+    description: hashing secret token
+    required: true
+
+runs:
+  using: Docker
+  image: Dockerfile
+  args:
+  - ${{ inputs.dbuser }}
+  - ${{ inputs.dbadmin }}
+  - ${{ inputs.gitsecret }}
+  - ${{ inputs.secrettoken }}
+ 
+    

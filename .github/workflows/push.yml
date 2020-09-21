@@ -32,8 +32,9 @@ jobs:
     needs: [agrarian-test]
     steps:
     - name: Deploy agrarian docker-compose
-      uses: joelwmale/webhook-action@master
+      uses: action.yml
       with:
-        url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
-        headers: '{"Name": "test_hook"}'
-        body: '{"secret": "${{ secrets.GIT_SECRET }}", "db_user": "${{ secrets.INFLUXDB_USER_PASSWD }}", "db_admin": "${{ secrets.INFLUXDB_ADMIN_PASSWD }}"}'
+        gitsecret: ${{ secrets.GIT_SECRET }}
+        secrettoken: ${{ secrets.HMAC_SECRET }}
+        dbuser: ${{ secrets.INFLUXDB_USER_PASSWD }}
+        dbadmin: ${{ secrets.INFLUXDB_ADMIN_PASSWD }}
