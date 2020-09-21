@@ -15,6 +15,6 @@ RUN export PAYLOAD="{\"dbuser\":\"$INPUT_DBUSER\", \"dbadmin\":\"$INPUT_DBADMIN\
     && HMAC_SIG=$(ruby -ropenssl -e 'puts "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), "$INPUT_SECRETTOKEN", "$PAYLOAD")') \
     && export HMAC_SIG=$HMAC_SIG 
 
-ENTRYPOINT [ "/curl/post.sh", $HMAC_SIG, $PAYLOAD]
+ENTRYPOINT exec /curl/post.sh $HMAC_SIG $PAYLOAD
 
 
