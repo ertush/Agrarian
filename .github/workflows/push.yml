@@ -32,7 +32,7 @@ jobs:
     needs: [agrarian-test]
     steps:
     - name: Deploy agrarian docker-compose
-      uses: action.yml
+      uses: ./.github/actions/action
       with:
         gitsecret: ${{ secrets.GIT_SECRET }}
         secrettoken: ${{ secrets.HMAC_SECRET }}

@@ -2,7 +2,7 @@ name: custom-webhook
 description: custom webhook for git
 
 branding:
-  icon: terminal
+  icon: box
   color: green
 
 inputs:
