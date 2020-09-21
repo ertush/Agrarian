@@ -18,6 +18,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the docker-compose stack
       run: docker-compose -f App/Build/docker-compose.yaml up -d
+    - name: Check sevices status
+      run: for q in $(docker ps -aq -f status=exited); do docker logs $q --tail "100" -f ; done    
     - name: Check running containers
       run: docker ps -a
     - name: Testing node-red-backend
