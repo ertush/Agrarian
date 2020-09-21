@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [agrarian-test]
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy agrarian docker-compose
       uses: ./.github/actions
       with:
