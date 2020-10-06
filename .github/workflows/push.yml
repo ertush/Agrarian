@@ -39,6 +39,7 @@ jobs:
     - name: Deploy agrarian docker-compose
       uses: ./.github/actions
       with:
+        remotehost: ${{ secrets.REMOTE_HOST_URL }}
         gitsecret: ${{ secrets.GIT_SECRET }}
         secrettoken: ${{ secrets.HMAC_SECRET }}
         dbuser: ${{ secrets.INFLUXDB_USER_PASSWD }}

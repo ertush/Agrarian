@@ -6,6 +6,10 @@ branding:
   color: green
 
 inputs:
+  remotehost:
+    description: Remote host to connect to
+    required: true
+
   dbuser:
     description: influx db user passwd
     required: true
@@ -26,6 +30,7 @@ runs:
   using: Docker
   image: Dockerfile
   args:
+  - ${{ inputs.remotehost }}
   - ${{ inputs.dbuser }}
   - ${{ inputs.dbadmin }}
   - ${{ inputs.gitsecret }}

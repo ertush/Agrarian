@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -H "Http_X_Hub_Signature: $1" -X POST http://8bc9ae8ab9e4.ngrok.io/hooks/action -d "$2" 
+curl -H "Http_X_Hub_Signature: $1" -H "Content-Type: application/json" -X POST $2 -d "$3" 
