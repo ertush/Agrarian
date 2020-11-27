@@ -3,6 +3,7 @@
     margin: auto;
     text-align: left;
     border: none;
+    padding: 0.5rem;
   }
 
   h1 {
@@ -31,7 +32,8 @@
     background-color: $secondary;
     height: 2px;
     width: 2rem;
-    margin: 0;
+    margin: auto;
+    align-content: center;
 
     &.k-hr-bottom {
       margin-top: auto;

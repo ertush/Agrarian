@@ -42,7 +42,7 @@
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group" kendoRippleContainer>
-                                    <input type="checkbox" id="chkboxonly" class="k-checkbox" checked />
+                                    <input type="checkbox" id="chkboxonly" class="k-checkbox k-prm" checked />
                                     <label class="k-checkbox-label" for="chkboxonly">Keep my email address private</label>
                             </div>
                             <div class="form-group">
@@ -55,8 +55,8 @@
                                     <input kendoTextBox type="text" id="location" [value]="user.location" />
                                 </kendo-textbox-container>
                             </div>
-                            <div class="form-group" >
-                                <button kendoRippleContainer class="k-button k-primary" (click)="onUpdateClick()">Update profile</button>
+                            <div class="form-group v-spacer">
+                                <button kendoRippleContainer class="k-button btn-primary" (click)="onUpdateClick()">Update profile</button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                 <h3 class="k-card-header">Delete Account</h3>
                 <div class="k-card-body">
                     <p>You will immediately lose access to your repositories and all other information associated with your account. <strong>This cannot be undone!</strong></p>
-                    <button kendoRippleContainer class="k-button k-primary" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
+                    <button kendoRippleContainer class="k-button btn-primary v-spacer" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
                 </div>
             </div>
         </div>
@@ -103,8 +103,8 @@
                             <input kendoTextBox type="password" />
                         </kendo-textbox-container>
                     </div>
-                    <div class="form-group">
-                        <button kendoRippleContainer class="k-button k-primary">Change password</button>
+                    <div class="form-group v-spacer">
+                        <button kendoRippleContainer class="k-button btn-primary">Change password</button>
                     </div>
                 </div>
             </div>

@@ -22,4 +22,8 @@ export class SigninComponent {
     public onLoginClick() {
         this.router.navigate(['/dashboard']);
     }
+
+    public onSignUpClick() {
+        this.router.navigate(['/signup']);
+    }
 }

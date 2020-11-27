@@ -2,7 +2,8 @@
     <div id="top-bar" class="top-bar sticky-top bg-white d-xl-none k-shadow">
         <span id="nav-toggle" class="nav-toggle d-xl-none"
             (click)="toggleNav()">
-            <span class="k-icon k-i-hamburger"></span>
+            <span *ngIf="navState === 'collapsed'" class="k-icon k-i-hamburger"></span>
+            <span *ngIf="navState === 'expanded'" class="k-icon k-i-close"></span>
         </span>
     </div>
     <div id="nav"

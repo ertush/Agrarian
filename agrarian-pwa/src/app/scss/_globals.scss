@@ -70,9 +70,22 @@ p {
   overflow: hidden;
   border-radius: 0.5rem;
   margin-top: 2rem;
-  min-height: 500px;
+  margin-bottom: 0;
+  padding: 0.65rem;
+  min-height: 300px; //500px
   position: relative;
 }
+
+.h-spacer{
+ margin-left: 0.7rem;
+ margin-right: 0.7rem;
+}
+
+.v-spacer{
+  margin-top: 1em;
+  float: right;
+}
+
 
 .k-card-header {
   // padding: 0.65rem 1.25rem;
@@ -91,7 +104,7 @@ small,
 
 .img-circle {
   border-radius: 200rem;
-  margin-right: 0.3rem;
+  margin-right: 0.5rem;
 
   &.img-large {
     border: 0.2rem solid $accent;
