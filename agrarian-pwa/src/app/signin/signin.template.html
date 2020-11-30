@@ -1,12 +1,16 @@
 <div class="signin-form col-xl-4">
   <div class="k-card">
-    <div class="k-card-block">
+    <!-- Logo Header -->
+    <div class="text-center">
+      <!-- <h1 id="app-title" class="mb-0">Issues</h1>
+      <p id="app-subtitle" class="h4 mb-4">Sample Dashboard</p> -->
+     <img src="../../assets/logo2.png" class="logo" alt="Agrarian">
+    </div>
+    <!-- <hr class="k-hr"> -->
+    <!-- Endof Logo Header -->
+    <!-- Sigin block -->
+    <div class="k-card-block" *ngIf="!isSignUp">
       <div class="k-form">
-        <div class="text-center">
-          <h1 id="app-title" class="mb-0">Issues</h1>
-          <p id="app-subtitle" class="h4 mb-4">Sample Dashboard</p>
-        </div>
-        <hr class="k-hr">
         <div class="form-group mt-4">
           <kendo-textbox-container class="custom-width" floatingLabel="Email or Username">
               <input kendoTextBox type="text"/>
@@ -26,5 +30,39 @@
         </div>
       </div>
     </div>
+    <!-- Endof Signin -->
+    <!-- Signup block -->
+    <div class="k-card-body" *ngIf="isSignUp">
+      <div class="form-group">
+        <kendo-textbox-container class="custom-width" floatingLabel="Username">
+            <input kendoTextBox type="text" id="username"/>
+        </kendo-textbox-container>
+      </div>
+      <div class="form-group">
+        <kendo-textbox-container class="custom-width" floatingLabel="Email">
+            <input kendoTextBox type="text" id="email" />
+        </kendo-textbox-container>
+      </div>
+      <div class="form-group">
+          <kendo-textbox-container class="custom-width" floatingLabel="Old password">
+              <input kendoTextBox type="password" />
+          </kendo-textbox-container>
+      </div>
+      <div class="form-group">
+          <kendo-textbox-container class="custom-width" floatingLabel="New password">
+              <input kendoTextBox type="password" />
+          </kendo-textbox-container>
+      </div>
+      <div class="form-group">
+          <kendo-textbox-container class="custom-width" floatingLabel="Confirm password">
+              <input kendoTextBox type="password" />
+          </kendo-textbox-container>
+      </div>
+      <div class="form-group v-spacer">
+          <button kendoRippleContainer class="k-button btn-primary" (click)="onCreateAccount()">Create account</button>
+      </div>
+    </div>
+    <!-- Endof Signup -->
+    
   </div>
 </div>

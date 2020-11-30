@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainMenuComponent } from './main-menu.component';
@@ -5,6 +6,7 @@ import { MainMenuComponent } from './main-menu.component';
 describe('MainMenuComponent', () => {
   let component: MainMenuComponent;
   let fixture: ComponentFixture<MainMenuComponent>;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -14,7 +16,7 @@ describe('MainMenuComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainMenuComponent);
+    fixture = TestBed.createComponent(MainMenuComponent.apply(router));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

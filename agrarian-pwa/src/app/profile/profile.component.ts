@@ -1,3 +1,4 @@
+import { FhubService } from './../shared/fhub.service';
 import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
 import { GithubService } from './../shared/github.service';
 import { Router } from '@angular/router';
@@ -17,9 +18,17 @@ export class ProfileComponent {
     @HostBinding('attr.id') get get_id() { return 'profile'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
-    constructor(public githubService: GithubService, private router: Router) {
-        githubService.getGithubUser('mbechev').subscribe(data => {
-            this.user = data;
+    constructor(public githubService: GithubService, private router: Router, private fhubService: FhubService ) {
+        // githubService.getGithubUser('mbechev').subscribe(data => {
+        //     this.user = data;
+        //     this.isLoading = false;
+        // }, (err) => {
+        //     this.isLoading = false;
+        // });
+
+        // Using fake data when offline
+        this.fhubService.getUsers().subscribe(data => {
+            this.user = data[2];
             this.isLoading = false;
         }, (err) => {
             this.isLoading = false;

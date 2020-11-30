@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
     selector: 'app-maestro-app',
     templateUrl: './app.component.html',
 })
-export class AppComponent {}
+export class AppComponent {
+    public title = 'agrarian-app';
+}

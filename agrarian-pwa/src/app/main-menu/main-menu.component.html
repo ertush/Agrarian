@@ -14,24 +14,24 @@
 
         <div class="container">
           <h1 id="app-title" class="mb-0">Agrarian</h1>
-          <p id="app-subtitle" class="h4 mb-4">Dashboard</p>
+          <p id="app-subtitle" class="h4 mb-4">{{ menuTitle }}</p>
           <hr class="k-hr" />
           <p class="h4 mt-3 mt-sm-5">Project</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
-                  <a [routerLink]=" ['./dashboard'] " class="nav-link" routerLinkActive="active">Dashboard</a>
+                  <a [routerLink]=" ['./dashboard'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Dashboard</a>
               </li>
               <li class="nav-item" id="issues">
-                  <a [routerLink]=" ['./issues'] " class="nav-link" routerLinkActive="active">Issues</a>
+                  <a [routerLink]=" ['./issues'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Issues</a>
               </li>
           </ul>
           <p class="h4 mt-3 mt-sm-5">Account</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
-                  <a [routerLink]=" ['./profile'] " class="nav-link" routerLinkActive="active">My Profile</a>
+                  <a [routerLink]=" ['./profile'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">My Profile</a>
               </li>
               <li class="nav-item" id="signout">
-                  <a [routerLink]=" ['./signin'] " class="nav-link" routerLinkActive="active">Sign Out</a>
+                  <a [routerLink]=" ['./signin'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Sign Out</a>
               </li>
           </ul>
           <p class="h4 mt-5">Resources</p>
