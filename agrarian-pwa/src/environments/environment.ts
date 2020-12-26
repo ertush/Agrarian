@@ -2,9 +2,44 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const c_id: any = `mqttjs_ ${(Math.random() / 100).toString(16).substr(2, 8)}`;
+
 export const environment = {
-  production: false
+    production: false,
+    clientId : c_id,
+    host : 'ws://localhost',
+    topic : {
+      soil: 'soil',
+      esp8266: 'esp8266',
+      custom: 'custom',
+      humidTemp: 'humidTemp',
+      temp: 'temp',
+      light: 'ldr',
+      humidity: 'humid'
+    }
 };
+
+export const options: any = {
+  keepalive: 60,
+  port: 9100,
+  host : 'ws://localhost',
+  clientId: c_id,
+  username: '',
+  password: '',
+  protocolId: 'MQTT',
+  protocolVersion: 4,
+  clean: true,
+  reconnectPeriod: 1000,
+  connectTimeout: 30 * 1000,
+  will: {
+    topic: 'WillMsg',
+    payload: 'Connection Closed abnormally..!',
+    qos: 0,
+    retain: true
+  }
+};
+
+export const types: string[] = ['SEV: LOW', 'SEV: MEDIUM', 'SEV: HIGH', 'ENHANCEMENT', 'FEATURE', 'OTHER'];
 
 /*
  * For easier debugging in development mode, you can import the following file

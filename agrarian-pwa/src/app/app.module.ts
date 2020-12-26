@@ -1,3 +1,4 @@
+import { TempComponent } from './charts/temp.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -7,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 // vendor dependencies
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 // app
 import { Config } from './common/index';
 import { AppComponent } from './app.component';
@@ -34,10 +36,14 @@ import { TypesDistributionComponent } from './charts/types-distribution.componen
 import { IssueTypesComponent } from './charts/issue-types.component';
 import { StatisticsComponent } from './charts/statistics.component';
 import { LoadingComponent } from './shared/spinner.component';
+import { StatisticsCloneComponent } from './charts/statistics-clone.component';
+import { IssueTypesCloneComponent } from './charts/issue-types-clone.component';
+import { ActiveIssuesCloneComponent } from './charts/active-issues-clone.component';
+
+
 
 // environment
 import { environment } from '../environments/environment';
-
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -54,12 +60,16 @@ export function createTranslateLoader(http: HttpClient) {
         DashboardComponent,
         ProfileComponent,
         IssuesComponent,
+        TempComponent,
         MarkdownComponent,
         ActiveIssuesComponent,
         TypesDistributionComponent,
         IssueTypesComponent,
         StatisticsComponent,
-        LoadingComponent
+        LoadingComponent,
+        StatisticsCloneComponent,
+        ActiveIssuesCloneComponent,
+        IssueTypesCloneComponent
     ],
     imports: [
         AppRoutingModule,
@@ -85,4 +95,5 @@ export function createTranslateLoader(http: HttpClient) {
     providers: [],
     bootstrap: [ AppComponent ]
 })
+
 export class AppModule {}

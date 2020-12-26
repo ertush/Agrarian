@@ -8,6 +8,7 @@
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(3)" [selected]="true">3 Months</button>
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(6)">6 Months</button>
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(12)">1 Year</button>
+            <!-- <button class="btn btn-primary" kendoRippleContainer kendoButton  [togglable]="true" (click)="webSocketTest()">Test Websocket</button> -->
         </kendo-buttongroup>
     </div>
 </div>
@@ -31,5 +32,18 @@
               <app-statistics [loading]="isLoading" [issues]="issues" [months]="months"></app-statistics>
           </ng-template>
       </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab [title]="'Temperature'">
+        <ng-template kendoTabContent>
+            <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max"></app-temp>
+            <app-issue-types-clone [data]="_espData" [loading]="isLoading"></app-issue-types-clone>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      
+      <kendo-tabstrip-tab [title]="'Other'">
+        <ng-template kendoTabContent>
+        <app-statistics-clone [data]="_tempHumidityData" [loading]="isLoading" [duration]="unit"></app-statistics-clone>
+        </ng-template>
+    </kendo-tabstrip-tab>
+
   </kendo-tabstrip>
 </div>

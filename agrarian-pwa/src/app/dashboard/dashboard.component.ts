@@ -1,3 +1,4 @@
+import { IssueTypesCloneComponent } from './../charts/issue-types-clone.component';
 import { Component, ViewEncapsulation, HostBinding, OnDestroy } from '@angular/core';
 import { GithubService } from './../shared/github.service';
 import { IssuesProcessor } from './../shared/issues-processor.service';
@@ -6,6 +7,7 @@ import { IssuesModel } from './../shared/issues.model';
 import 'hammerjs';
 import { Subscription, of, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MqttService } from './../shared/mqtt.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -14,6 +16,13 @@ import { map } from 'rxjs/operators';
     templateUrl: './dashboard.template.html'
 })
 export class DashboardComponent implements OnDestroy {
+
+    public min: Date = new Date();
+    public max: Date = new Date(this.min.getTime() + 20000);
+    public style = 'smooth';
+    public unit = 'fit';
+
+    public espData = [];
     public isLoading = true;
     public today: Date = new Date();
     public rangeStart: Date;
@@ -23,12 +32,27 @@ export class DashboardComponent implements OnDestroy {
     private subscription: Subscription;
     private selectedIndex = 0;
 
+    public _espData = [];
+    public _tempHumidityData = [];
+    public _tempData = [];
+
+
+
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
-    constructor(public githubService: GithubService, public issuesProcessor: IssuesProcessor) {
-        this.rangeStart = this.issuesProcessor.getMonthsRange(this.months);
 
+    /**/
+    /* private asyncMqttService: NgxMqttService*/
+    constructor(
+        public githubService: GithubService,
+        public issuesProcessor: IssuesProcessor,
+        // tslint:disable-next-line: no-shadowed-variable
+        private MqttService: MqttService
+        ) {
+
+
+        this.rangeStart = this.issuesProcessor.getMonthsRange(this.months);
         this.subscription =
           merge(
             githubService
@@ -42,7 +66,60 @@ export class DashboardComponent implements OnDestroy {
           )
           .subscribe((data: IssuesModel) => {
               this.issues = data;
+              // Debug
+              console.log({data: data});
           });
+
+        /* Line Real time chart */
+        this.MqttService.fetchData()
+        .subscribe(m => {
+          const payload = m.split('/')[0];
+          const topic = m.split('/')[1];
+
+          switch (topic) {
+              case 'esp8266':
+                const data_esp: any = JSON.parse(payload);
+                this.isLoading = false;
+                this._espData = data_esp;
+                  break;
+              case 'humidTemp':
+                  const data_ht: any = JSON.parse(payload);
+                  this.isLoading = false;
+                  this._tempHumidityData = data_ht;
+                  this._tempHumidityData.forEach((value, index, array) => value.date = new Date());
+                  console.log({_tempHumid: this._tempHumidityData});
+
+                  break;
+              case 'custom':
+                  const data_custom: any = JSON.parse(payload);
+                    this.isLoading = false;
+                  break;
+              case 'temp':
+          const item: any = JSON.parse(payload);
+          this.isLoading = false;
+
+          item.time = new Date(item.time);
+          if (item.value) {
+            this._tempData = [...this._tempData, item];
+            if (this._tempData.length > 20) {
+              this.min = this._tempData[this._tempData.length - 20].time;
+              this.max = item.time;
+            }
+            // prevent running out-of-memory when client is connected for too long
+            if (this._tempData.length > 500) {
+              this._tempData = this._tempData.slice(480);
+            }
+          }
+                    break;
+              default:
+                  break;
+          }
+
+        },
+        error => {
+            console.log({error});
+        }
+        );
     }
 
     onFilterClick(months) {
@@ -82,4 +159,5 @@ export class DashboardComponent implements OnDestroy {
             default : this.issues = this.issuesProcessor.process(this.data, this.months);
         }
     }
+
 }
