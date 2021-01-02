@@ -9,6 +9,7 @@ import { Subscription, of, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MqttService } from './../shared/mqtt.service';
 
+
 @Component({
     selector: 'app-dashboard',
     providers: [GithubService, IssuesProcessor],
@@ -35,6 +36,8 @@ export class DashboardComponent implements OnDestroy {
     public _espData = [];
     public _tempHumidityData = [];
     public _tempData = [];
+    public _customData: any;
+
 
 
 
@@ -47,8 +50,7 @@ export class DashboardComponent implements OnDestroy {
     constructor(
         public githubService: GithubService,
         public issuesProcessor: IssuesProcessor,
-        // tslint:disable-next-line: no-shadowed-variable
-        private MqttService: MqttService
+        private MqttClientService: MqttService
         ) {
 
 
@@ -66,16 +68,15 @@ export class DashboardComponent implements OnDestroy {
           )
           .subscribe((data: IssuesModel) => {
               this.issues = data;
-              // Debug
-              console.log({data: data});
+              console.log({typesDistribution: data.typesDistribution});
           });
 
         /* Line Real time chart */
-        this.MqttService.fetchData()
+        this.MqttClientService.fetchData()
         .subscribe(m => {
           const payload = m.split('/')[0];
           const topic = m.split('/')[1];
-
+          
           switch (topic) {
               case 'esp8266':
                 const data_esp: any = JSON.parse(payload);
@@ -86,13 +87,14 @@ export class DashboardComponent implements OnDestroy {
                   const data_ht: any = JSON.parse(payload);
                   this.isLoading = false;
                   this._tempHumidityData = data_ht;
-                  this._tempHumidityData.forEach((value, index, array) => value.date = new Date());
-                  console.log({_tempHumid: this._tempHumidityData});
+                //   this._tempHumidityData.forEach((value, index, array) => value.date = new Date());
 
                   break;
               case 'custom':
                   const data_custom: any = JSON.parse(payload);
                     this.isLoading = false;
+                    this._customData = data_custom;
+                    
                   break;
               case 'temp':
           const item: any = JSON.parse(payload);

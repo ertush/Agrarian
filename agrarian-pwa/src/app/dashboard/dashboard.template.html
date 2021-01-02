@@ -8,42 +8,30 @@
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(3)" [selected]="true">3 Months</button>
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(6)">6 Months</button>
             <button kendoRippleContainer kendoButton [togglable]="true" (click)="onFilterClick(12)">1 Year</button>
-            <!-- <button class="btn btn-primary" kendoRippleContainer kendoButton  [togglable]="true" (click)="webSocketTest()">Test Websocket</button> -->
         </kendo-buttongroup>
     </div>
 </div>
 
 <div id="statistics">
   <kendo-tabstrip (select)="onTabSelect($event)">
-      <kendo-tabstrip-tab [title]="'All Issues'" [selected]="true">
+      <kendo-tabstrip-tab [title]="'WebSocket Data'" [selected]="true">
           <ng-template kendoTabContent>
-              <app-statistics [loading]="isLoading" [issues]="issues" [months]="months"></app-statistics>
+           <app-statistics [loading]="isLoading" [issues]="issues" [months]="months"></app-statistics>
           </ng-template>
       </kendo-tabstrip-tab>
 
-      <kendo-tabstrip-tab [title]="'Assigned to Me'">
+      <kendo-tabstrip-tab [title]="'Git Data'">
           <ng-template kendoTabContent>
-              <app-statistics [loading]="isLoading" [issues]="issues" [months]="months"></app-statistics>
+            <app-charts-line [data]="_customData.data"></app-charts-line>
           </ng-template>
       </kendo-tabstrip-tab>
 
-      <kendo-tabstrip-tab [title]="'Created by Me'">
-          <ng-template kendoTabContent>
-              <app-statistics [loading]="isLoading" [issues]="issues" [months]="months"></app-statistics>
-          </ng-template>
-      </kendo-tabstrip-tab>
       <kendo-tabstrip-tab [title]="'Temperature'">
         <ng-template kendoTabContent>
-            <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max"></app-temp>
-            <app-issue-types-clone [data]="_espData" [loading]="isLoading"></app-issue-types-clone>
+            <!-- <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max"></app-temp> -->
+            <app-default  [loading]="isLoading" [dataarr]="_tempHumidityData.datax.x" [monthslbl]="_tempHumidityData.datay.y" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
       
-      <kendo-tabstrip-tab [title]="'Other'">
-        <ng-template kendoTabContent>
-        <app-statistics-clone [data]="_tempHumidityData" [loading]="isLoading" [duration]="unit"></app-statistics-clone>
-        </ng-template>
-    </kendo-tabstrip-tab>
-
   </kendo-tabstrip>
 </div>

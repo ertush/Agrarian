@@ -36,9 +36,11 @@ import { TypesDistributionComponent } from './charts/types-distribution.componen
 import { IssueTypesComponent } from './charts/issue-types.component';
 import { StatisticsComponent } from './charts/statistics.component';
 import { LoadingComponent } from './shared/spinner.component';
-import { StatisticsCloneComponent } from './charts/statistics-clone.component';
+import { DefaultComponent } from './charts/default.component';
 import { IssueTypesCloneComponent } from './charts/issue-types-clone.component';
+import { ChartsLineComponent } from './charts/charts-line.component';
 import { ActiveIssuesCloneComponent } from './charts/active-issues-clone.component';
+
 
 
 
@@ -67,7 +69,8 @@ export function createTranslateLoader(http: HttpClient) {
         IssueTypesComponent,
         StatisticsComponent,
         LoadingComponent,
-        StatisticsCloneComponent,
+        DefaultComponent,
+        ChartsLineComponent,
         ActiveIssuesCloneComponent,
         IssueTypesCloneComponent
     ],
