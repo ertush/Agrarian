@@ -40,7 +40,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
                           <kendo-chart-value-axis>
                               <kendo-chart-value-axis-item
                                   [line]="{visible: false}" [labels]="{step: 2, skip: 2}"
-                                  [title]="{text: 'Percentages %'}"    
+                                  [title]="{text: 'Percentages %'}"
                                   [majorGridLines]="{step: 2, skip: 2, color: '#F0F2F2'}">
                               </kendo-chart-value-axis-item>
                           </kendo-chart-value-axis>
@@ -55,6 +55,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 export class ChartsLineComponent implements OnInit, OnChanges {
 //   private baseUnit;
   @Input() public data;
+//   @Input() public loading;
   public style = 'smooth';
   public initialGrey = '#A2ACAC';
   public series = [];
@@ -98,7 +99,6 @@ export class ChartsLineComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit() {
-      console.log({data: this.data});
     this.seriesColors.forEach(e => {
         this.addSeries({ label: e.label, value: e.value, active: true }, false);
       });
@@ -115,6 +115,10 @@ export class ChartsLineComponent implements OnInit, OnChanges {
 
 
       }
+  }
+
+  public getType(val: any): string {
+      return typeof(val);
   }
 
 }

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { NgxMqttService } from './ngx-mqtt.service';
+import { ChartsAreaService } from './charts-area.service';
 
-describe('Service: NgxMqtt', () => {
+describe('Service: ChartsArea', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgxMqttService]
+      providers: [ChartsAreaService]
     });
   });
 
-  it('should ...', inject([NgxMqttService], (service: NgxMqttService) => {
+  it('should ...', inject([ChartsAreaService], (service: ChartsAreaService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
    <div class="k-card">
    <h2 class="k-card-header m-0">Temp</h2>
           <div class="col-12">
-                <div *ngIf="isLoading" class="k-card" style="height: 400px">
+                <div *ngIf="isLoading" style="height: 400px">
                     <app-loading-spinner>
                     </app-loading-spinner>
                 </div>

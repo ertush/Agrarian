@@ -31,15 +31,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { IssuesComponent } from './issues/issues.component';
 import { LabelClass } from './issues/label.directive';
 import { MarkdownComponent } from './markdown/markdown.component';
-import { ActiveIssuesComponent } from './charts/active-issues.component';
-import { TypesDistributionComponent } from './charts/types-distribution.component';
-import { IssueTypesComponent } from './charts/issue-types.component';
-import { StatisticsComponent } from './charts/statistics.component';
+
 import { LoadingComponent } from './shared/spinner.component';
 import { DefaultComponent } from './charts/default.component';
-import { IssueTypesCloneComponent } from './charts/issue-types-clone.component';
+import { ChartDonutComponent } from './charts/chart-donut.component';
 import { ChartsLineComponent } from './charts/charts-line.component';
-import { ActiveIssuesCloneComponent } from './charts/active-issues-clone.component';
+import { ChartsAreaComponent } from './charts/charts-area.component';
 
 
 
@@ -64,15 +61,11 @@ export function createTranslateLoader(http: HttpClient) {
         IssuesComponent,
         TempComponent,
         MarkdownComponent,
-        ActiveIssuesComponent,
-        TypesDistributionComponent,
-        IssueTypesComponent,
-        StatisticsComponent,
         LoadingComponent,
         DefaultComponent,
         ChartsLineComponent,
-        ActiveIssuesCloneComponent,
-        IssueTypesCloneComponent
+        ChartsAreaComponent,
+        ChartDonutComponent
     ],
     imports: [
         AppRoutingModule,

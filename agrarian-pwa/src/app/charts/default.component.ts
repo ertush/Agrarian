@@ -4,41 +4,61 @@ import { Component, Input, OnInit } from '@angular/core';
     selector: 'app-default',
     template: `
         <div class="row">
-            <div class="col-12">
-                <div *ngIf="loading" class="k-card" style="height: 400px">
-                    <app-loading-spinner>
-                    </app-loading-spinner>
-                </div>
-                <app-active-issues-clone
+            <div class="col-12" *ngIf="!loading; else activeIssuesLoading">
+                <app-charts-area
                 [dataarray]="dataarr"
                 [monthslabel]="monthslbl"
                 [duration]="duration"
                 [closeRate]="rate">
-                </app-active-issues-clone>
+                </app-charts-area>
             </div>
-<!-- 
-            <div *ngIf="!loading" class="col-xl-4">
-                <app-issue-types-clone [data]="esdata" [loading]="loading"></app-issue-types-clone>
+ 
+            <div class="col-xl-4">
+                <app-chart-donut [data]="edata" [loading]="loading"></app-chart-donut>
             </div>
 
-             <div *ngIf="!loading" class="col-xl-8">
-                 <app-charts-line [data]="cdata" ></app-charts-line>
-            </div> -->
+             <div *ngIf="!loading; else chartsLineLoading" class="col-xl-8">
+                 <app-charts-line [data]="cdata"></app-charts-line>
+            </div>
+
+            <ng-template #chartsLineLoading>
+                <div class="col-xl-8">
+                    <div class="k-card k-card-body">
+                    <h2 class="k-card-header">Types Distribution</h2>
+                            <div  style="height: 400px">
+                                    <app-loading-spinner>
+                                    </app-loading-spinner>
+                            </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #activeIssuesLoading>
+                <div class="col-12">
+                    <div class="k-card k-card-body">
+                    <h2 class="k-card-header m-0">Active Issues</h2>
+                            <div  style="height: 400px">
+                                    <app-loading-spinner>
+                                    </app-loading-spinner>
+                            </div>
+                    </div>
+                </div>
+            </ng-template>
         </div>
 
     `
 })
 export class DefaultComponent implements OnInit {
 
-    // public cdata;
-    // public edata;
+    public cdata;
+    public edata;
     @Input() public duration;
-    // @Input() public  set esdata(data) {
-    //     this.edata = data;
-    // }
-    // @Input() public  set csdata(data) {
-    //     this.cdata = data;
-    // }
+    @Input() public  set esdata(data) {
+        this.edata = data;
+    }
+    @Input() public  set csdata(data) {
+        this.cdata = data;
+    }
     @Input() public rate;
     @Input() public data;
     @Input() public loading;
@@ -46,7 +66,7 @@ export class DefaultComponent implements OnInit {
     @Input() public monthslbl;
 
     ngOnInit() {
-        // console.log({esdata: this.cdata}, this.loading);
+        
 
     }
 }
