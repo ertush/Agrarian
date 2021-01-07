@@ -4,21 +4,22 @@ import { Component, Input, OnInit } from '@angular/core';
     selector: 'app-default',
     template: `
         <div class="row">
-            <div class="col-12" *ngIf="!loading; else activeIssuesLoading">
-                <app-charts-area
-                [dataarray]="dataarr"
-                [monthslabel]="monthslbl"
-                [duration]="duration"
-                [closeRate]="rate">
-                </app-charts-area>
-            </div>
- 
+            <!--  [monthslabel]="monthslbl" -->
+        
             <div class="col-xl-4">
                 <app-chart-donut [data]="edata" [loading]="loading"></app-chart-donut>
             </div>
 
              <div *ngIf="!loading; else chartsLineLoading" class="col-xl-8">
                  <app-charts-line [data]="cdata"></app-charts-line>
+            </div>
+
+            <div class="col-12" *ngIf="!loading; else activeIssuesLoading">
+                <app-charts-area
+                [dataarray]="dataarr"
+                [duration]="duration"
+                [closeRate]="rate">
+                </app-charts-area>
             </div>
 
             <ng-template #chartsLineLoading>

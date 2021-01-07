@@ -43,7 +43,7 @@ import { Component, Input, OnInit } from '@angular/core';
                 <kendo-chart-x-axis-item
                  [title]="{ text: 'Time' }"
                   baseUnit="seconds"
-                  baseUnitSteps="seconds"
+                  baseUnitSteps="hours"
                   [min]="min"
                   [max]="max">
                 </kendo-chart-x-axis-item>

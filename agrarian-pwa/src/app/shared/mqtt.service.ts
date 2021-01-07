@@ -19,8 +19,12 @@ export class MqttService implements OnDestroy {
     // Subscribe to all Sensor Topics
     this.client.subscribe(env.topic.esp8266, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
-    this.client.subscribe(env.topic.humidTemp, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.custom, { qos: 0 }, (state: any) => {console.log({state}); });
+
+    this.client.subscribe('temperature', { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe('humidity', { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe('atpressure', { qos: 0 }, (state: any) => {console.log({state}); });
+
     });
 
     // Handle error

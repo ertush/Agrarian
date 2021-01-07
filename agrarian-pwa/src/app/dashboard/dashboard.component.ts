@@ -1,8 +1,5 @@
+import { ChartsAreaService } from './../shared/charts-area.service';
 import { Component, ViewEncapsulation, HostBinding, OnDestroy } from '@angular/core';
-import { GithubService } from './../shared/github.service';
-import { IssuesProcessor } from './../shared/issues-processor.service';
-
-
 import 'hammerjs';
 import { Subscription } from 'rxjs';
 
@@ -11,14 +8,15 @@ import { MqttService } from './../shared/mqtt.service';
 
 @Component({
     selector: 'app-dashboard',
-    providers: [GithubService, IssuesProcessor],
+    /*providers: [IssuesProcessor],*/
     encapsulation: ViewEncapsulation.None,
     templateUrl: './dashboard.template.html'
 })
+
 export class DashboardComponent implements OnDestroy {
 
     public min: Date = new Date();
-    public max: Date = new Date(this.min.getTime() + 20000);
+    public max: Date = new Date(this.min.getTime() + 30000);
     public style = 'smooth';
     public unit = 'fit';
 
@@ -26,11 +24,11 @@ export class DashboardComponent implements OnDestroy {
     public isLoading = true;
     public today: Date = new Date();
     public rangeStart: Date;
-    public issues: any;
+  
     public months = 3;
-    private data: any;
+   
     private subscription: Subscription;
-    private selectedIndex = 0;
+   
 
     public _espData = [];
     public _tempHumidityData = [];
@@ -38,14 +36,13 @@ export class DashboardComponent implements OnDestroy {
     public _customData: any;
 
 
-
-
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
 
     constructor(
-              private MqttClientService: MqttService
+              private MqttClientService: MqttService,
+              private chartAreaService: ChartsAreaService
         ) {
 
 
@@ -60,12 +57,6 @@ export class DashboardComponent implements OnDestroy {
                 const data_esp: any = JSON.parse(payload);
                 this.isLoading = false;
                 this._espData = data_esp;
-                  break;
-              case 'humidTemp':
-                  const data_ht: any = JSON.parse(payload);
-                  this.isLoading = false;
-                  this._tempHumidityData = data_ht;
-                
                   break;
               case 'custom':
                   const data_custom: any = JSON.parse(payload);
@@ -91,6 +82,11 @@ export class DashboardComponent implements OnDestroy {
           }
                     break;
               default:
+                this.isLoading = false;
+                    this.chartAreaService.loadData(payload, topic).subscribe(data => {
+                      console.log(data);
+                     this._tempHumidityData = data; 
+                 })
                   break;
           }
 

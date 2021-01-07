@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-charts-area',
+    selector: 'app-charts-area',    
     template: `
         <div class="k-card">
             <h2 class="k-card-header m-0">Active Issues</h2>
@@ -13,12 +13,12 @@ import { Component, Input } from '@angular/core';
                         <div class="comp-label">
 
 
-                            <div *ngIf="monthslabel">
-                                <div class="issues-count">{{ monthslabel.datax.x.length | percent:'1.0-0' }}</div>
+                            <div *ngIf="dataarray">
+                                <div class="issues-count">{{  dataarray.temp.length / 20 * 100 }}</div>
                                 <div class="issues-label">Title 1</div>
                             </div>
-                            <div *ngIf="!monthslabel">
-                                <div class="issues-count">Months label</div>
+                            <div *ngIf="!dataarray">
+                                <div class="issues-count">-</div>
                                 <div class="issues-label">1</div>
                             </div>
 
@@ -28,14 +28,19 @@ import { Component, Input } from '@angular/core';
                         <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                                 <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
-                                        [categories]="monthslabel.datax.x"
+                                        [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']"
+                                        [labels]="{ margin: { top: 8 , left: 8 }}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
 
                                 <kendo-chart-series>
                                     <!-- color : #888 (gray) -->
-                                  <kendo-chart-series-item type="area" [color]="'#888'" [data]="dataarray.datay.y1" [line]="{ style: style }">
+                                  <kendo-chart-series-item 
+                                  type="area" 
+                                  [color]="'#888'"        
+                                  [data]="dataarray.temp" 
+                                  [line]="{ style: style }">
                                   </kendo-chart-series-item>
                                 </kendo-chart-series>
 
@@ -46,15 +51,15 @@ import { Component, Input } from '@angular/core';
                             </kendo-chart-value-axis>
                         </kendo-chart>
                     </div>
-
-                    <div class="col-12 col-lg-6 col-xl pb-4 text-danger closed-issues">
+ 
+                     <div class="col-12 col-lg-6 col-xl pb-4 text-danger closed-issues">
                         <span class="comp-label">
-                        <div *ngIf="monthslabel">
-                                <div class="issues-count">{{ monthslabel.datax.x.length | percent:'1.0-0' }}</div>
+                        <div *ngIf="dataarray">
+                                <div class="issues-count">{{  dataarray.humid.length / 20 * 100 }}</div>
                                 <div class="issues-label">Title 2</div>
                             </div>
-                            <div *ngIf="!monthslabel">
-                                <div class="issues-count">Months Label</div>
+                            <div *ngIf="!dataarray">
+                                <div class="issues-count">-</div>
                                 <div class="issues-label">2</div>
                             </div>
                         </span>
@@ -66,13 +71,22 @@ import { Component, Input } from '@angular/core';
                             [overlay]="false"></kendo-chart-series-defaults>
                             <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
-                                    [categories]="monthslabel.datax.x"
+                                    [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']"
+                                    [labels]="{rotation: 'auto', margin: { top: 8, left: 8 }}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
 
                                 <kendo-chart-series>
-                                  <kendo-chart-series-item type="area" [color]="'#e91e63'" [data]="dataarray.datay.y2" [line]="{ style: style }">
+                                    <!-- 
+                                  yField="humid"
+                                  xField="time" 
+                                     -->
+                                  <kendo-chart-series-item 
+                                  type="area" 
+                                  [color]="'#e91e63'"
+                                  [data]="dataarray.humid" 
+                                  [line]="{ style: style }">
                                   </kendo-chart-series-item>
                                 </kendo-chart-series>
 
@@ -85,13 +99,13 @@ import { Component, Input } from '@angular/core';
 
                     <div class="col-12 col-lg-6 col-xl pb-4 text-success open-issues">
                         <span class="comp-label">
-
-                        <div *ngIf="monthslabel">
-                                <div class="issues-count">{{ monthslabel.datax.x.length | percent:'1.0-0' }}</div>
+                        
+                        <div *ngIf="dataarray">
+                                <div class="issues-count">{{  dataarray.atmp.length / 20 * 100 }}</div>
                                 <div class="issues-label">Title 3</div>
                             </div>
-                            <div *ngIf="!monthslabel">
-                                <div class="issues-count">Months Label</div>
+                            <div *ngIf="!dataarray">
+                                <div class="issues-count">-</div>
                                 <div class="issues-label">3</div>
                         </div>
 
@@ -99,14 +113,22 @@ import { Component, Input } from '@angular/core';
                         <kendo-chart style="height: 80px;">
                               <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                               <kendo-chart-category-axis>
+                                  
                                     <kendo-chart-category-axis-item
-                                        [categories]="monthslabel.datax.x"
+                                        [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']"
+                                        [labels]="{ margin: { top: 8 , left: 8 }}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
 
                                 <kendo-chart-series>
-                                  <kendo-chart-series-item type="area" [color]="'#27c46d'" [data]="dataarray.datay.y3" [line]="{ style: style }">
+                                <!-- yField="atm"
+                                  xField="time" -->
+                                  <kendo-chart-series-item 
+                                  type="area" 
+                                  [color]="'#27c46d'" 
+                                  [data]="dataarray.atmp"
+                                  [line]="{ style: style }">
                                   </kendo-chart-series-item>
                                 </kendo-chart-series>
 
@@ -119,17 +141,18 @@ import { Component, Input } from '@angular/core';
 
                     <div class="col-12 col-lg-6 col-xl pb-4 close-rate">
                         <span class="comp-label">
-                            <div class="issues-count">{{ monthslabel.datax.x.length | percent:'1.0-0' }}</div>
+                            
+                            <div class="issues-count">{{  dataarray.atmp.length / 20 * 100 }}</div>
                             <div class="issues-label">Title 4</div>
                         </span>
                         <p class="m-0 small text-uppercase text-muted">
                             Highest:
-                            {{ monthslabel.datax.x.length | percent:'1.0-0' }}
+                            {{ dataarray.atmp.length / 20 * 100 }}
                             on date
                         </p>
                         <p class="m-0 small text-uppercase text-muted">
                             Lowest:
-                            {{ monthslabel.datax.x.length | percent:'1.0-0' }}
+                            {{  dataarray.atmp.length / 20 * 100 }}
                             on date
                         </p>
                         <kendo-chart style="height: 20px;" [chartArea]="{margin: -20}">
@@ -164,13 +187,14 @@ import { Component, Input } from '@angular/core';
                                 </kendo-chart-series-defaults>
 
                                 <kendo-chart-category-axis>
+                                    <!-- [categories]="['Jan', 'Feb']" -->
                                     <kendo-chart-category-axis-item
-                                        [categories]="monthslabel.datax.x"
+                                        [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']"
                                         [title]="{ text: 'Months' }"
                                         [majorTicks]="{visible: false}"
                                         [line]="{visible: false}"
                                         [majorGridLines]="{visible: false}"
-                                        [labels]="{rotation: 'auto', margin: { top: 8 }}"
+                                        [labels]="{rotation: 'auto', margin: { top: 8 , left: 8 }}"
                                         >
                                     </kendo-chart-category-axis-item>
 
@@ -183,25 +207,27 @@ import { Component, Input } from '@angular/core';
 
 
                                 <kendo-chart-series>
+                                    <!-- [data]="dataarray" -->
                                   <kendo-chart-series-item type="area"
                                         [opacity]="0.3"
                                         [border]="{color: '#888', opacity: 0.3}"
                                         [color]="'#888'"
-                                        [data]="dataarray.datay.y1"
+                                        [data]="dataarray.temp"
                                         [line]="{ style: style }">
                                   </kendo-chart-series-item>
+                                  <!-- [data]="dataarray.datay.y2" -->
                                   <kendo-chart-series-item type="area"
                                       [opacity]="0.3"
                                       [border]="{color: '#e91e63', opacity: 0.3}"
                                       [color]="'#e91e63'"
-                                      [data]="dataarray.datay.y2"
+                                      [data]="dataarray.humid"
                                       [line]="{ style: style }">
                                   </kendo-chart-series-item>
                                   <kendo-chart-series-item type="area"
                                       [opacity]="0.3"
                                       [border]="{color: '#27c46d', opacity: 0.3}"
                                       [color]="'#27c46d'"
-                                      [data]="dataarray.datay.y3"
+                                      [data]="dataarray.atmp"
                                       [line]="{ style: style }">
                                   </kendo-chart-series-item>
                                 </kendo-chart-series>
@@ -224,13 +250,13 @@ import { Component, Input } from '@angular/core';
 export class ChartsAreaComponent {
     public baseUnit;
     public bulletData;
-    @Input() public monthslabel;
+    // @Input() public monthslabel;
     @Input() public dataarray;
 
     public style = 'smooth';
 
     // @Input() public set data(data_r) {
-    //     this.monthslabel = data_r;
+    //     this.dataarray = data_r;
     // }
 
     @Input() public set duration(base_unit) {
