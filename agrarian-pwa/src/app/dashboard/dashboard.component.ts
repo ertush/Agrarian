@@ -66,21 +66,18 @@ export class DashboardComponent implements OnDestroy {
                     this._customData = data_custom;
 
                   break;
-              // case 'temperature' || '':
-              //   // this.isLoading = false;
-
-              //       break;
-              default:
+              case 'temperature':
                 this.isLoading = false;
 
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                     this._tempHumidityData = data;
-                 });
 
-                 // Temperature Line Chart
-                 this.chartTempService.loadData(payload, topic).subscribe(data => {
-                  data.forEach( item => {
+                  // Temperature Line Chart
+                 this.chartTempService.loadData(payload, topic).subscribe(_data => {
+
+                  if (_data) {
+                  _data.forEach( item => {
                   if (item.value) {
                     this._tempData = [...this._tempData, item];
                     if (this._tempData.length > 20) {
@@ -94,10 +91,31 @@ export class DashboardComponent implements OnDestroy {
                   }
                 });
 
-                 this._tempData = data;
+              }
+                 this._tempData = _data;
              });
 
+                 });
+
                   break;
+
+                case 'humidity':
+                // Temperature, Humidity, AtPressure Area Chart
+                this.chartAreaService.loadData(payload, topic).subscribe(data => {
+                  this._tempHumidityData = data;
+               });
+                  break;
+
+                case 'atpressure':
+                    // Temperature, Humidity, AtPressure Area Chart
+                this.chartAreaService.loadData(payload, topic).subscribe(data => {
+                  this._tempHumidityData = data;
+               });
+                  break;
+
+              default:
+                console.log(`Unknown topic:  ${topic}`);
+                break;
           }
 
         },

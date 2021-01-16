@@ -20,9 +20,9 @@ constructor() {
 
 loadData(payload: string, topic: string): Observable<any> {
 
-  if (topic === 'temperature') this._chartsAreaDataTemp.push(JSON.parse(payload));
-  if (topic === 'humidity') this._chartsAreaDataHumid.push(JSON.parse(payload));
-  if (topic ===  'atpressure') this._chartsAreaDataAtm.push(JSON.parse(payload));
+  if (topic === 'temperature') { this._chartsAreaDataTemp.push(JSON.parse(payload)); }
+  if (topic === 'humidity') { this._chartsAreaDataHumid.push(JSON.parse(payload)); }
+   if (topic ===  'atpressure') { this._chartsAreaDataAtm.push(JSON.parse(payload)); }
 
    this._data.time = this.getTimeIntervals(new Date());
 

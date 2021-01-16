@@ -11,8 +11,9 @@ import { Component, Input, OnInit } from '@angular/core';
                     </app-loading-spinner>
                 </div>
           <div class="col-12 all-issues">
+            <!-- -->
           <kendo-chart [transitions]="false" [pannable]="{ lock: 'y' }"
-          [zoomable]="{ mousewheel: { lock: 'y' } }" *ngIf="!isLoading" style="margin-top: 20px">
+          [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading" style="margin-top: 20px">
           <kendo-chart-tooltip format="{1} &deg;C"></kendo-chart-tooltip>
 
              <kendo-chart-series-defaults [type]="'scatterLine'" [stack]="true" [gap]="0.06" [overlay]="false">

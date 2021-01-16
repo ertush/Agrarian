@@ -64,8 +64,7 @@ export class DefaultComponent implements OnInit {
     @Input() public data;
     @Input() public loading;
     @Input() public dataarr;
-    @Input() public monthslbl;
-
+   
     ngOnInit() {
         
 

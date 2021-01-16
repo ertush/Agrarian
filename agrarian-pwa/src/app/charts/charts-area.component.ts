@@ -38,7 +38,7 @@ import { Component, Input } from '@angular/core';
 
 
                         </div>
-                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
                         <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                                 <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
@@ -92,7 +92,7 @@ import { Component, Input } from '@angular/core';
                                 <div class="issues-label">2</div>
                             </div>
                         </span>
-                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
                             <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                             <kendo-chart-series-defaults type="column"
                             [stack]="true"
@@ -155,7 +155,7 @@ import { Component, Input } from '@angular/core';
                         </div>
 
                         </span>
-                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
                               <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                               <kendo-chart-category-axis>
 
@@ -213,7 +213,7 @@ import { Component, Input } from '@angular/core';
                             on date
                         </p>
                         </div>
-                        <kendo-chart style="height: 20px;" [chartArea]="{margin: -20}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 20px;" [chartArea]="{margin: -20}">
                         <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
                         <kendo-chart-series>
                                 <kendo-chart-series-item type="bullet"
@@ -339,5 +339,9 @@ export class ChartsAreaComponent {
         times = times.map(time => `${time} ${Number(time.split(':')[0]) >= 12 ? 'PM' : 'AM'}`);
         return times;
     }
+
+    onPlotAreaHover(e): void {
+       console.log({e});
+}
 
 }
