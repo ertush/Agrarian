@@ -15,14 +15,14 @@ client.on('connect', function () {
               {type: "AtmPressure", value: NaN},
               {type: "CarbonIVoxide", value: NaN}
           ]
-          )
+          );
 
-          let payload_temp = JSON.stringify({
-            value: Math.round(Math.random() * 50),
-            value2: Math.round(Math.random() * 50),
-            time: new Date()
+          // let payload_temp = JSON.stringify({
+          //   value: Math.round(Math.random() * 50),
+          //   value2: Math.round(Math.random() * 50),
+          //   time: new Date()
            
-          })
+          // })
 
         //   let payload_humid_temp = JSON.stringify({
         //    datax: { x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']},
@@ -57,8 +57,10 @@ client.on('connect', function () {
       // let payload_humid_temp = JSON.stringify({temp : Math.round(Math.random() * 30), humidity: Math.round(Math.random() * 80), atm: Math.round(Math.random() * 80)})
 
         let payload_temperature = JSON.stringify(Math.round(Math.random() * 30))
-        let payload_humid = JSON.stringify(Math.round(Math.random() * 30))
-        let payload_atmp = JSON.stringify(Math.round(Math.random() * 30))
+        let payload_humid = JSON.stringify(Math.round(Math.random() * 70))
+        let payload_atmp = JSON.stringify(Math.round(Math.random() * 100))
+        let payload_soil = JSON.stringify(Math.round(Math.random() * 15))
+        let payload_light = JSON.stringify(Math.round(Math.random() * 10))
 
         let payload_custom = JSON.stringify(
            {
@@ -92,13 +94,19 @@ client.on('connect', function () {
         )
  
            client.publish("esp8266", payload_esp8266); 
-           client.publish("temp", payload_temp); 
+        
            client.publish("custom", payload_custom);
+
 
            client.publish("temperature", payload_temperature);
            client.publish("humidity", payload_humid);
            client.publish("atpressure", payload_atmp);
-          }, 10000);
+           client.publish("light", payload_light);
+           client.publish("soil", payload_soil);
+
+
+
+          }, 60000);
         
  })
 

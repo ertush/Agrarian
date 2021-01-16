@@ -4,7 +4,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
   selector: 'app-charts-line',
   template: `
   <div class="k-card">
-            <h2 class="k-card-header">Types Distribution</h2>
+            <h2 class="k-card-header">Temperature, Humidity, Soil Moisture, Light Intensity and Atmospheric Pressure</h2>
             <div class="k-card-body">
                 <div class="row">
                   <div *ngFor="let button of seriesColors" (click)="addSeries(button, true)"

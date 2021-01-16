@@ -1,7 +1,7 @@
 import { environment as env, options } from './../../environments/environment';
 import { Injectable, OnDestroy } from '@angular/core';
 import { connect } from 'mqtt';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,14 @@ export class MqttService implements OnDestroy {
     console.log('Client connected:' + env.clientId);
     // Subscribe to all Sensor Topics
     this.client.subscribe(env.topic.esp8266, { qos: 0 }, (state: any) => {console.log({state}); });
-    this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
+    // this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.custom, { qos: 0 }, (state: any) => {console.log({state}); });
 
-    this.client.subscribe('temperature', { qos: 0 }, (state: any) => {console.log({state}); });
-    this.client.subscribe('humidity', { qos: 0 }, (state: any) => {console.log({state}); });
-    this.client.subscribe('atpressure', { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.humidity, { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.atmp, { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.soil, { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.light, { qos: 0 }, (state: any) => {console.log({state}); });
 
     });
 

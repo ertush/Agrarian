@@ -4,6 +4,7 @@ import 'hammerjs';
 import { Subscription } from 'rxjs';
 
 import { MqttService } from './../shared/mqtt.service';
+import { ChartTempService } from '../shared/chart-temp.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { MqttService } from './../shared/mqtt.service';
 export class DashboardComponent implements OnDestroy {
 
     public min: Date = new Date();
-    public max: Date = new Date(this.min.getTime() + 30000);
+    public max: Date = new Date(this.min.getTime() + 60000);
     public style = 'smooth';
     public unit = 'fit';
 
@@ -24,11 +25,11 @@ export class DashboardComponent implements OnDestroy {
     public isLoading = true;
     public today: Date = new Date();
     public rangeStart: Date;
-  
+
     public months = 3;
-   
+
     private subscription: Subscription;
-   
+
 
     public _espData = [];
     public _tempHumidityData = [];
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnDestroy {
 
     constructor(
               private MqttClientService: MqttService,
-              private chartAreaService: ChartsAreaService
+              private chartAreaService: ChartsAreaService,
+              private chartTempService: ChartTempService
         ) {
 
 
@@ -64,29 +66,37 @@ export class DashboardComponent implements OnDestroy {
                     this._customData = data_custom;
 
                   break;
-              case 'temp':
-          const item: any = JSON.parse(payload);
-          this.isLoading = false;
+              // case 'temperature' || '':
+              //   // this.isLoading = false;
 
-          item.time = new Date(item.time);
-          if (item.value) {
-            this._tempData = [...this._tempData, item];
-            if (this._tempData.length > 20) {
-              this.min = this._tempData[this._tempData.length - 20].time;
-              this.max = item.time;
-            }
-            // prevent running out-of-memory when client is connected for too long
-            if (this._tempData.length > 500) {
-              this._tempData = this._tempData.slice(480);
-            }
-          }
-                    break;
+              //       break;
               default:
                 this.isLoading = false;
-                    this.chartAreaService.loadData(payload, topic).subscribe(data => {
-                      console.log(data);
-                     this._tempHumidityData = data; 
-                 })
+
+                // Temperature, Humidity, AtPressure Area Chart
+                this.chartAreaService.loadData(payload, topic).subscribe(data => {
+                    this._tempHumidityData = data;
+                 });
+
+                 // Temperature Line Chart
+                 this.chartTempService.loadData(payload, topic).subscribe(data => {
+                  data.forEach( item => {
+                  if (item.value) {
+                    this._tempData = [...this._tempData, item];
+                    if (this._tempData.length > 20) {
+                      this.min = this._tempData[this._tempData.length - 20].time;
+                      this.max = item.time;
+                    }
+                    // prevent running out-of-memory when client is connected for too long
+                    if (this._tempData.length > 500) {
+                      this._tempData = this._tempData.slice(480);
+                    }
+                  }
+                });
+
+                 this._tempData = data;
+             });
+
                   break;
           }
 
@@ -99,7 +109,9 @@ export class DashboardComponent implements OnDestroy {
 
 
     ngOnDestroy() {
+      if (this.subscription) {
         this.subscription.unsubscribe();
+      }
     }
 
 }

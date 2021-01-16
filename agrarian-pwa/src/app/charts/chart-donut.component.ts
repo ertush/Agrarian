@@ -3,7 +3,7 @@ import { Component, Input, HostBinding } from '@angular/core';
 @Component({
     selector: 'app-chart-donut',
     template: `
-        <h2 class="k-card-header">Issue Types</h2>
+        <h2 class="k-card-header">Percentage (Temperature, Humidity, Soil Moisture, Light, Atmospheric Pressure)</h2>
         <div *ngIf="loading" style="height: 400px">
                     <app-loading-spinner>
                     </app-loading-spinner>

@@ -12,10 +12,10 @@ export const environment = {
       soil: 'soil',
       esp8266: 'esp8266',
       custom: 'custom',
-      humidTemp: 'humidTemp',
-      temp: 'temp',
-      light: 'ldr',
-      humidity: 'humid'
+      atmp: 'atpressure',
+      temp: 'temperature',
+      light: 'light',
+      humidity: 'humidity'
     }
 };
 

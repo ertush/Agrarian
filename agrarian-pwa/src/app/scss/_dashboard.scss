@@ -53,6 +53,9 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
 
         strong {
           font-size: 4em;

@@ -25,7 +25,7 @@ import { Component, Input, OnInit } from '@angular/core';
             <ng-template #chartsLineLoading>
                 <div class="col-xl-8">
                     <div class="k-card k-card-body">
-                    <h2 class="k-card-header">Types Distribution</h2>
+                    <h2 class="k-card-header">Temperature, Humidity, Soil Moisture, Light Intensity and Atmospheric Pressure</h2>
                             <div  style="height: 400px">
                                     <app-loading-spinner>
                                     </app-loading-spinner>
@@ -37,7 +37,7 @@ import { Component, Input, OnInit } from '@angular/core';
             <ng-template #activeIssuesLoading>
                 <div class="col-12">
                     <div class="k-card k-card-body">
-                    <h2 class="k-card-header m-0">Active Issues</h2>
+                    <h2 class="k-card-header m-0">Temperature, Humidity and Atmospheric Pressure</h2>
                             <div  style="height: 400px">
                                     <app-loading-spinner>
                                     </app-loading-spinner>

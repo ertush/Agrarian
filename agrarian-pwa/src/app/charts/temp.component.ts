@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-temp',
   template: `
    <div class="k-card">
-   <h2 class="k-card-header m-0">Temp</h2>
+   <h2 class="k-card-header m-0">Temperature</h2>
           <div class="col-12">
                 <div *ngIf="isLoading" style="height: 400px">
                     <app-loading-spinner>
@@ -42,8 +42,9 @@ import { Component, Input, OnInit } from '@angular/core';
             <kendo-chart-x-axis>
                 <kendo-chart-x-axis-item
                  [title]="{ text: 'Time' }"
-                  baseUnit="seconds"
-                  baseUnitSteps="hours"
+                  baseUnit="minutes"
+                  baseUnitSteps="minutes"
+                  [labels]="{ rotation: 'auto', margin:{ top: 8, left: 8}}"
                   [min]="min"
                   [max]="max">
                 </kendo-chart-x-axis-item>
