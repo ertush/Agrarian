@@ -16,7 +16,7 @@ import { Component, Input, OnInit } from '@angular/core';
           [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading" style="margin-top: 20px">
           <kendo-chart-tooltip format="{1} &deg;C"></kendo-chart-tooltip>
 
-             <kendo-chart-series-defaults [type]="'scatterLine'" [stack]="true" [gap]="0.06" [overlay]="false">
+             <kendo-chart-series-defaults [type]="'scatterLine'" [stack]="true" [gap]="0.03" [overlay]="false">
              </kendo-chart-series-defaults>
             <kendo-chart-series>              <kendo-chart-title text="         "></kendo-chart-title>
               <kendo-chart-series-item

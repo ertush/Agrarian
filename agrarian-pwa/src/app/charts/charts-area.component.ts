@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
 
 @Component({
     selector: 'app-charts-area',
@@ -19,14 +20,14 @@ import { Component, Input } from '@angular/core';
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Temperature:
-                                        {{ dataarray.temp | minmax : 'max' }}
+                                        {{ dataarray.temp.length }}
                                         on date
                                     </p>
                                 </div>
                                     <div class="row" style="margin-left: 0.1em">
                                         <p class="m-0 small text-uppercase text-muted">
                                         Lowest Temperature:
-                                        {{  dataarray.humid | minmax : 'min' }}
+                                        {{  dataarray.humid.length }}
                                         on date
                                         </p>
                                 </div>
@@ -38,12 +39,12 @@ import { Component, Input } from '@angular/core';
 
 
                         </div>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                         <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                                 <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
-                                        [categories]="setTimeSuffix(dataarray.time)"
-                                        [labels]="{ rotation: 'auto', margin: { top: 8 , left: 20 }}"
+                                        [categories]="setTimeSuffix(dataarray.time, true)"
+                                        [labels]="{ rotation: 'auto', margin: { top: 1, left: 4 }}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
@@ -75,14 +76,14 @@ import { Component, Input } from '@angular/core';
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Humidity:
-                                        {{ dataarray.temp | minmax : 'max' }}
+                                        {{ dataarray.temp.length  | minmax : 'max' }}
                                         on date
                                     </p>
-                                </div>    
+                                </div>
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Lowest Humidity:
-                                        {{  dataarray.humid | minmax : 'min' }}
+                                        {{  dataarray.humid.length  | minmax : 'min' }}
                                         on date
                                     </p>
                                 </div>
@@ -92,7 +93,7 @@ import { Component, Input } from '@angular/core';
                                 <div class="issues-label">2</div>
                             </div>
                         </span>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                             <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                             <kendo-chart-series-defaults type="column"
                             [stack]="true"
@@ -100,8 +101,8 @@ import { Component, Input } from '@angular/core';
                             [overlay]="false"></kendo-chart-series-defaults>
                             <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
-                                    [categories]="setTimeSuffix(dataarray.time)"
-                                    [labels]="{rotation: 'auto' , margin : { top: 8 , left : 20}}"
+                                    [categories]="setTimeSuffix(dataarray.time, true)"
+                                    [labels]="{rotation: 'auto'}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
@@ -136,18 +137,18 @@ import { Component, Input } from '@angular/core';
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Atpressure:
-                                        {{ dataarray.temp | minmax : 'max' }}
+                                        {{ dataarray.temp.length | minmax : 'max' }}
                                         on date
                                     </p>
                             </div>
                             <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Lowest Atpressure:
-                                        {{  dataarray.humid | minmax : 'min' }}
+                                        {{  dataarray.humid.length  | minmax : 'min' }}
                                         on date
                                      </p>
                             </div>
-                        
+
                             </div>
                             <div *ngIf="!dataarray">
                                 <div class="issues-count">-</div>
@@ -155,13 +156,13 @@ import { Component, Input } from '@angular/core';
                         </div>
 
                         </span>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: -20 }}">
+                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                               <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                               <kendo-chart-category-axis>
 
                                     <kendo-chart-category-axis-item
-                                        [categories]="setTimeSuffix(dataarray.time)"
-                                        [labels]="{ rotation : 'auto', margin: { top: 8, left: 20 }}"
+                                        [categories]="setTimeSuffix(dataarray.time, true)"
+                                        [labels]="{ rotation : 'auto', margin: { left: 5 }}"
                                         >
                                     </kendo-chart-category-axis-item>
                                 </kendo-chart-category-axis>
@@ -184,62 +185,10 @@ import { Component, Input } from '@angular/core';
                         </kendo-chart>
                     </div>
                 </div>
-                    <!-- 
-                    <div class="col-12 col-lg-6 col-xl pb-4 close-rate">
-                        <span class="comp-label">
 
-                            <div class="issues-count">{{  dataarray.atmp | avg }}</div>
-                            <div class="issues-label">avg</div>
-                        </span>
-                        <div class="row" style="margin-left: 0.1em">
-                        <p class="m-0 small text-uppercase text-muted">
-                            Highest Temp:
-                            {{ dataarray.temp | minmax : 'max' }}
-                            on date
-
-                            Lowest Humid:
-                            {{  dataarray.humid | minmax : 'min' }}
-                            on date
-                        </p>
-                        </div>
-                        <div class="row" style="margin-left: 0.1em">
-                        <p class="m-0 small text-uppercase text-muted">
-                            Highest Temp:
-                            {{ dataarray.temp | minmax : 'max' }}
-                            on date
-
-                            Lowest Humid:
-                            {{  dataarray.humid | minmax : 'min' }}
-                            on date
-                        </p>
-                        </div>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 20px;" [chartArea]="{margin: -20}">
-                        <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
-                        <kendo-chart-series>
-                                <kendo-chart-series-item type="bullet"
-                                    [data]="bulletData"
-                                    [target]="{color: '#FFF'}"
-                                    currentField="current"
-                                    targetField="target"
-                                    color="#e91e63"
-                                ></kendo-chart-series-item>
-                                </kendo-chart-series>
-
-                                <kendo-chart-value-axis>
-                                <kendo-chart-value-axis-item
-                                    [plotBands]="[{from:0, to:100, color: '#35C473'}]"
-                                    [visible]="false"
-                                    [majorGridLines]="{visible: false}">
-                                </kendo-chart-value-axis-item>
-                            </kendo-chart-value-axis>
-                        </kendo-chart>
-                    </div>
-
-                </div>
--->
                 <div class="row">
                     <div class="col-12 all-issues">
-                        <kendo-chart> 
+                        <kendo-chart>
                                 <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
                                 <kendo-chart-series-defaults type="column" [stack]="true" [gap]="0.5" [overlay]="false">
                                 </kendo-chart-series-defaults>
@@ -252,7 +201,7 @@ import { Component, Input } from '@angular/core';
                                         [majorTicks]="{visible: false}"
                                         [line]="{visible: false}"
                                         [majorGridLines]="{visible: false}"
-                                        [labels]="{rotation: 'auto', margin: { top: 8 , left: 8 }}"
+                                        [labels]="{rotation: 'auto', margin: { top: 1 , left: 8 }}"
                                         >
                                     </kendo-chart-category-axis-item>
 
@@ -308,17 +257,17 @@ import { Component, Input } from '@angular/core';
 export class ChartsAreaComponent {
     public baseUnit;
     public bulletData;
-    // @Input() public monthslabel;
+
+   
+
     @Input() public dataarray;
+    
 
     public style = 'smooth';
 
-    // @Input() public set data(data_r) {
-    //     this.dataarray = data_r;
-    // }
 
     @Input() public set duration(base_unit) {
-        // date > 3 ? this.baseUnit = 'months' : this.baseUnit = 'weeks';
+
         this.baseUnit = base_unit;
     }
 
@@ -335,13 +284,23 @@ export class ChartsAreaComponent {
         return _timeArr;
     }
 
-    setTimeSuffix(times: string[]): string[] {
-        times = times.map(time => `${time} ${Number(time.split(':')[0]) >= 12 ? 'PM' : 'AM'}`);
+    setTimeSuffix(times: string[], isSmallGraph: boolean = false): string[] {
+        if (!isSmallGraph) {
+            times = times.map(time => `${time} ${Number(time.split(':')[0]) >= 12 ? 'PM' : 'AM'}`);
+        } else {
+            times = times.map(time => `${time.substr(0, 5)} ${Number(time.split(':')[0]) >= 12 ? 'PM' : 'AM'}`);
+        }
+
+        times = times.map(time => `${
+        parseInt(time.split(':')[0]) >= 13 ?
+        (parseInt(time.split(':')[0]) -  12).toString() :
+        time.split(':')[0]}${time.substr(2, time.length)}`);
+
         return times;
     }
 
-    onPlotAreaHover(e): void {
-       console.log({e});
+    onPlotAreaHover(e: PlotAreaHoverEvent): void {
+     console.log({e});
 }
 
 }

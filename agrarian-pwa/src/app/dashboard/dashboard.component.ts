@@ -59,63 +59,63 @@ export class DashboardComponent implements OnDestroy {
                 const data_esp: any = JSON.parse(payload);
                 this.isLoading = false;
                 this._espData = data_esp;
-                  break;
+                break;
               case 'custom':
-                  const data_custom: any = JSON.parse(payload);
-                    this.isLoading = false;
-                    this._customData = data_custom;
-
-                  break;
+                const data_custom: any = JSON.parse(payload);
+                this.isLoading = false;
+                this._customData = data_custom;
+                break;
               case 'temperature':
                 this.isLoading = false;
 
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
-                    this._tempHumidityData = data;
+                this._tempHumidityData = data;
 
-                  // Temperature Line Chart
-                 this.chartTempService.loadData(payload, topic).subscribe(_data => {
+                // Temperature Line Chart
+                this.chartTempService.loadData(payload, topic).subscribe(_data => {
 
-                  if (_data) {
-                  _data.forEach( item => {
-                  if (item.value) {
-                    this._tempData = [...this._tempData, item];
-                    if (this._tempData.length > 20) {
-                      this.min = this._tempData[this._tempData.length - 20].time;
-                      this.max = item.time;
-                    }
-                    // prevent running out-of-memory when client is connected for too long
-                    if (this._tempData.length > 500) {
-                      this._tempData = this._tempData.slice(480);
-                    }
-                  }
-                });
+                      if (_data) {
+                        _data.forEach( item => {
+                        if (item.value) {
+                          this._tempData = [...this._tempData, item];
+                          if (this._tempData.length > 20) {
+                            this.min = this._tempData[this._tempData.length - 20].time;
+                            this.max = item.time;
+                          }
+                          // prevent running out-of-memory when client is connected for too long
+                          if (this._tempData.length > 500) {
+                            this._tempData = this._tempData.slice(480);
+                            }
+                          }
+                        });
+      
+                      }
+                      this._tempData = _data;
+                   });
 
-              }
-                 this._tempData = _data;
-             });
+          });
 
-                 });
-
-                  break;
+            break;
 
                 case 'humidity':
+                
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
-               });
-                  break;
+                 });
+                break;
 
                 case 'atpressure':
                     // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
-               });
-                  break;
+                 });
+                break;
 
               default:
-                console.log(`Unknown topic:  ${topic}`);
-                break;
+              console.log(`Unknown topic:  ${topic}`);
+              break;
           }
 
         },

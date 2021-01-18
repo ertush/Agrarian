@@ -19,7 +19,7 @@ private _data_temp = [];
 loadData(payload: string, topic: string): Observable<Tempdata[]> {
 if ( topic === 'temperature') {
 
-  const item: Tempdata = { value: '', time: null};
+  const item: Tempdata = { value: '', time: new Date(0)};
   item.value = JSON.parse(payload);
   item.time = new Date();
 

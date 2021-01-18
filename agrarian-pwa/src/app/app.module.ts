@@ -45,7 +45,7 @@ import { ChartsAreaComponent } from './charts/charts-area.component';
 import { environment } from '../environments/environment';
 import { AvgPipe } from './charts/avg.pipe';
 import { MinmaxPipe } from './charts/minmax.pipe';
-import { LoadtimePipe } from './charts/loadtime.pipe';
+
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -70,8 +70,8 @@ export function createTranslateLoader(http: HttpClient) {
         ChartsAreaComponent,
         ChartDonutComponent,
         AvgPipe,
-        MinmaxPipe,
-        LoadtimePipe
+        MinmaxPipe
+        
 
     ],
     imports: [

@@ -10,9 +10,11 @@ import { Router } from '@angular/router';
 export class SigninComponent {
 
     public isSignUp: boolean;
+    public marginTopExp;
 
     constructor(private router: Router) {
         this.isSignUp = false;
+        this.marginTopExp = 22;
     }
 
 
@@ -29,10 +31,13 @@ export class SigninComponent {
     }
 
     public onSignUpClick(): void {
+
         this.isSignUp = true;
+        this.marginTopExp = 'auto';
     }
 
     public onCreateAccount(): void {
         this.isSignUp = false;
+        this.marginTopExp = 22;
     }
 }
