@@ -1,0 +1,30 @@
+.container-avatar {
+    flex-direction: row;
+    display:inline-flex;
+    width: 100%;
+    justify-items: space-between;
+    align-items: inherit;
+}
+
+.avatar{
+
+    margin: auto;
+    align-items: flex-end;
+}   
+
+.user-labels{
+    margin: auto;
+    align-items: flex-end;
+}
+
+.user-label-name {
+    margin: 0;
+    font-weight: 500;
+    
+}
+
+.user-label-email {
+    margin: 0;
+    font-weight: 100;
+    color: $gray;
+}
