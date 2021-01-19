@@ -19,16 +19,9 @@ export class ProfileComponent {
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
     constructor(public githubService: GithubService, private router: Router, private fhubService: FhubService ) {
-        // githubService.getGithubUser('mbechev').subscribe(data => {
-        //     this.user = data;
-        //     this.isLoading = false;
-        // }, (err) => {
-        //     this.isLoading = false;
-        // });
-
-        // Using fake data when offline
+        
         this.fhubService.getUsers().subscribe(data => {
-            this.user = data[2];
+            this.user = data[1];
             this.isLoading = false;
         }, (err) => {
             this.isLoading = false;

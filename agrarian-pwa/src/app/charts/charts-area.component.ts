@@ -20,14 +20,14 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Temperature:
-                                        {{ dataarray.temp.length }}
+                                        {{ dataarray.temp.length | minmax : 'max'}}
                                         on date
                                     </p>
                                 </div>
                                     <div class="row" style="margin-left: 0.1em">
                                         <p class="m-0 small text-uppercase text-muted">
                                         Lowest Temperature:
-                                        {{  dataarray.humid.length }}
+                                        {{  dataarray.humid.length | minmax : 'min'}}
                                         on date
                                         </p>
                                 </div>

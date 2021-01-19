@@ -9,46 +9,58 @@
     <div id="nav"
         class="sticky-top py-3 py-sm-5 k-vbox shadow col-xl-2 d-xl-flex hide"
         [@toggleNav]="navState"
-        *ngIf="showNav()"
+        *ngIf="showNav()"   
         >
 
         <div class="container">
           <h1 id="app-title" class="mb-0">Agrarian</h1>
           <p id="app-subtitle" class="h4 mb-4">{{ menuTitle }}</p>
-          <hr class="k-hr" />
-          <p class="h4 mt-3 mt-sm-5">Menu</p>
+          <!-- <hr class="k-hr" /> -->
+          <!-- <div class="mb-4"> -->
+            <app-user-avatar [user]="user"></app-user-avatar>
+          <!-- </div> -->
+          <!-- mt-3 mt-sm-5 -->
+          <p class="h4 mt-4 mt-sm-4">Menu</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
-                  <a [routerLink]=" ['./dashboard'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Dashboard</a>
+                  <a [routerLink]=" ['./dashboard'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                    <span class="k-icon k-i-graph k-icon-sm" routerLinkActive="active"></span>Dashboard</a>
               </li>
               <li class="nav-item" id="issues">
-                  <a [routerLink]=" ['./issues'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Issues</a>
+                  <a [routerLink]=" ['./issues'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                    <span class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></span>Reports</a>
               </li>
           </ul>
-          <p class="h4 mt-3 mt-sm-5">Account</p>
+          <!-- mt-3 mt-sm-5 -->
+          <p class="h4 mt-2 mt-sm-4">Account</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
-                  <a [routerLink]=" ['./profile'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">My Profile</a>
+                  <a [routerLink]=" ['./profile'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                    <span class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></span>My Profile</a>
               </li>
               <li class="nav-item" id="signout">
-                  <a [routerLink]=" ['./signin'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">Sign Out</a>
+                  <a [routerLink]=" ['./signin'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                    <span class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></span>Log Out</a>
               </li>
           </ul>
-          <p class="h4 mt-5">Resources</p>
-          <ul class="nav nav-pills flex-column">
+          <!-- mt-5 -->
+          <p class="h4 mt-2 mt-sm-4">Resources</p>
+          <ul class="nav nav-pills flex-column"> 
               <li class="nav-item" id="source">
                   <a class="nav-link" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
-                  role="button">Download on Github</a>
+                  role="button">
+                  <span class="k-icon k-i-download k-icon-sm"></span>Download</a>
               </li>
               <li class="nav-item" id="documentation">
-                  <a class="nav-link" href="https://www.telerik.com/kendo-angular-ui/components" target="_blank"
-                  role="button">Documentation</a>
+                  <a class="nav-link" href="https://agrarian-iot.github.io" target="_blank"
+                  role="button">
+                  <span class="k-icon k-i-hyperlink-globe k-icon-sm"></span>Website</a>
               </li>
           </ul>
         </div>
 
         <div class="container mt-sm-auto">
-          <hr class="k-flex k-hr k-hr-bottom" />
+          <!-- <hr class="k-flex k-hr k-hr-bottom" /> -->
           <div id="copy">
               <p>Copyright &copy; {{year}},<br /><a href="https://eric-dev-me.vercel.app">Eric</a> and/or his subsidiaries or affiliates.</p>
               <p>All Rights Reserved.</p>

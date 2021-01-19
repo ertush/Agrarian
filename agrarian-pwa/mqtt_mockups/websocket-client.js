@@ -17,45 +17,6 @@ client.on('connect', function () {
           ]
           );
 
-          // let payload_temp = JSON.stringify({
-          //   value: Math.round(Math.random() * 50),
-          //   value2: Math.round(Math.random() * 50),
-          //   time: new Date()
-           
-          // })
-
-        //   let payload_humid_temp = JSON.stringify({
-        //    datax: { x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']},
-        //    datay: { y1: [Math.round(Math.random() * 10), 
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10)
-        //   ],
-        //   y2: [Math.round(Math.random() * 10), 
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10)
-        //   ],
-        //   y3: [Math.round(Math.random() * 10), 
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10),
-        //     Math.round(Math.random() * 10)
-        //   ]  
-
-        // }
-        // })
-
-      // let payload_humid_temp = JSON.stringify({temp : Math.round(Math.random() * 30), humidity: Math.round(Math.random() * 80), atm: Math.round(Math.random() * 80)})
-
         let payload_temperature = JSON.stringify(Math.round(Math.random() * 30))
         let payload_humid = JSON.stringify(Math.round(Math.random() * 70))
         let payload_atmp = JSON.stringify(Math.round(Math.random() * 100))

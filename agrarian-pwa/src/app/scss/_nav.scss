@@ -15,6 +15,22 @@
   }
 }
 
+.k-icon-sm{
+ transition: color 0.2s ease;
+ font-size: $font-size-sm;
+ padding: 0.5rem 2rem;
+ margin-left: -1rem;
+ margin-right: -1rem;
+ color: $black;
+ &:hover {
+  color: $primary;
+}
+
+&.active {
+  color: $white;
+}
+}
+
 #nav {
   background-color: $nav-bg;
   // height: 100vh;

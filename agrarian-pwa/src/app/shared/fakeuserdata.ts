@@ -7,15 +7,15 @@ export const users: Fuser[] = [
         company: 'TL com',
         email: 'tom@hotmail.com',
         login: 'tom77',
-        avatar_url: 'http://urltotomsprofile.pic'
+        avatar_url: '../../assets/avatar-placeholder.png'
     },
     {    id: true,
-        name: 'max',
-        location: 'tokyo',
-        company: 'SANYO ltd',
-        email: 'max@hotmail.com',
-        login: 'max11',
-        avatar_url: 'http://urltomaxsprofile.pic'
+        name: 'user',
+        location: 'dummy location',
+        company: 'dummy company',
+        email: 'user@email.domain',
+        login: 'guest',
+        avatar_url: '../../assets/avatar-placeholder.png'
     },
     {    id: true,
         name: 'bob',
@@ -23,6 +23,6 @@ export const users: Fuser[] = [
         company: 'Glo',
         email: 'bob@hotmail.com',
         login: 'bob_32',
-        avatar_url: 'http://urltobobsprofile.pic'
+        avatar_url: '../../assets/avatar-placeholder.png'
     }
 ];

@@ -4,8 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
     selector: 'app-default',
     template: `
         <div class="row">
-            <!--  [monthslabel]="monthslbl" -->
-        
+          
             <div class="col-xl-4">
                 <app-chart-donut [data]="edata" [loading]="loading"></app-chart-donut>
             </div>
