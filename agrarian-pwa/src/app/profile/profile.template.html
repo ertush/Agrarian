@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="user.id && !isLoading" >
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm">    
             <h4>Account</h4>
             <p class="h2">{{user.login}} - {{user.name}}</p>
         </div>
@@ -67,8 +67,8 @@
                 <h3 class="k-card-header">Delete Account</h3>
                 <div class="k-card-body">
                     <p>You will immediately lose access to your repositories and all other information associated with your account. <strong>This cannot be undone!</strong></p>
-                    <button kendoRippleContainer class="k-button btn-primary v-spacer" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
                 </div>
+                <button kendoRippleContainer class="k-button btn-primary v-spacer" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
             </div>
         </div>
         <div class="col-md-5">
