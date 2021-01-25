@@ -10,7 +10,6 @@ export const environment = {
     host : 'ws://localhost',
     topic : {
       soil: 'soil',
-      esp8266: 'esp8266',
       custom: 'custom',
       atmp: 'atpressure',
       temp: 'temperature',

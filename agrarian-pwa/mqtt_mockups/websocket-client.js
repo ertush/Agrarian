@@ -6,16 +6,16 @@ var client  = mqtt.connect('ws://localhost:9100')
 client.on('connect', function () {
     console.log('[+] Client connected');
         setInterval(() => {
-          let payload_esp8266 = JSON.stringify(
-            [
-              {type: "Temperture", value: Math.ceil(Math.random() * 80) * 0.01},
-              {type: "SoilMoisture", value: Math.ceil(Math.random() * 80) * 0.01},
-              {type: "UVLight", value: Math.ceil(Math.random() * 80) * 0.01},
-              {type: "Humidity", value: Math.ceil(Math.random() * 80) * 0.01},
-              {type: "AtmPressure", value: NaN},
-              {type: "CarbonIVoxide", value: NaN}
-          ]
-          );
+          // let payload_esp8266 = JSON.stringify(
+          //   [
+          //     {type: "Temperture", value: Math.ceil(Math.random() * 80) * 0.01},
+          //     {type: "SoilMoisture", value: Math.ceil(Math.random() * 80) * 0.01},
+          //     {type: "UVLight", value: Math.ceil(Math.random() * 80) * 0.01},
+          //     {type: "Humidity", value: Math.ceil(Math.random() * 80) * 0.01},
+          //     {type: "AtmPressure", value: NaN},
+          //     {type: "CarbonIVoxide", value: NaN}
+          // ]
+          // );
 
         let payload_temperature = JSON.stringify(Math.round(Math.random() * 30))
         let payload_humid = JSON.stringify(Math.round(Math.random() * 70))
@@ -54,7 +54,7 @@ client.on('connect', function () {
           } 
         )
  
-           client.publish("esp8266", payload_esp8266); 
+          //  client.publish("esp8266", payload_esp8266); 
         
            client.publish("custom", payload_custom);
 

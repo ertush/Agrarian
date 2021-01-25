@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { MqttService } from './../shared/mqtt.service';
 import { ChartTempService } from '../shared/chart-temp.service';
+import { ChartDonutService } from '../shared/chart-donut.service';
 
 
 @Component({
@@ -30,12 +31,12 @@ export class DashboardComponent implements OnDestroy {
 
     private subscription: Subscription;
 
-
+s
     public _espData = [];
     public _tempHumidityData = [];
     public _tempData = [];
     public _customData: any;
-
+    public pageTitle = 'Statistics';
 
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
@@ -44,7 +45,8 @@ export class DashboardComponent implements OnDestroy {
     constructor(
               private MqttClientService: MqttService,
               private chartAreaService: ChartsAreaService,
-              private chartTempService: ChartTempService
+              private chartTempService: ChartTempService,
+              private chartDonutService: ChartDonutService
         ) {
 
 
@@ -55,11 +57,7 @@ export class DashboardComponent implements OnDestroy {
           const topic = m.split('/')[1];
 
           switch (topic) {
-              case 'esp8266':
-                const data_esp: any = JSON.parse(payload);
-                this.isLoading = false;
-                this._espData = data_esp;
-                break;
+                
               case 'custom':
                 const data_custom: any = JSON.parse(payload);
                 this.isLoading = false;
@@ -114,7 +112,10 @@ export class DashboardComponent implements OnDestroy {
                 break;
 
               default:
-              console.log(`Unknown topic:  ${topic}`);
+                this.isLoading = false;
+                this.chartDonutService.loadData(payload, topic).subscribe(data => {
+                  this._espData = data;
+                });
               break;
           }
 

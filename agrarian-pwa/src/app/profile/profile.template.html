@@ -67,8 +67,11 @@
                 <h3 class="k-card-header">Delete Account</h3>
                 <div class="k-card-body">
                     <p>You will immediately lose access to your repositories and all other information associated with your account. <strong>This cannot be undone!</strong></p>
+                    <div class="v-spacer">
+                        <button kendoRippleContainer class="k-button btn-primary" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
+                    </div>
                 </div>
-                <button kendoRippleContainer class="k-button btn-primary v-spacer" style="background-color: red;" (click)="onDeleteClick()">Delete Account</button>
+                
             </div>
         </div>
         <div class="col-md-5">

@@ -12,6 +12,12 @@
 
   .k-i-hamburger {
     font-size: 30px;
+    color: $gray;
+  }
+
+  .k-i-close-circle {
+    font-size: 30px;
+    color: $gray;
   }
 }
 
@@ -107,6 +113,11 @@
     top: 0;
     min-height: 700px;
   }
+}
+
+.app-bar-title{
+  flex-direction: row;
+  display: inline-flex;
 }
 
 #nav-icon {

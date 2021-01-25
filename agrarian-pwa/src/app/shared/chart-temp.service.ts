@@ -26,7 +26,6 @@ if ( topic === 'temperature') {
   this._data_temp = [...this._data_temp, item];
   return new Observable(subscriber => {
     try {
-      console.log(this._data_temp);
       subscriber.next(this._data_temp);
 
    } catch (e) {

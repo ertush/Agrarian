@@ -1,4 +1,4 @@
-<div id="header" class="row">
+<!-- <div id="header" class="row">
     <div class="col-sm">
         <h4>Statistics</h4>
         <p class="h2">{{ rangeStart | date }}  {{ today | date }}</p>
@@ -10,7 +10,8 @@
             <button kendoRippleContainer kendoButton [togglable]="true">1 Year</button>
         </kendo-buttongroup>
     </div>
-</div>
+</div> -->
+<app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading" [title]="pageTitle" ></app-header>
 
 <div id="statistics">
   <kendo-tabstrip>

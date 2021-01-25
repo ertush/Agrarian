@@ -2,8 +2,17 @@
     <div id="top-bar" class="top-bar sticky-top bg-white d-xl-none k-shadow" *ngIf="showNav()">
         <span id="nav-toggle" class="nav-toggle d-xl-none"
             (click)="toggleNav()"> 
-            <span *ngIf="navState === 'collapsed'" class="k-icon k-i-hamburger"></span>
-            <span *ngIf="navState === 'expanded'" class="k-icon k-i-close"></span>
+
+            <div *ngIf="navState === 'collapsed'" class="app-bar-title">
+                <span  class="k-icon k-i-hamburger"></span>
+                <p id="app-title" class="h4 mt-2 ml-2 mb-0">{{ menuTitle }}</p>
+            </div>
+
+            <div *ngIf="navState === 'expanded'" class="app-bar-title">
+                <span  class="k-icon k-i-close-circle"></span>
+                <p id="app-title" class="h4 mt-2 ml-2 mb-0">close</p>
+            </div>
+            
         </span>
     </div>
     <div id="nav"
@@ -12,14 +21,12 @@
         *ngIf="showNav()"   
         >
 
-        <div class="container">
+        <div class="container" style="justify-content: space-evenly; height: 100%;">
           <h1 id="app-title" class="mb-0">Agrarian</h1>
           <p id="app-subtitle" class="h4 mb-4">{{ menuTitle }}</p>
-          <!-- <hr class="k-hr" /> -->
-          <!-- <div class="mb-4"> -->
+        
             <app-user-avatar [user]="user"></app-user-avatar>
-          <!-- </div> -->
-          <!-- mt-3 mt-sm-5 -->
+          
           <p class="h4 mt-4 mt-sm-4">Menu</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
@@ -31,7 +38,7 @@
                     <span class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></span>Reports</a>
               </li>
           </ul>
-          <!-- mt-3 mt-sm-5 -->
+          
           <p class="h4 mt-2 mt-sm-4">Account</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
@@ -43,7 +50,7 @@
                     <span class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></span>Log Out</a>
               </li>
           </ul>
-          <!-- mt-5 -->
+          
           <p class="h4 mt-2 mt-sm-4">Resources</p>
           <ul class="nav nav-pills flex-column"> 
               <li class="nav-item" id="source">
@@ -59,8 +66,8 @@
           </ul>
         </div>
 
-        <div class="container mt-sm-auto">
-          <!-- <hr class="k-flex k-hr k-hr-bottom" /> -->
+        <div class="container mt-sm-auto" >
+          
           <div id="copy">
               <p>Copyright &copy; {{year}},<br /><a href="https://eric-dev-me.vercel.app">Eric</a> and/or his subsidiaries or affiliates.</p>
               <p>All Rights Reserved.</p>

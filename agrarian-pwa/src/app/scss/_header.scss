@@ -1,3 +1,46 @@
+
+.dot {
+  height: 25px;
+  width: 25px;
+  color: $white;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 12px;
+  padding-top: 3px;
+  text-align: center;
+  position: relative;
+  right: -11px; 
+  top: 4px;
+}
+
+.counter.counter-lg {
+  top: -12px !important;
+}
+
+.k-i-notification{
+  font-size: 30px;
+  position: absolute;
+  color: $gray;
+}
+
+.k-i-file-txt{
+  font-size: 30px;
+  position: absolute;
+  color: $gray;
+}
+
+.k-i-email{
+  font-size: 30px;
+  position: absolute;
+  color: $gray;
+}
+
+.header-group-icons{
+  flex-direction: row;
+  display: inline-flexbox;
+}
+
 #header {
   .k-button-group {
     overflow: hidden;
