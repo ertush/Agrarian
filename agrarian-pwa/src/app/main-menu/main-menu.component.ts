@@ -88,18 +88,13 @@ export class MainMenuComponent implements OnInit {
         }
     }
 
-    public navigate(e: any, path: string): void {
+    public navigate(path: string): void {
 
         if (this.isMobile) {
             this.toggleNav();
         }
 
-        const title = e.originalTarget.childNodes[1].data;
-        if (title) {
-        this.menuTitle = title;
-        } else {
-        this.menuTitle = '';
-        }
+        this.menuTitle = (path.split('/')[1] === 'issues' ? 'reports' : path.split('/')[1]);
 
         this.router.navigate([path]);
     }
