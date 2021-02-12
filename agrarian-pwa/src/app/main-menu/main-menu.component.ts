@@ -88,14 +88,20 @@ export class MainMenuComponent implements OnInit {
         }
     }
 
-    public setTitle(e: any): void {
+    public navigate(e: any, path: string): void {
+
+        if (this.isMobile) {
+            this.toggleNav();
+        }
+
         const title = e.originalTarget.childNodes[1].data;
-        if (this.isMobile) { this.toggleNav(); }
         if (title) {
-        (title === 'Log Out' ? this.menuTitle = 'Dashboard' : this.menuTitle = title);
+        this.menuTitle = title;
         } else {
         this.menuTitle = '';
         }
+
+        this.router.navigate([path]);
     }
 
 }
