@@ -1,13 +1,13 @@
 {
   "dir": "ltr",
   "lang": "en",
-  "name": "Kendo Angular PWA ",
+  "name": "Agrarian.io",
   "scope": "/",
   "display": "fullscreen",
-  "start_url": "http://localhost:8080/",
-  "short_name": "KAPWA",
+  "start_url": "https://agrarian-io-pwa.netlify.app",
+  "short_name": "Agrarian",
   "theme_color": "transparent",
-  "description": "Sample Kendo PWA App",
+  "description": "Platform to help farmers manager their farms",
   "orientation": "any",
   "background_color": "transparent",
   "related_applications": [],
@@ -18,44 +18,44 @@
       "sizes": "16x16 32x32"
     },
     {
-      "src": "/assets/app_icon/angularX36.png",
-      "sizes": "36x36",
+      "src": "/assets/app_icon/36x31-logo.png",
+      "sizes": "36x31",
       "type": "image/png",
       "density": "0.75"
     },
     {
-      "src": "/assets/app_icon/angularX48.png",
-      "sizes": "48x48",
-      "type": "image/png",
+      "src": "/assets/app_icon/48x41-logo.png",
+      "sizes": "48x41",
+      "type": "image/png",  
       "density": "1.0"
     },
     {
-      "src": "/assets/app_icon/angularX72.png",
-      "sizes": "72x72",
+      "src": "/assets/app_icon/72x62-logo.png",
+      "sizes": "72x62",
       "type": "image/png",
       "density": "1.5"
     },
     {
-      "src": "/assets/app_icon/angularX96.png",
-      "sizes": "96x96",
+      "src": "/assets/app_icon/96x83-logo.png",
+      "sizes": "96x83", 
       "type": "image/png",
       "density": "2.0"
     },
     {
-      "src": "/assets/app_icon/angularX144.png",
-      "sizes": "144x144",
+      "src": "/assets/app_icon/144x124-logo.png",
+      "sizes": "144x124",
       "type": "image/png",
       "density": "3.0"
     },
     {
-      "src": "/assets/app_icon/angularX192.png",
-      "sizes": "192x192",
+      "src": "/assets/app_icon/192x166-logo.png",
+      "sizes": "192x166",
       "type": "image/png",
       "density": "4.0"
     },
     {
-      "src": "/assets/app_icon/angularX512.png",
-      "sizes": "512x512",
+      "src": "/assets/app_icon/512x442-logo.png",
+      "sizes": "512x442",
       "type": "image/png",
       "density": "4.0"
     }

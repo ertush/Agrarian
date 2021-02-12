@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-loading-spinner',
     template: `
-        <div class="k-i-loading">
+        <div class="k-i-loading text-center">
         </div>
     `,
     styles: [`

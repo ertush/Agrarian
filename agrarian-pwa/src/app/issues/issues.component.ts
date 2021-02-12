@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import isMobileTablet from '../shared/deviceUtil';
 import { GithubService } from './../shared/github.service';
 import { IssuesProcessor } from './../shared/issues-processor.service';
 
@@ -13,6 +14,7 @@ import { IssuesProcessor } from './../shared/issues-processor.service';
     templateUrl: './issues.template.html'
 })
 export class IssuesComponent {
+    public isMobile = isMobileTablet();
     public isLoading = true;
     public selectedPeriod = 3;
     public issues: any;

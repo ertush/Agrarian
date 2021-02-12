@@ -1,6 +1,7 @@
 #login {
   .signin-form {
     margin: auto;
+    margin-top: 4rem;
     display: block;
     flex-direction: row;
     justify-content: center;
@@ -8,7 +9,7 @@
     text-align: left;
     border: none;
     height:100%;
-    padding: 0.5rem;  
+    padding: 1rem;  
    
   }
 
@@ -115,10 +116,36 @@
 
 .k-i-google-btn{
   size: 32px;
-  color:rgba($black, 2)
+  color:$white;
 }
 
 .k-i-fb-btn{
   size: 32px;
   color:rgba($black, 2)
 }
+.logo-cnt {
+  display: inline-flex;
+  flex-flow: row nowrap;
+justify-content: center;
+align-items: center;
+margin: 0.5rem
+}
+
+.logo-bg{
+display: inline-flex;
+flex-flow: row nowrap;
+justify-content: center;
+padding: 0.7rem;
+align-items: center;
+width: 90px;
+height: 90px;
+border-radius: 50%;
+border: solid 0.2rem grey;
+
+}
+
+.login-cnt img{
+position: absolute;
+flex: 1;
+}
+

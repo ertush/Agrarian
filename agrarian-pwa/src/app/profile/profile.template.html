@@ -10,7 +10,7 @@
             <p class="h2">{{user.login}} - {{user.name}}</p>
         </div>
         <div class="col-sm text-sm-right">
-            <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (click)="onSignOutClick()">Sign out</button>
+            <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onSignOutClick()">Sign out</button>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
 
                     <div class="row">
                         <div class="col-md-3 text-xs-center">
-                            <img  [src]="user.avatar_url"  [ngStyle]="{'max-width': '100%'}" class="img-circle mx-auto mb-3" />
+                            <img  [src]="user.avatar_url"  [ngStyle]="{'max-width': '40%'}" class="img-circle mx-auto mb-3" />
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -56,7 +56,7 @@
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group v-spacer">
-                                <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (click)="onUpdateClick()">Update profile</button>
+                                <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onUpdateClick()">Update profile</button>
                             </div>
                         </div>  
                     </div>
@@ -68,7 +68,7 @@
                 <div class="k-card-body">
                     <p>You will immediately lose access to your repositories and all other information associated with your account. <strong>This cannot be undone!</strong></p>
                     <div class="v-spacer">
-                        <button kendoRippleContainer class="k-button k-shadow" style="background-color: red; color: whitesmoke; border-radius: 0.5rem;" (click)="onDeleteClick()">Delete Account</button>
+                        <button kendoRippleContainer class="k-button k-shadow" style="background-color: red; color: whitesmoke; border-radius: 0.5rem;" (mousedown)="onDeleteClick()">Delete Account</button>
                     </div>
                 </div>
                 
@@ -117,15 +117,15 @@
     <kendo-dialog title="Thank you" *ngIf="profileDialogVisible" (close)="onProfileDialogClose()">
         <p>Your profile has been successfully updated</p>
         <kendo-dialog-actions>
-            <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (click)="onProfileDialogClose()">OK</button>
+            <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onProfileDialogClose()">OK</button>
         </kendo-dialog-actions>
     </kendo-dialog>
 
     <kendo-dialog title="Are you sure you want to do this?" *ngIf="deleteDialogVisible" (close)="onDeleteDialogClose()">
         <p>Account deletetion cannot be undone!</p>
         <kendo-dialog-actions>
-            <button kendoRippleContainer kendoButton (click)="onDeleteDialogClose()">Cancel</button>
-            <button kendoRippleContainer kendoButton (click)="onDeleteDialogClose()" [primary]="true">Delete Account</button>
+            <button kendoRippleContainer kendoButton (mousedown)="onDeleteDialogClose()">Cancel</button>
+            <button kendoRippleContainer kendoButton (mousedown)="onDeleteDialogClose()" [primary]="true">Delete Account</button>
         </kendo-dialog-actions>
     </kendo-dialog>
 

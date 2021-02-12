@@ -69,10 +69,14 @@ export class MainMenuComponent implements OnInit {
 
     public showNav() {
         return this.router.url !== '/signin';
-
     }
 
+
     public logOut() {
+        if (this.isMobile) {
+            this.toggleNav();
+            this.menuTitle = 'dashboard';
+        }
         this.router.navigate(['/signin']);
     }
 

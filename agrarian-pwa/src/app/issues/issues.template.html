@@ -5,16 +5,16 @@
     </div>
     <div class="col-sm text-sm-right p-0 p-sm-3">
         <kendo-buttongroup [disabled]="isLoading" [selection]="'single'">
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (click)="onFilterClick(3)" [selected]="selectedPeriod === 3 ? true : false">3 Months</button>
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (click)="onFilterClick(6)" [selected]="selectedPeriod === 6 ? true : false">6 Months</button>
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (click)="onFilterClick(12)" [selected]="selectedPeriod === 12 ? true : false">1 Year</button>
+            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(3)" [selected]="selectedPeriod === 3 ? true : false">3 Months</button>
+            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(6)" [selected]="selectedPeriod === 6 ? true : false">6 Months</button>
+            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(12)" [selected]="selectedPeriod === 12 ? true : false">1 Year</button>
         </kendo-buttongroup>
     </div>
 </div>
 <app-loading-spinner *ngIf="isLoading">
 </app-loading-spinner>
 <div *ngIf="!isLoading && !view">
-    <img src="../../assets/noConnection.png">
+    <img class="text-center mt-3" width="100%" height="100%" src="../../assets/noConnection.gif">
 </div>
 <kendo-grid
     *ngIf="view"

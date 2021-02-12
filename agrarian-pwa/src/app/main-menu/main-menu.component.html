@@ -1,7 +1,7 @@
 <div class="row">
     <div id="top-bar" class="top-bar sticky-top bg-white d-xl-none " [ngClass]="{'k-shadow': navState === 'collapsed'}" *ngIf="showNav() && navState === 'collapsed' && isMobile">
         <span id="nav-toggle" class="nav-toggle d-xl-none"
-            (click)="toggleNav()"> 
+            (mousedown)="toggleNav()"> 
 
             <div *ngIf="navState === 'collapsed'" class="app-bar-title">
                 <span  class="k-icon k-i-hamburger"></span>
@@ -18,7 +18,7 @@
     <div id="nav"
         class="sticky-top py-1 py-sm-3 k-vbox shadow col-xl-2 d-xl-flex hide container-items"
         [@toggleNav]="navState"
-        *ngIf="showNav()"   
+        *ngIf="showNav()"  
         >
 
         <div class="container mt-0">
@@ -30,11 +30,11 @@
           <p class="h4 mt-2 mt-sm-4">Menu</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
-                  <a [routerLink]=" ['./dashboard'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                  <a [routerLink]=" ['./dashboard'] " class="nav-link" (mousedown)="setTitle($event)" routerLinkActive="active">
                     <span class="k-icon k-i-graph k-icon-sm" routerLinkActive="active"></span>Dashboard</a>
               </li>
               <li class="nav-item" id="issues">
-                  <a [routerLink]=" ['./issues'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                  <a [routerLink]=" ['./issues'] " class="nav-link" (mousedown)="setTitle($event)" routerLinkActive="active">
                     <span class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></span>Reports</a>
               </li>
           </ul>
@@ -42,11 +42,11 @@
           <p class="h4 mt-2 mt-sm-4">Account</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
-                  <a [routerLink]=" ['./profile'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                  <a [routerLink]=" ['./profile'] " class="nav-link" (mousedown)="setTitle($event)" routerLinkActive="active">
                     <span class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></span>My Profile</a>
               </li>
               <li class="nav-item" id="signout">
-                  <a class="nav-link" style="cursor: pointer;" (click)="logOut()" routerLinkActive="active">
+                  <a class="nav-link" style="cursor: pointer;" (mousedown)="logOut()" routerLinkActive="active">
                     <span class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></span>Log Out</a>
               </li>
           </ul>
