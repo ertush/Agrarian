@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "mqtt-server": "node ./mqtt_mockups/aedes-server.js",
     "mqtt-client": "node ./mqtt_mockups/websocket-client.js",
