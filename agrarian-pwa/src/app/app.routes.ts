@@ -10,7 +10,7 @@ import { SigninComponent } from './signin';
  */
 
 export const AppRoutes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+    { path: '', pathMatch: 'full', redirectTo: '/signin' },
     { path: 'dashboard',  component: DashboardComponent },
     { path: 'issues',  component: IssuesComponent },
     { path: 'profile',  component: ProfileComponent },
