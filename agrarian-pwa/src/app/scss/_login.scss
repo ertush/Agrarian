@@ -60,3 +60,65 @@
   }
 
 }
+
+.h-spacer{
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
+ }
+
+.separator {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.divider {
+  width: 50%;
+  padding: auto;  
+  flex: 1;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: rgba($black, 2);
+}
+
+.btn-group{
+  display:inline-flex; 
+  width: 100%; 
+  align-items: center; 
+  flex-flow: row nowrap; 
+  justify-content: space-evenly;
+
+}
+
+.login-btn{
+ flex: 1;
+}
+
+.google-btn {
+ flex: 1;
+ background-color: rgb(255, 60, 0);
+ color: $white;
+ border-radius: $btn-border-radius;
+}
+
+.fb-btn {
+  flex: 1;
+  background-color: rgb(0, 128, 255);
+  color: $white;
+  border-radius: $btn-border-radius;
+}
+
+
+.k-i-google-btn{
+  size: 32px;
+  color:rgba($black, 2)
+}
+
+.k-i-fb-btn{
+  size: 32px;
+  color:rgba($black, 2)
+}

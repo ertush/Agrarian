@@ -1,5 +1,5 @@
 <div class="row">
-    <div id="top-bar" class="top-bar sticky-top bg-white d-xl-none k-shadow" *ngIf="showNav()">
+    <div id="top-bar" class="top-bar sticky-top bg-white d-xl-none " [ngClass]="{'k-shadow': navState === 'collapsed'}" *ngIf="showNav() && navState === 'collapsed' && isMobile">
         <span id="nav-toggle" class="nav-toggle d-xl-none"
             (click)="toggleNav()"> 
 
@@ -8,26 +8,26 @@
                 <p id="app-title" class="h4 mt-2 ml-2 mb-0">{{ menuTitle }}</p>
             </div>
 
-            <div *ngIf="navState === 'expanded'" class="app-bar-title">
+            <!-- <div *ngIf="navState === 'expanded'" class="app-bar-title">
                 <span  class="k-icon k-i-close-circle"></span>
                 <p id="app-title" class="h4 mt-2 ml-2 mb-0">close</p>
-            </div>
+            </div> -->
             
         </span>
     </div>
     <div id="nav"
-        class="sticky-top py-3 py-sm-5 k-vbox shadow col-xl-2 d-xl-flex hide"
+        class="sticky-top py-1 py-sm-3 k-vbox shadow col-xl-2 d-xl-flex hide container-items"
         [@toggleNav]="navState"
         *ngIf="showNav()"   
         >
 
-        <div class="container" style="justify-content: space-evenly; height: 100%;">
-          <h1 id="app-title" class="mb-0">Agrarian</h1>
-          <p id="app-subtitle" class="h4 mb-4">{{ menuTitle }}</p>
+        <div class="container mt-0">
+          <h1 id="app-title" class="mb-0 mt-0" [ngClass]="{'pt-3': isMobile}" >Agrarian</h1>
+          <p id="app-subtitle" class="h4 mb-3">{{ menuTitle }}</p>
         
             <app-user-avatar [user]="user"></app-user-avatar>
           
-          <p class="h4 mt-4 mt-sm-4">Menu</p>
+          <p class="h4 mt-2 mt-sm-4">Menu</p>
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
                   <a [routerLink]=" ['./dashboard'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
@@ -46,7 +46,7 @@
                     <span class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></span>My Profile</a>
               </li>
               <li class="nav-item" id="signout">
-                  <a [routerLink]=" ['./signin'] " class="nav-link" (click)="setTitle($event)" routerLinkActive="active">
+                  <a class="nav-link" style="cursor: pointer;" (click)="logOut()" routerLinkActive="active">
                     <span class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></span>Log Out</a>
               </li>
           </ul>

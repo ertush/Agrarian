@@ -76,11 +76,6 @@ p {
   position: relative;
 }
 
-.h-spacer{
- margin-left: 0.7rem;
- margin-right: 0.7rem;
-}
-
 .v-spacer{
   margin-top: 1em;
   float: right;
@@ -113,6 +108,12 @@ small,
 
 .navbar {
   z-index: 1130;
+}
+
+.ag-theme-btn{
+  background-color: $primary;
+  color: $white;
+  border-radius: $btn-border-radius;
 }
 
 @media (max-width: 768px) {

@@ -31,7 +31,7 @@ export class DashboardComponent implements OnDestroy {
 
     private subscription: Subscription;
 
-s
+s;
     public _espData = [];
     public _tempHumidityData = [];
     public _tempData = [];
@@ -56,8 +56,24 @@ s
           const payload = m.split('/')[0];
           const topic = m.split('/')[1];
 
+          // let allData: any[];
+          // allData.forEach(element => {
+          //   if (topic in element) {
+          //     if (allData.length === 5) {
+          //       this._espData = allData;
+          //       allData = [];
+          //     }
+          //   } else {
+          //     allData.push({payload, topic});
+          //     if (allData.length === 5) {
+          //       this._espData = allData;
+          //       allData = [];
+          //     }
+          //   }
+          // });
+
           switch (topic) {
-                
+
               case 'custom':
                 const data_custom: any = JSON.parse(payload);
                 this.isLoading = false;
@@ -87,7 +103,7 @@ s
                             }
                           }
                         });
-      
+
                       }
                       this._tempData = _data;
                    });
@@ -97,7 +113,7 @@ s
             break;
 
                 case 'humidity':
-                
+
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
@@ -112,10 +128,10 @@ s
                 break;
 
               default:
-                this.isLoading = false;
-                this.chartDonutService.loadData(payload, topic).subscribe(data => {
-                  this._espData = data;
-                });
+                // this.isLoading = false;
+                // this.chartDonutService.loadData(payload, topic).subscribe(data => {
+                //   this._espData = data;
+                // });
               break;
           }
 

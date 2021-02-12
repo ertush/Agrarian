@@ -25,9 +25,9 @@ export class UserAvatarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.avatarWidth = (isMobileTablet() ? '70%' : '100%');
-    this.labelSize = (isMobileTablet() ? 15 : 12 );
-    this.labelMargin = (isMobileTablet() ? 0 : 10 );
+    this.avatarWidth = '40%';
+    this.labelSize = 14;
+    this.labelMargin = 0; // (isMobileTablet() ? 0 : 10 );
   }
 
 }

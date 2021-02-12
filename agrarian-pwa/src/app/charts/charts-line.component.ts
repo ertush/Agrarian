@@ -3,7 +3,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 @Component({
   selector: 'app-charts-line',
   template: `
-  <div class="k-card">
+  <div class="k-card height-1">
             <h2 class="k-card-header">Temperature, Humidity, Soil Moisture, Light Intensity and Atmospheric Pressure</h2>
             <div class="k-card-body">
                 <div class="row">
@@ -17,7 +17,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
                 <div class="row">
                   <div class="col-12 types-distribution">
-                      <kendo-chart [pannable]="true" [zoomable]="true" style="height: 300px;" [transitions]="false">
+                      <kendo-chart [pannable]="true" [zoomable]="true" style="height: 400px;" [transitions]="false">
                       <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                           <kendo-chart-series-defaults type="line" [overlay]="false"></kendo-chart-series-defaults>
                           <kendo-chart-category-axis>

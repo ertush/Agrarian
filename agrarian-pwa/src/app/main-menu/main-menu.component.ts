@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostBinding, HostListener, ViewEncapsulation, OnChanges, ElementRef } from '@angular/core';
+import { Component, HostBinding, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import isMobileTablet from '../shared/deviceUtil';
 import { FhubService } from '../shared/fhub.service';
@@ -22,10 +22,11 @@ import { FhubService } from '../shared/fhub.service';
     )],
     encapsulation: ViewEncapsulation.None
 })
-export class MainMenuComponent {
+export class MainMenuComponent implements OnInit {
     public year = new Date().getFullYear();
     public navState: string;
     public menuTitle: string;
+    public isMobile: boolean;
 
     // 'https://www.w3schools.com/w3images/avatar2.png',
 
@@ -44,6 +45,9 @@ export class MainMenuComponent {
         }, (err) => {
             console.log(err);
         });
+    }
+    ngOnInit(): void {
+        this.isMobile = isMobileTablet();
     }
 
     @HostBinding('attr.id') protected get id(): string {
@@ -68,6 +72,10 @@ export class MainMenuComponent {
 
     }
 
+    public logOut() {
+        this.router.navigate(['/signin']);
+    }
+
     public toggleNav() {
         if ( this.navState === 'expanded' ) {
             this.navState = 'collapsed';
@@ -78,9 +86,9 @@ export class MainMenuComponent {
 
     public setTitle(e: any): void {
         const title = e.originalTarget.childNodes[1].data;
-        if (isMobileTablet()) { this.toggleNav(); }
+        if (this.isMobile) { this.toggleNav(); }
         if (title) {
-        ( title === 'Sign Out' ? this.menuTitle = 'Dashboard' : this.menuTitle = title);
+        (title === 'Log Out' ? this.menuTitle = 'Dashboard' : this.menuTitle = title);
         } else {
         this.menuTitle = '';
         }

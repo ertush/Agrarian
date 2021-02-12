@@ -48,8 +48,9 @@ import { MinmaxPipe } from './charts/minmax.pipe';
 import { UserAvatarComponent } from './profile/user-avatar/user-avatar.component';
 import { HeaderComponent } from './header/header.component';
 
-
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
+
+
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http as any, './assets/i18n/', '.json');

@@ -25,7 +25,7 @@ import { Component, Input, OnInit } from '@angular/core';
                 <div class="col-xl-8">
                     <div class="k-card k-card-body">
                     <h2 class="k-card-header">Temperature, Humidity, Soil Moisture, Light Intensity and Atmospheric Pressure</h2>
-                            <div  style="height: 400px">
+                            <div  class="height-1">
                                     <app-loading-spinner>
                                     </app-loading-spinner>
                             </div>

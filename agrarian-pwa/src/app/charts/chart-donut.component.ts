@@ -7,7 +7,7 @@ import { Component, Input, HostBinding } from '@angular/core';
         <div *ngIf="loading" style="height: 400px">
                     <app-loading-spinner>
                     </app-loading-spinner>
-                </div>
+        </div>
         <div class="k-card-body height-1" *ngIf="!loading && dataset.length">
             <kendo-chart (seriesHover)="onHover($event)">
                 <kendo-chart-series>

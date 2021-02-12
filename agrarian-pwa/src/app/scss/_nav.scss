@@ -15,10 +15,11 @@
     color: $gray;
   }
 
-  .k-i-close-circle {
-    font-size: 30px;
-    color: $gray;
-  }
+  // .k-i-close-circle {
+  //   font-size: 30px;
+  //   color: $gray;
+  // }
+  
 }
 
 .k-icon-sm{
@@ -37,13 +38,18 @@
 }
 }
 
+.container-items {
+  justify-content: space-between; 
+  margin: 0;
+  height: 100%;
+}
+
 #nav {
   background-color: $nav-bg;
-  // height: 100vh;
-  top: 38px;
-  height: calc(100vh - 38px);
+  height: 100vh;
+  margin-top: 0;
   min-height: 600px;
-  // padding: 2rem;
+  width: 70%;
 
   h1 {
     color: $primary;

@@ -1,5 +1,4 @@
-import { Component, ViewEncapsulation, NgModule, HostBinding } from '@angular/core';
-
+import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,10 +6,12 @@ import { Router } from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './signin.template.html'
 })
+
 export class SigninComponent {
 
     public isSignUp: boolean;
     public marginTopExp;
+   
 
     constructor(private router: Router) {
         this.isSignUp = false;
@@ -24,10 +25,11 @@ export class SigninComponent {
 
     @HostBinding('class') protected get appClass(): string {
         return 'justify-content-center';
-    }
-
+    }    
+    
     public onLoginClick(): void {
-        this.router.navigate(['/dashboard']);
+        
+        this.router.navigate(['./dashboard']);
     }
 
     public onSignUpClick(): void {

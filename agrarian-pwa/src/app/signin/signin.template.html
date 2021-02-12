@@ -7,12 +7,12 @@
     
     <div class="k-card-block" *ngIf="!isSignUp">
       <div class="k-form">
-        <div class="form-group mt-4">
+        <div class="form-group mt-4 ml-2 mr-2">
           <kendo-textbox-container class="custom-width" floatingLabel="Email or Username">
               <input kendoTextBox type="text"/>
           </kendo-textbox-container>
         </div>
-        <div class="form-group">
+        <div class="form-group ml-2 mr-2">
           <kendo-textbox-container class="custom-width" floatingLabel="Password">
               <input kendoTextBox type="password"/>
           </kendo-textbox-container>
@@ -20,9 +20,20 @@
             <a href="#">Forgot it?</a>
           </p>
         </div>
-        <div class="form-group mb-0 text-center" style="align-items: center; flex-direction: row; justify-content: space-between;">
-          <button kendoRippleContainer class="k-button btn-primary h-spacer" look="outline" (click)="onLoginClick()">Log in</button>
-          <button kendoRippleContainer class="k-button btn-primary h-spacer" look="outline" (click)="onSignUpClick()">Sign up</button>
+        <div class="form-group mb-0 btn-group">
+          <button kendoRippleContainer class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline" (click)="onLoginClick()">Log in</button>
+        </div>
+        <p class="text-xs-right small mb-0 pb-0 ml-2">
+          <a style="cursor: pointer;" (click)="onSignUpClick()">Don't have an account?</a>
+        </p>
+        <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
+        <div class="form-group mb-2 btn-group">
+          <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (click)="onLoginClick()">
+            <span class="k-icon k-i-google k-i-google-btn pr-2"></span>
+             sign in</span>
+          <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (click)="onLoginClick()">
+            <span class="k-icon k-i-facebook k-i-fb-btn pr-2"></span>
+             sign in</span>
         </div>
       </div>
     </div>
@@ -55,7 +66,7 @@
           </kendo-textbox-container>
       </div>
       <div class="form-group v-spacer">
-          <button kendoRippleContainer class="k-button btn-primary" (click)="onCreateAccount()">Create account</button>
+          <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (click)="onCreateAccount()">Create account</button>
       </div>
     </div>
     <!-- Endof Signup -->
