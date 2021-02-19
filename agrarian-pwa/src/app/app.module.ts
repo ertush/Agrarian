@@ -47,6 +47,7 @@ import { AvgPipe } from './charts/avg.pipe';
 import { MinmaxPipe } from './charts/minmax.pipe';
 import { UserAvatarComponent } from './profile/user-avatar/user-avatar.component';
 import { HeaderComponent } from './header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -83,6 +84,8 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         ChartsModule,
         GridModule,
         DialogModule,

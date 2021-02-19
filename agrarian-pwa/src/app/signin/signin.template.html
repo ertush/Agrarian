@@ -1,79 +1,112 @@
 <div class="signin-form col-xl-4">
  
   <div class="k-card">
-    <div class="container text-center">
-      <span class="logo-bg"> <img src="../../assets/app_icon/72x62-logo.png" alt="agrarian"></span>
+    <div class="container text-center mt-3">
+      <span class="logo-bg"> <img src="../../assets/app_icon/72x72-logo.png" alt="agrarian"></span>
      
     </div>
     <h4 class="text-center mt-2">Agrarian</h4>
    
     <!-- Logo Header -->
     <div class="k-card-block" *ngIf="!isSignUp">
-      <div class="k-form">
+      <form class="k-form" [formGroup]="loginForm">
         <div class="form-group mt-1 ml-2 mr-2">
-          <kendo-textbox-container class="custom-width" floatingLabel="Email or Username">
-              <input kendoTextBox type="text"/>
+          <kendo-textbox-container class="custom-width" floatingLabel="Email" >
+              <kendo-textbox kendoTextBox type="text" formControlName="userEmail" #userEmail required></kendo-textbox>
           </kendo-textbox-container>
+          <kendo-formerror *ngFor="let validation of formValidationMessages.email" [hidden]="!(loginForm.get('userEmail').hasError(validation.type)) && (loginForm.get('userEmail').dirt || loginForm.get('userEmail').touched)">
+            {{  validation.message }}
+          </kendo-formerror>
         </div>
         <div class="form-group ml-2 mr-2">
-          <kendo-textbox-container class="custom-width" floatingLabel="Password">
-              <input kendoTextBox type="password"/>
+          <kendo-textbox-container class="custom-width"  floatingLabel="Password">
+              <kendo-textbox kendoTextBox formControlName="password" type="password" [clearButton]="true" #password required>
+                <ng-template kendoTextBoxSuffixTemplate>
+                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
+              </ng-template>
+              </kendo-textbox>
           </kendo-textbox-container>
+          <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!(loginForm.get('password').hasError(validation.type)) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+            {{  validation.message }}
+          </kendo-formerror>
           <p class="text-xs-right small">
             <a href="#">Forgot it?</a>
           </p>
         </div>
         <div class="form-group mb-0 btn-group">
-          <button kendoRippleContainer class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline" (mousedown)="onLoginClick()">Log in</button>
+          <button kendoRippleContainer class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline" (mousedown)="onLoginClick()" [disabled]="!userEmail.control.valid || !password.control.valid">Log in</button>
         </div>
         <p class="text-xs-right small mb-0 pb-0 ml-2">
           <a style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
         </p>
         <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
         <div class="form-group mb-2 btn-group">
-          <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onLoginClick()">
+          <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
             <!-- <span class="k-icon k-i-google k-i-google-btn pr-2"></span> -->
             <i class="fab fa-google  k-i-google-btn pr-2"></i>
              sign in</span>
-          <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onLoginClick()">
+          <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onFacebookSignIn()">
             <span class="k-icon k-i-facebook k-i-fb-btn pr-2"></span>
              sign in</span>
         </div>
-      </div>
+      </form>
     </div>
     <!-- Endof Signin -->
     <!-- Signup block -->
     <div class="k-card-body" *ngIf="isSignUp">
+      <form class="k-form"  [formGroup]="signUpForm" (ngSubmit)="onCreateAccount(signUpForm.value)">
       <div class="form-group">
-        <kendo-textbox-container class="custom-width" floatingLabel="Username">
-            <input kendoTextBox type="text" id="username"/>
+        <kendo-textbox-container class="custom-width" floatingLabel="Username" >
+            <input kendoTextBox type="text" id="username" formControlName="userName" #username/>
         </kendo-textbox-container>
       </div>
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Email">
-            <input kendoTextBox type="text" id="email" />
+            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
         </kendo-textbox-container>
+        <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
       </div>
       <div class="form-group">
-          <kendo-textbox-container class="custom-width" floatingLabel="Old password">
-              <input kendoTextBox type="password" />
+          <kendo-textbox-container class="custom-width"  floatingLabel="Old password">
+              <kendo-textbox type="password" kendoTextBox formControlName="oldPassword"  #oldPassword required>
+                <ng-template kendoTextBoxSuffixTemplate>
+                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
+                </ng-template>
+              </kendo-textbox>
           </kendo-textbox-container>
       </div>
       <div class="form-group">
-          <kendo-textbox-container class="custom-width" floatingLabel="New password">
-              <input kendoTextBox type="password" />
+          <kendo-textbox-container class="custom-width"  floatingLabel="New password">
+              <kendo-textbox type="password" kendoTextBox  formControlName="newPassword" required>
+                <ng-template kendoTextBoxSuffixTemplate>
+                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
+                </ng-template>
+              </kendo-textbox>
           </kendo-textbox-container>
+          <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="signUpForm.get('newPassword').hasError(validation.type) && signUpForm.get('newPassword').dirty || signUpForm.get('newPassword').touched">
+            {{ validation.message }}
+          </kendo-formerror>
       </div>
       <div class="form-group">
-          <kendo-textbox-container class="custom-width" floatingLabel="Confirm password">
-              <input kendoTextBox type="password" />
+          <kendo-textbox-container class="custom-width"  floatingLabel="Confirm password">
+              <kendo-textbox  type="password" kendoTextBox formControlName="confirmPassword" required>
+                <ng-template kendoTextBoxSuffixTemplate>
+                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
+              </ng-template>
+            </kendo-textbox>
           </kendo-textbox-container>
+          <kendo-formerror *ngFor="let validation of formValidationMessages.confirmPassword" [hidden]="signUpForm.get('confirmPassword').hasError(validation.type) && signUpForm.get('confirmPassword').dirty || signUpForm.get('confirmPassword').touched">
+            {{ validation.message }}
+          </kendo-formerror>
       </div>
       <div class="form-group v-spacer">
-          <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onCreateAccount()">Create account</button>
+          <button kendoRippleContainer type="submit" class="k-button k-shadow ag-theme-btn" (mousedown)="onCreateAccount()">
+            Create account</button>
       </div>
+    </form>
     </div>
     <!-- Endof Signup -->
     
   </div>
+
 </div>
