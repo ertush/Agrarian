@@ -9,12 +9,12 @@
    
     <!-- Logo Header -->
     <div class="k-card-block" *ngIf="!isSignUp">
-      <form class="k-form" [formGroup]="loginForm">
+      <form class="k-form" [formGroup]="loginForm" (ngSubmit)="onLoginClick(loginForm.value)">
         <div class="form-group mt-1 ml-2 mr-2">
-          <kendo-textbox-container class="custom-width" floatingLabel="Email" >
+          <kendo-textbox-container class="custom-width" floatingLabel="Email">
               <kendo-textbox kendoTextBox type="text" formControlName="userEmail" #userEmail required></kendo-textbox>
           </kendo-textbox-container>
-          <kendo-formerror *ngFor="let validation of formValidationMessages.email" [hidden]="!(loginForm.get('userEmail').hasError(validation.type)) && (loginForm.get('userEmail').dirt || loginForm.get('userEmail').touched)">
+          <kendo-formerror *ngFor="let validation of formValidationMessages.email" [hidden]="!loginForm.get('userEmail').hasError(validation.type)">
             {{  validation.message }}
           </kendo-formerror>
         </div>
@@ -22,11 +22,11 @@
           <kendo-textbox-container class="custom-width"  floatingLabel="Password">
               <kendo-textbox kendoTextBox formControlName="password" type="password" [clearButton]="true" #password required>
                 <ng-template kendoTextBoxSuffixTemplate>
-                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
+                  <span kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></span>
               </ng-template>
               </kendo-textbox>
           </kendo-textbox-container>
-          <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!(loginForm.get('password').hasError(validation.type)) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+          <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!loginForm.get('password').hasError(validation.type)">
             {{  validation.message }}
           </kendo-formerror>
           <p class="text-xs-right small">
@@ -34,7 +34,7 @@
           </p>
         </div>
         <div class="form-group mb-0 btn-group">
-          <button kendoRippleContainer class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline" (mousedown)="onLoginClick()" [disabled]="!userEmail.control.valid || !password.control.valid">Log in</button>
+          <button kendoRippleContainer type="submit" class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline"  [disabled]="loginForm.status === 'INVALID'">Log in</button>
         </div>
         <p class="text-xs-right small mb-0 pb-0 ml-2">
           <a style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
@@ -62,45 +62,28 @@
       </div>
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Email">
-            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
+            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail"  #signUpEmail required></kendo-textbox>
         </kendo-textbox-container>
-        <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
+        <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="!signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
       </div>
-      <div class="form-group">
-          <kendo-textbox-container class="custom-width"  floatingLabel="Old password">
-              <kendo-textbox type="password" kendoTextBox formControlName="oldPassword"  #oldPassword required>
-                <ng-template kendoTextBoxSuffixTemplate>
-                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
-                </ng-template>
-              </kendo-textbox>
-          </kendo-textbox-container>
-      </div>
-      <div class="form-group">
-          <kendo-textbox-container class="custom-width"  floatingLabel="New password">
-              <kendo-textbox type="password" kendoTextBox  formControlName="newPassword" required>
-                <ng-template kendoTextBoxSuffixTemplate>
-                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
-                </ng-template>
-              </kendo-textbox>
-          </kendo-textbox-container>
-          <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="signUpForm.get('newPassword').hasError(validation.type) && signUpForm.get('newPassword').dirty || signUpForm.get('newPassword').touched">
-            {{ validation.message }}
-          </kendo-formerror>
-      </div>
-      <div class="form-group">
-          <kendo-textbox-container class="custom-width"  floatingLabel="Confirm password">
-              <kendo-textbox  type="password" kendoTextBox formControlName="confirmPassword" required>
-                <ng-template kendoTextBoxSuffixTemplate>
-                  <button kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></button>
-              </ng-template>
-            </kendo-textbox>
-          </kendo-textbox-container>
-          <kendo-formerror *ngFor="let validation of formValidationMessages.confirmPassword" [hidden]="signUpForm.get('confirmPassword').hasError(validation.type) && signUpForm.get('confirmPassword').dirty || signUpForm.get('confirmPassword').touched">
-            {{ validation.message }}
-          </kendo-formerror>
-      </div>
+          <div class="form-group">
+              <kendo-textbox-container class="custom-width"  floatingLabel="New password">
+                  <input type="password" kendoTextBox  formControlName="newPassword" [clearButton]="true" #newPasword required>
+              </kendo-textbox-container>
+              <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!signUpForm.get('newPassword').hasError(validation.type)">
+                {{ validation.message }}
+              </kendo-formerror>
+          </div>
+          <div class="form-group">
+              <kendo-textbox-container class="custom-width"  floatingLabel="Confirm password">
+                  <input type="password" kendoTextBox formControlName="confirmPassword" [clearButton]="true" #confirmPassword required>
+              </kendo-textbox-container>
+              <kendo-formerror *ngFor="let validation of formValidationMessages.confirmPassword" [hidden]="!signUpForm.get('confirmPassword').hasError(validation.type)">
+                {{ validation.message.length > 0 ? validation.message : 'Password mismatch' }}
+              </kendo-formerror>
+          </div>
       <div class="form-group v-spacer">
-          <button kendoRippleContainer type="submit" class="k-button k-shadow ag-theme-btn" (mousedown)="onCreateAccount()">
+          <button kendoRippleContainer type="submit" class="k-button k-shadow ag-theme-btn" [disabled]="signUpForm.status === 'INVALID'">
             Create account</button>
       </div>
     </form>

@@ -8,11 +8,11 @@ export const formValidationMessages = {
     ],
     'email': [
       { type: 'required', message: 'Email is required' },
-      { type: 'pattern', message: 'Enter a valid email' }
+      { type: 'email', message: 'Enter a valid email' }
     ],
     'confirmPassword': [
-      { type: 'required', message: 'Confirm password is required' },
-      { type: 'areEqual', message: 'Password mismatch' }
+      { type: 'required', message: 'Password is required' },
+      { type: 'passwordMatchValidator', message: 'Password mismatch' }
     ],
     'password': [
       { type: 'required', message: 'Password is required' },

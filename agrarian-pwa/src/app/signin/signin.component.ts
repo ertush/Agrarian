@@ -1,13 +1,9 @@
 import { formValidationMessages } from './validation.messages';
-import { UsernameValidator } from './username.validator';
-import { PasswordValidator } from './password.validator';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ViewEncapsulation, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import isMobileTablet from '../shared/deviceUtil';
 import { TextBoxComponent } from '@progress/kendo-angular-inputs';
-
-
 
 @Component({
     selector: 'app-signin',
@@ -17,7 +13,9 @@ import { TextBoxComponent } from '@progress/kendo-angular-inputs';
 
 export class SigninComponent {
 
-    @ViewChild('password') public textbox: TextBoxComponent;
+    @ViewChild('password') public passwordTxtbox: TextBoxComponent;
+    @ViewChild('newPassword') public newPasswordTxtbox: TextBoxComponent;
+    @ViewChild('confirmPassword') public confirmTxtbox: TextBoxComponent;
 
     public isMobile = isMobileTablet();
     public userName = '';
@@ -25,33 +23,25 @@ export class SigninComponent {
     public marginTopExp;
     public formValidationMessages = formValidationMessages;
 
+
     public loginForm: FormGroup = new FormGroup({
         userEmail: new FormControl('', Validators.compose([
             Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            Validators.email  // '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\@\!\#\%\^\&\*a-zA-Z0-9]+$'
         ])),
         password: new FormControl('', Validators.compose([
             Validators.minLength(5),
 	 	    Validators.required,
-	 	    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\@\!\#\%\^\&\*a-zA-Z0-9]+$'),
+            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
         ]))
     }
     );
 
     public signUpForm = new FormGroup({
-        userName: new FormControl('', Validators.compose([
-            UsernameValidator.validUsername,
-            Validators.minLength(5),
-            Validators.maxLength(10)
-        ])),
+        userName: new FormControl(''),
         signUpEmail: new FormControl('', Validators.compose([
             Validators.required,
             Validators.email
-        ])),
-        oldPassword: new FormControl('', Validators.compose([
-            Validators.minLength(5),
-            Validators.required,
-            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') // ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$
         ])),
         newPassword: new FormControl('', Validators.compose([
             Validators.minLength(5),
@@ -59,15 +49,16 @@ export class SigninComponent {
             Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
         ])),
         confirmPassword: new FormControl('', Validators.compose([
-            Validators.minLength(5),
-            Validators.required,
-            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+             Validators.required
         ]))
-    },
-    (formGroup: FormGroup) => {
-        return PasswordValidator.areEqual(formGroup);
-   }
+     },
+        this.passwordMatchValidator
     );
+
+    public passwordMatchValidator(g: FormGroup) {
+        return g.get('newPassword').value === g.get('confirmPassword').value
+           ? null : {'mismatch': true};
+     }
 
     constructor(private router: Router) {
         this.isSignUp = false;
@@ -84,16 +75,18 @@ export class SigninComponent {
 
     // tslint:disable-next-line: use-life-cycle-interface
     public ngAfterViewInit(): void {
-        this.textbox.input.nativeElement.type = 'password';
+        this.passwordTxtbox.input.nativeElement.type = 'password';
     }
 
     public toggleVisibility(): void {
-        const inputEl = this.textbox.input.nativeElement;
-        inputEl.type = inputEl.type === 'password' ? 'text' : 'password';
+        const elemPwd = this.passwordTxtbox.input.nativeElement;
+        elemPwd.type = elemPwd.type === 'password' ? 'text' : 'password';
+
     }
 
 
-    public onLoginClick(): void {
+    public onLoginClick(formValues: any): void {
+        console.log({formValues});
         this.router.navigate(['./dashboard']);
     }
 
@@ -119,7 +112,7 @@ export class SigninComponent {
 
     public onGoogleSignIn(): void {
         // GoogleSign In
-        
+
         console.log('Google Sign In');
     }
 
