@@ -15,7 +15,7 @@
             line-height: 1;
 
         }
-        .issues-label {
+        .data-label {
             font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
@@ -40,11 +40,12 @@
         left: 50%;
         transform: translate(-50%, -50%);
 
-        .percentage {
+        .unit {
             position: absolute;
-            top: .4rem;
-            right: -15;
-            font-size: 1.5rem;
+            top: 2.8rem; // .4rem
+            right: -4; // -15
+            font-size: .9rem;
+            font-weight: 1000px;
         }
       }
 

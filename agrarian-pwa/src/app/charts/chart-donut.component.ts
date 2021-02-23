@@ -15,8 +15,8 @@ import { Component, Input, HostBinding } from '@angular/core';
                         [holeSize]="100"
                         [data]="dataset"
                         type="donut"
-                        field="value"
-                        categoryField="type"
+                        field="payload"
+                        categoryField="topic"
                         [overlay]="false"
                     ></kendo-chart-series-item>
                 </kendo-chart-series>
@@ -26,9 +26,9 @@ import { Component, Input, HostBinding } from '@angular/core';
             <div class="comp-label chart-label" [style.color]="hoverColor">
                 <div class="issues-count">
                   {{donutPercent}}
-                  <span class="percentage">%</span>
+                  <span class="unit">{{ getDatasetUnits(donutLabel) }}</span>
                 </div>
-                <div class="issues-label">{{donutLabel}}</div>
+                <div class="data-label">{{donutLabel}}</div>
             </div>
         </div>
     `
@@ -43,10 +43,10 @@ export class ChartDonutComponent {
     @Input() public set data(data) {
         this.dataset = data;
         data.forEach(series =>  {
-            if (series.type === 'Humidity') {
+            if (series.topic === 'soil') {
                 this.setDonutLegend({
-                    value: series.value,
-                    category: series.type,
+                    value: series.payload,
+                    category: series.topic,
                     point: {
                         options: {
                             color: this.hoverColor
@@ -65,9 +65,31 @@ export class ChartDonutComponent {
         this.setDonutLegend(event);
     }
 
+    public getDatasetUnits(dtLabel: string): string {
+        switch (dtLabel) {
+            case 'temperature':
+                return '℃';
+
+            case 'humidity':
+                return '%';
+
+            case 'atpressure':
+                return 'mmHg';
+
+            case 'light':
+                return 'lumens';
+
+            case 'soil':
+                return 'level';
+
+            default:
+                return '';
+        }
+    }
+
     private setDonutLegend(series) {
         this.hoverColor = series.point.options.color;
-        this.donutPercent = Math.round(series.value * 100 || 0) + '';
+        this.donutPercent = Math.round(series.value) + '';
         this.donutLabel = series.category;
     }
 }

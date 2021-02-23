@@ -22,6 +22,7 @@ export class DashboardComponent implements OnDestroy {
     public style = 'smooth';
     public unit = 'fit';
 
+    public allData: any[];
     public espData = [];
     public isLoading = true;
     public today: Date = new Date();
@@ -55,22 +56,22 @@ s;
         .subscribe(m => {
           const payload = m.split('/')[0];
           const topic = m.split('/')[1];
+            
+            // All Data Section
+            // Donut Chart
 
-          // let allData: any[];
-          // allData.forEach(element => {
-          //   if (topic in element) {
-          //     if (allData.length === 5) {
-          //       this._espData = allData;
-          //       allData = [];
-          //     }
-          //   } else {
-          //     allData.push({payload, topic});
-          //     if (allData.length === 5) {
-          //       this._espData = allData;
-          //       allData = [];
-          //     }
-          //   }
-          // });
+            this.isLoading = false;
+            if (topic !== 'custom') {
+              this.chartDonutService.loadData(payload, topic).subscribe(data => {
+                this._espData.push(data);
+                console.log({espData : this._espData});
+                if (this._espData.length === 5) {
+                  this.allData = this._espData; 
+                  this._espData = [];
+                }
+              });
+          }
+
 
           switch (topic) {
 
@@ -108,6 +109,8 @@ s;
                       this._tempData = _data;
                    });
 
+
+
           });
 
             break;
@@ -117,6 +120,8 @@ s;
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
+
+
                  });
                 break;
 
@@ -128,12 +133,11 @@ s;
                 break;
 
               default:
-                // this.isLoading = false;
-                // this.chartDonutService.loadData(payload, topic).subscribe(data => {
-                //   this._espData = data;
-                // });
+
               break;
           }
+
+
 
         },
         error => {
