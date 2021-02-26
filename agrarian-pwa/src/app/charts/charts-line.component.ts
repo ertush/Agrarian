@@ -1,3 +1,4 @@
+import { environment as env } from './../../environments/environment';
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 @Component({
@@ -10,8 +11,9 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
                   <div *ngFor="let button of seriesColors" (click)="addSeries(button, true)"
                       [style.color]="button.active ? button.value : initialGrey"
                       class="col-6 col-sm-4 col-xl-2 comp-label label-clickable">
-                      <div class="issues-count">{{data[button.label].length}}</div>
-                      <div class="issues-label">{{button.label}}</div>
+                      <div class="issues-count">{{ data[button.label] | avglinechart }}</div>
+                      <span class="issues-label">{{ getUnit(button.label) }}</span>
+                      <div class="issues-label">{{ button.label }}</div>
                   </div>
                 </div>
 
@@ -62,12 +64,12 @@ export class ChartsLineComponent implements OnInit, OnChanges {
   public visibleSeries = [];
 
   public seriesColors = [
-      { label: 'label1', value: '#FF9966', active: true },
-      { label: 'label2', value: '#BB6ACB', active: true },
-      { label: 'label3', value: '#122820', active: true },
-      { label: 'label4', value: '#22C85D', active: true },
-      { label: 'label5', value: '#e91e63', active: true },
-      { label: 'label6', value: '#2BA9DA', active: true }
+      { label: env.topic.temp, value: '#FF9966', active: true },
+      { label: env.topic.humidity, value: '#BB6ACB', active: true },
+      { label: env.topic.soil, value: '#122820', active: true },
+      { label: env.topic.light, value: '#22C85D', active: true },
+      { label: env.topic.atmp, value: '#e91e63', active: true }
+    //   { label: 'label6', value: '#2BA9DA', active: true }
   ];
 
   public addSeries(button, toggleLabels) {
@@ -106,7 +108,7 @@ export class ChartsLineComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes) {
 
-      if (changes.data.previousValue && changes.data.previousValue.hasOwnProperty('label6')) {
+      if (changes.data.previousValue && changes.data.previousValue.hasOwnProperty(env.topic.temp)) {
           this.visibleSeries = [];
 
         this.seriesColors.filter(color => color.active === true).forEach(e => {
@@ -115,6 +117,21 @@ export class ChartsLineComponent implements OnInit, OnChanges {
 
 
       }
+  }
+
+  public getUnit(topic: string): string {
+    switch(topic) {
+      case env.topic.temp:
+        return '°C';
+      case env.topic.humidity:
+        return '%';
+      case env.topic.soil:
+        return 'level';
+      case env.topic.atmp:
+        return 'mmHg';
+      case env.topic.light:
+        return 'lumens';
+    }
   }
 
   public getType(val: any): string {

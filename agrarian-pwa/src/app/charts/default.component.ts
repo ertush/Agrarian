@@ -9,11 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
                 <app-chart-donut [data]="edata" [loading]="loading"></app-chart-donut>
             </div>
 
-             <div *ngIf="!loading; else chartsLineLoading" class="col-xl-8">
+             <div *ngIf="isChartLoading; else chartsLineLoading" class="col-xl-8">
                  <app-charts-line [data]="cdata"></app-charts-line>
             </div>
 
-            <div class="col-12" *ngIf="!loading; else activeIssuesLoading">
+            <div class="col-12" *ngIf="isChartLoading; else activeIssuesLoading">
                 <app-charts-area
                 [dataarray]="dataarr"
                 [duration]="duration"
@@ -53,6 +53,7 @@ export class DefaultComponent implements OnInit {
     public cdata;
     public edata;
     @Input() public duration;
+    @Input() public isChartLoading: boolean;
     @Input() public  set esdata(data) {
         this.edata = data;
     }
@@ -66,6 +67,6 @@ export class DefaultComponent implements OnInit {
    
     ngOnInit() {
         
-
+    // console.log({cdata: this.cdata}); // debug
     }
 }

@@ -12,7 +12,7 @@ import { Component, Input, HostBinding } from '@angular/core';
             <kendo-chart (seriesHover)="onHover($event)">
                 <kendo-chart-series>
                     <kendo-chart-series-item
-                        [holeSize]="100"
+                        [holeSize]="80"
                         [data]="dataset"
                         type="donut"
                         field="payload"
@@ -41,6 +41,7 @@ export class ChartDonutComponent {
 
     @Input() public loading;
     @Input() public set data(data) {
+        if (data !== undefined) {
         this.dataset = data;
         data.forEach(series =>  {
             if (series.topic === 'soil') {
@@ -56,6 +57,7 @@ export class ChartDonutComponent {
             }
         });
     }
+    }
 
     @HostBinding('class') get className() {
         return 'k-card issue-types';
@@ -68,7 +70,7 @@ export class ChartDonutComponent {
     public getDatasetUnits(dtLabel: string): string {
         switch (dtLabel) {
             case 'temperature':
-                return '℃';
+                return '°C';
 
             case 'humidity':
                 return '%';

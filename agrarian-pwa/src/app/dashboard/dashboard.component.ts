@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { MqttService } from './../shared/mqtt.service';
 import { ChartTempService } from '../shared/chart-temp.service';
 import { ChartDonutService } from '../shared/chart-donut.service';
+import { environment as env  } from 'src/environments/environment';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnDestroy {
     public unit = 'fit';
 
     public allData: any[];
-    public espData = [];
+
     public isLoading = true;
     public today: Date = new Date();
     public rangeStart: Date;
@@ -32,11 +33,17 @@ export class DashboardComponent implements OnDestroy {
 
     private subscription: Subscription;
 
-s;
     public _espData = [];
     public _tempHumidityData = [];
     public _tempData = [];
-    public _customData: any;
+
+    public _csData = {temperature: [], humidity: [], soil: [], light: [], atpressure: []};
+    public temp = [];
+    public humid = [];
+    public soil = [];
+    public light = [];
+    public atm = [];
+
     public pageTitle = 'Statistics';
 
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
@@ -56,30 +63,61 @@ s;
         .subscribe(m => {
           const payload = m.split('/')[0];
           const topic = m.split('/')[1];
-            
+
             // All Data Section
-            // Donut Chart
+            // Donut Chart and Line Chart
 
             this.isLoading = false;
             if (topic !== 'custom') {
               this.chartDonutService.loadData(payload, topic).subscribe(data => {
+
                 this._espData.push(data);
-                console.log({espData : this._espData});
+
+                // Line Data processing
+
+                if (this.temp.length < 5 && data.topic === env.topic.temp) this.temp.push({date: new Date(), value: data.payload});
+                if (this.humid.length < 5  && data.topic === env.topic.humidity) this.humid.push({date: new Date(), value: data.payload});
+                if (this.soil.length < 5 && data.topic === env.topic.soil) this.soil.push({date: new Date(), value: data.payload});
+                if (this.light.length < 5 && data.topic === env.topic.light) this.light.push({date: new Date(), value: data.payload});
+                if (this.atm.length < 5 && data.topic === env.topic.atmp) this.atm.push({date: new Date(), value: data.payload});
+
+                if (this.temp.length === 5) {
+                  this._csData.temperature =  this.temp;
+                  this.temp = [];
+                }
+
+                if (this.humid.length === 5) {
+                  this._csData.humidity = this.humid;
+                  this.humid = [];
+                }
+
+                if (this.soil.length === 5) {
+                  this._csData.soil = this.soil;
+                  this.soil = [];
+                }
+
+                if (this.light.length === 5) {
+                  this._csData.light = this.light;
+                  this.light = [];
+                }
+
+                if (this.atm.length === 5) {
+                  this._csData.atpressure = this.atm;
+                  this.atm = [];
+                }
+
+
                 if (this._espData.length === 5) {
-                  this.allData = this._espData; 
+                  this.allData = this._espData;
                   this._espData = [];
                 }
+
+
               });
           }
 
 
           switch (topic) {
-
-              case 'custom':
-                const data_custom: any = JSON.parse(payload);
-                this.isLoading = false;
-                this._customData = data_custom;
-                break;
               case 'temperature':
                 this.isLoading = false;
 
@@ -109,8 +147,6 @@ s;
                       this._tempData = _data;
                    });
 
-
-
           });
 
             break;
@@ -120,8 +156,6 @@ s;
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
-
-
                  });
                 break;
 

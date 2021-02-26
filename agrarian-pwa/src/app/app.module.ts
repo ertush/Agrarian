@@ -48,6 +48,7 @@ import { MinmaxPipe } from './charts/minmax.pipe';
 import { UserAvatarComponent } from './profile/user-avatar/user-avatar.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AvgLineChartPipe } from './charts/avglinechart.pipe';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -74,6 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
         ChartsAreaComponent,
         ChartDonutComponent,
         AvgPipe,
+        AvgLineChartPipe,
         MinmaxPipe,
         UserAvatarComponent,
         HeaderComponent
