@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IMqttData } from './mqtt-data';
 
-interface DonutData {
-  topic: string;
-  payload: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +11,11 @@ export class ChartDonutService {
 
   constructor() { }
   
-loadData(payload: string, topic: string): Observable<DonutData> {
-
-// this._dataDonut = [...this._dataDonut, [{payload: JSON.parse(payload), topic}]];
-
-
-// if( this._dataDonut.length === 5){
-//     console.log(this._dataDonut);
-//   return new Observable(subscriber => {
-//     try {
-//       subscriber.next(this._dataDonut);
-//       this._dataDonut = [];
-
-//    } catch (e) {
-//       subscriber.error(e);
-//    }
-//   });
-// }
+loadData(payload: string, topic: string): Observable<IMqttData> {
 
 return new Observable(subscriber => {
   try {
-   const _dataDonut: DonutData = {payload: JSON.parse(payload), topic};
+   const _dataDonut: IMqttData = {payload: JSON.parse(payload), topic};
     subscriber.next(_dataDonut);
 
  } catch (e) {
