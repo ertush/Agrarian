@@ -8,10 +8,19 @@
 
 #include <Wire.h>
 #include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+#include "WebSocketStreamClient.h"
+#include "WebSocketClient250.h"
 #include <PubSubClient.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
 
+// For Debugging WebsocketStreamClient
+#define DEBUG_MAIN(...) Serial.printf(__VA_ARGS__)
+
+#ifndef DEBUG_MAIN
+#define DEBUG_MAIN(...)
+#endif
 
 #include "DHTesp.h"
 #include "SoilMoisture.h"
@@ -44,48 +53,38 @@ TinyGPS gps;
 //SFE_BMP180 bmp180;
 SoftwareSerial ss(NEO_RX, NEO_TX);
 
-WiFiClient espClient;
-//Buzzer buzzer(BUZZER_PIN);
-PubSubClient client(espClient);
+WiFiClientSecure espClient;
+WebSocketClient250 wsClient(espClient, MQTT_SVR, MQTT_PORT);
+//WebSocketStreamClient wsStreamClient(wsClient, path);
+PubSubClient client(wsClient);
 
 long now = millis();
 long lastMeasure = 0;
 
+// ================== Websocket methods ============== //
+void onMqttPublish(char *topic, byte *payload, unsigned int length)
+{
+  DEBUG_MAIN("received %s %.*s\n", topic, length, payload);
+}
+  
 // ================== custom methods ================= //
 
 void setup_wifi() {
 
   delay(10);
   
-  Serial.println();
-  Serial.print("Connecting to ");
+  DEBUG_MAIN("WiFi connecting to %s\n", WIFI_SSID);
   Serial.println(WIFI_SSID);
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
+    DEBUG_MAIN(".");
     delay(500);
-    Serial.print(".");
   }
   blinkLeds(WIFI_CON);
-  Serial.println("");
-  Serial.print("WiFi connected - ESP IP address: ");
-  Serial.println(WiFi.localIP());
-     
-}
-
-
-void callback(String topic, byte* message, unsigned int length) {
-  Serial.print("Message arrived on topic: ");
-  Serial.print(topic);
-  Serial.print(". Message: ");
-  String messageTemp;
-  
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)message[i]);
-    messageTemp += (char)message[i];
-  }
-  Serial.println();
-  Serial.println();
+  DEBUG_MAIN("\nWiFi connected to %s with ip \n", WiFi.SSID().c_str());
+  Serial.print(WiFi.localIP());
+  espClient.setFingerprint(fingerprint);
 }
 
 
@@ -94,16 +93,16 @@ void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
      client.publish("esp8266/status", "Offline");
-    Serial.print("Attempting MQTT connection...");
+    DEBUG_MAIN("Attempting MQTT connection...\n");
     // Attempt to connect
   
     if (client.connect("ESP8266Client", MQTT_USER, MQTT_PASS)) {
-      Serial.println("Connected to MQTT Broker");
+      DEBUG_MAIN("Connected to MQTT Broker\n");
 
     } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println("try again in 5 seconds");
+      DEBUG_MAIN("failed, rc=");
+      DEBUG_MAIN("%d", client.state());
+      DEBUG_MAIN("try again in 5 seconds\n");
       delay(5000);
     }
   }
@@ -139,19 +138,6 @@ void blinkLeds(int event){
     }
 }
 
-/*
-void soundBazzer(){
-  
- for(unsigned long start = millis(); millis() - start < 4000;){
-               
-    buzzer.on();
-    delay(2000);
-    buzzer.off();
-    delay(2000);
-
- }
-}
-*/
 
 //===================== End of Custom Methods =====================//
 
@@ -179,13 +165,9 @@ void setup() {
   //Publish to esp8266/ota
   
   int ot_status = ota_support();
-  (ot_status == 0 ? client.publish("esp8266/ota", "OTA_SUPPORT_READY") : client.publish("esp8266/ota", "OTA_SUPPORT_FAILED")); 
+  (ot_status == 0 ? client.publish("esp8266/ota", "\nOTA_SUPPORT_READY") : client.publish("esp8266/ota", "\nOTA_SUPPORT_FAILED")); 
   
-  client.setServer(MQTT_SVR, MQTT_PORT);
-  client.setCallback(callback);
-
-  
-
+  client.setCallback(onMqttPublish);
 }
 
 void loop() {
@@ -248,44 +230,47 @@ void loop() {
 
     float uv_index = map(uv.readUV(), 0, 1023, 0, 15);
     
-//    float bmp180Alt = bmp180.altitude();
-//    float bmp180Pressure = bmp180.getPressure();
-//    float bmp180TempC = bmp180.getTemperatureC();
+    /*
+    float bmp180Alt = bmp180.altitude();
+    float bmp180Pressure = bmp180.getPressure();
+    float bmp180TempC = bmp180.getTemperatureC();
     
-   
+    */
      gps.stats(&chars, &sentences, &failed);
      if (chars == 0){
-      Serial.println("No characters received from GPS: check wiring!");
+      DEBUG_MAIN("No characters received from GPS: check wiring!");
      }
 
     // Check if any reads failed and exit early (to try again).
     if (isnan(h) || isnan(t)) {
       client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read DHT22 sensor!");
-      Serial.println("\n[DEBUG] Failed to read DHT22 sensor!");
+      DEBUG_MAIN("\n[DEBUG] Failed to read DHT22 sensor!");
       return;
     }
 
     if (isnan(soilMoisture_3v3Val)) {
       client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read soil sensor!");
-      Serial.println("\n[DEBUG] Failed to read soil sensor!");
+      DEBUG_MAIN("\n[DEBUG] Failed to read soil sensor!");
       return;
     }
 
     if (isnan(tinyGPSAlt)) {
       client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read NEO_GPS Altitude sensor value!");
-      Serial.println("\n[DEBUG] Failed to read NEO_GPS Altitude sensor value!");
+      DEBUG_MAIN("\n[DEBUG] Failed to read NEO_GPS Altitude sensor value!");
       return;
     }
 
-//    if (isnan(bmp180Alt) || isnan(bmp180Pressure) || isnan(bmp180TempC)) {
-//      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read BMP180 sensor!");
-//      Serial.println("Failed to read BMP180 sensor!");
-//      return;
-//    }
+    // Enable if bmp180Alt exist
+
+    /*if (isnan(bmp180Alt) || isnan(bmp180Pressure) || isnan(bmp180TempC)) {
+      client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read BMP180 sensor!");
+      Serial.println("Failed to read BMP180 sensor!");
+      return;
+    } */
     
     if (isnan(uv_index)) {
       client.publish("esp8266/sensor_debug", "[DEBUG] Failed to read UV_6070 index sensor!");
-      Serial.println("\n[DEBUG] Failed to read UV_6070 index sensor!");
+      DEBUG_MAIN("[DEBUG] Failed to read UV_6070 index sensor!\n");
       return;
     }
 
@@ -297,14 +282,14 @@ void loop() {
     static char humidity[7];
     dtostrf(h, 2, 0, humidity);
 
-            
-//    static char bmpAlt[7];
-//    dtostrf(bmp180Alt, 2, 0, bmpAlt);
-//    
-//
-//    static char bmpPr[7];
-//    dtostrf(bmp180Pressure, 2, 0, bmpPr);
+    /*        
+    static char bmpAlt[7];
+    dtostrf(bmp180Alt, 2, 0, bmpAlt);
+    
 
+    static char bmpPr[7];
+    dtostrf(bmp180Pressure, 2, 0, bmpPr);
+    */
 
     static char valueSoilm[7];
     dtostrf(soilMoisture_3v3Val, 2, 0, valueSoilm);
@@ -324,8 +309,10 @@ void loop() {
     
     client.publish("esp8266/temperature", temperature);
     client.publish("esp8266/humidity", humidity);
-//    client.publish("esp8266/alt", bmpAlt);
-//    client.publish("esp8266/atpressure", bmpPr);
+    /*
+    client.publish("esp8266/alt", bmpAlt);
+    client.publish("esp8266/atpressure", bmpPr);
+    */
     client.publish("esp8266/ldr", uv_lvl);
     client.publish("esp8266/Soil", valueSoilm);
     client.publish("esp8266/alt", tinyGPSAltVal);
@@ -334,49 +321,49 @@ void loop() {
     client.publish("esp8266/status", "Online");
  
 
-    Serial.print("\nTemperature: ");
+    DEBUG_MAIN("\nTemperature: ");
     Serial.print(t);
-    Serial.print(" [°C]");
-    Serial.print("\t");
+    DEBUG_MAIN(" [°C]");
+    DEBUG_MAIN("\t");
     Serial.print(dht.toFahrenheit(t));
-    Serial.print(" [F]");
-    Serial.print("\n");
+    DEBUG_MAIN(" [F]");
+    DEBUG_MAIN("\n");
 
-    Serial.print("\nHumidity: ");
+    DEBUG_MAIN("\nHumidity: ");
     Serial.print(h);
-    Serial.print(" %");
-    Serial.print("\n");
+    DEBUG_MAIN(" %");
+    DEBUG_MAIN("\n");
 
-//    Serial.print("\nAltitude: ");
-//     Serial.print(bmp180Alt, 2);
-//    Serial.print(" [m]");
-//    Serial.print("\n");
-//
-//    Serial.print("\nAtmospheric Pressure: ");
-//    Serial.print(bmp180Pressure, 2);
-//    Serial.print(" [hPa]");
-//    Serial.print("\n");
+  /*
+    DEBUG_MAIN("\nAltitude: ");
+    Serial.print(bmp180Alt, 2);
+    DEBUG_MAIN(" [m]");
+    DEBUG_MAIN("\n");
 
-
-    Serial.print("\nSoil Moisture Val: "); 
+    DEBUG_MAIN("\nAtmospheric Pressure: ");
+    Serial.print(bmp180Pressure, 2);
+    DEBUG_MAIN(" [hPa]");
+    DEBUG_MAIN("\n");
+     */
+    DEBUG_MAIN("\nSoil Moisture Val: "); 
     Serial.print(soilMoisture_3v3Val);
-    Serial.print("\n");
+    DEBUG_MAIN("\n");
     
-    Serial.print("\nNEO-gps Altitude: ");
-     Serial.print(tinyGPSAlt, 2);
-    Serial.print(" [m]");
-    Serial.print("\n");
+    DEBUG_MAIN("\nNEO-gps Altitude: ");
+    Serial.print(tinyGPSAlt, 2);
+    DEBUG_MAIN(" [m]");
+    DEBUG_MAIN("\n");
 
-     Serial.print("\nLuminosity (uv index): ");
+     DEBUG_MAIN("\nLuminosity (uv index): ");
      Serial.print(uv_index);
-     Serial.print("\n");
+     DEBUG_MAIN("\n");
 
-     Serial.print("\nLAT : ");
+     DEBUG_MAIN("\nLAT : ");
      Serial.print(lat_loc, 2);
-     Serial.print(", ");
-     Serial.print("\nLNG : ");
+     DEBUG_MAIN(", ");
+     DEBUG_MAIN("\nLNG : ");
      Serial.print(lng_loc, 2);
-     Serial.print("\n");
+     DEBUG_MAIN("\n");
  
   }
 
