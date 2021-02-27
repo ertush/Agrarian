@@ -12,6 +12,10 @@ To Contribute Clone the project and ensure that the firmware file is put inside 
 
 To have the dashboard nodes on Node-red import the json from flows.json
 
+### Docker Node-Red App
+
+To run the node-red web app; run ```docker-compose up app``` while in the root folder of the repository i.e ```Agrarian/App/Build``` 
+
 ### Parts
 
  * ESP8266 NodeMCU 12-E
