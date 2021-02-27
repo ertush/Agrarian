@@ -14,21 +14,21 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                         <div class="comp-label">
 
                             <div *ngIf="dataarray">
-                                <div class="issues-count">{{  dataarray.temp | avg }}<span class="issues-label">&deg;C</span></div>
+                                <div class="issues-count">{{  dataarray.temp | avg }}</div><span class="issues-label">&deg;C</span>
                                 <div class="issues-label">Average</div>
                                 <div class="issues-label">Temperature</div>
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Temperature:
-                                        {{ dataarray.temp.length | minmax : 'max'}}
-                                        on date
+                                        {{ dataarray.temp | minmax : 'max'}}
+
                                     </p>
                                 </div>
                                     <div class="row" style="margin-left: 0.1em">
                                         <p class="m-0 small text-uppercase text-muted">
                                         Lowest Temperature:
-                                        {{  dataarray.humid.length | minmax : 'min'}}
-                                        on date
+                                        {{  dataarray.temp | minmax : 'min'}}
+
                                         </p>
                                 </div>
                             </div>
@@ -70,21 +70,21 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                      <div class="col-12 col-lg-6 col-xl pb-4 text-danger closed-issues">
                         <span class="comp-label">
                         <div *ngIf="dataarray">
-                                <div class="issues-count">{{  dataarray.humid | avg }}<span class="issues-label">%</span></div>
+                                <div class="issues-count">{{  dataarray.humid | avg }}</div><span class="issues-label">%</span>
                                 <div class="issues-label">Average</div>
                                 <div class="issues-label">Humidity</div>
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Humidity:
-                                        {{ dataarray.temp.length  | minmax : 'max' }}
-                                        on date
+                                        {{ dataarray.humid  | minmax : 'max' }}
+
                                     </p>
                                 </div>
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Lowest Humidity:
-                                        {{  dataarray.humid.length  | minmax : 'min' }}
-                                        on date
+                                        {{  dataarray.humid  | minmax : 'min' }}
+
                                     </p>
                                 </div>
                             </div>
@@ -131,21 +131,21 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                         <span class="comp-label">
 
                         <div *ngIf="dataarray">
-                                <div class="issues-count">{{  dataarray.atmp | avg }}<span class="issues-label">mmHg</span></div>
+                                <div class="issues-count">{{  dataarray.atmp | avg }}</div><span class="issues-label">mmHg</span>
                                 <div class="issues-label">Average</div>
                                 <div class="issues-label">Atmospheric Pressure</div>
                                 <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Highest Atpressure:
-                                        {{ dataarray.temp.length | minmax : 'max' }}
-                                        on date
+                                        {{ dataarray.atmp | minmax : 'max' }}
+
                                     </p>
                             </div>
                             <div class="row" style="margin-left: 0.1em">
                                     <p class="m-0 small text-uppercase text-muted">
                                         Lowest Atpressure:
-                                        {{  dataarray.humid.length  | minmax : 'min' }}
-                                        on date
+                                        {{  dataarray.atmp  | minmax : 'min' }}
+
                                      </p>
                             </div>
 
@@ -197,7 +197,7 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                                     <!-- [categories]="['Jan', 'Feb']" -->
                                     <kendo-chart-category-axis-item
                                         [categories]="setTimeSuffix(dataarray.time)"
-                                        [title]="{ text: 'Months' }"
+                                        [title]="{ text: 'Time' }"
                                         [majorTicks]="{visible: false}"
                                         [line]="{visible: false}"
                                         [majorGridLines]="{visible: false}"
@@ -258,10 +258,10 @@ export class ChartsAreaComponent {
     public baseUnit;
     public bulletData;
 
-   
+
 
     @Input() public dataarray;
-    
+
 
     public style = 'smooth';
 

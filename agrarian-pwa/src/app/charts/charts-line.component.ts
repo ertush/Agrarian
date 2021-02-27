@@ -17,7 +17,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-1">
                   <div class="col-12 types-distribution">
                       <kendo-chart [pannable]="true" [zoomable]="true" style="height: 400px;" [transitions]="false">
                       <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
@@ -69,7 +69,7 @@ export class ChartsLineComponent implements OnInit, OnChanges {
       { label: env.topic.soil, value: '#122820', active: true },
       { label: env.topic.light, value: '#22C85D', active: true },
       { label: env.topic.atmp, value: '#e91e63', active: true }
-    //   { label: 'label6', value: '#2BA9DA', active: true }
+    
   ];
 
   public addSeries(button, toggleLabels) {
@@ -91,8 +91,6 @@ export class ChartsLineComponent implements OnInit, OnChanges {
 
       if (present) {
           const removeIndex = this.visibleSeries.map(item => item.color).indexOf(newSeries.color);
-          // tslint:disable-next-line: no-unused-expression
-          // tslint:disable-next-line: no-bitwise
           ~removeIndex && this.visibleSeries.splice(removeIndex, 1);
       } else {
           this.visibleSeries.push(newSeries);
@@ -101,14 +99,26 @@ export class ChartsLineComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit() {
-    this.seriesColors.forEach(e => {
-        this.addSeries({ label: e.label, value: e.value, active: true }, false);
-      });
+    // this.seriesColors.forEach(e => {
+    //     this.addSeries({ label: e.label, value: e.value, active: true }, false); 
+    //   });
+
+    this.seriesColors.filter(color => color.active === true).forEach(e => {
+      this.addSeries({ label: e.label, value: e.value, active: true }, false);
+  });
   }
 
   public ngOnChanges(changes) {
 
-      if (changes.data.previousValue && changes.data.previousValue.hasOwnProperty(env.topic.temp)) {
+      if (
+        changes.data.previousValue &&
+        changes.data.previousValue.hasOwnProperty(env.topic.temp) &&
+        changes.data.previousValue.hasOwnProperty(env.topic.humidity) &&
+        changes.data.previousValue.hasOwnProperty(env.topic.atmp) &&
+        changes.data.previousValue.hasOwnProperty(env.topic.soil) &&
+        changes.data.previousValue.hasOwnProperty(env.topic.light)
+
+        ) {
           this.visibleSeries = [];
 
         this.seriesColors.filter(color => color.active === true).forEach(e => {

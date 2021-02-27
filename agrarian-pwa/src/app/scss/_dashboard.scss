@@ -10,7 +10,7 @@
 
     .comp-label {
         .issues-count {
-            font-size: 3.5rem;
+            font-size: 3.1rem;
             font-weight: 200;
             line-height: 1;
 
@@ -41,9 +41,10 @@
         transform: translate(-50%, -50%);
 
         .unit {
-            position: absolute;
-            top: 2.4rem; // .4rem
-            right: -4; // -15
+            // position: absolute;
+            // top: 2.4rem; // .4rem
+            // right: -4; // -15
+            padding: .9rem;
             font-size: .9rem;
             font-weight: 1000px;
         }

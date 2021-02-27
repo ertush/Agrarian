@@ -1,7 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostBinding, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import isMobileTablet from '../shared/deviceUtil';
+import { DeviceDetectorService } from 'ngx-device-detector';
+// import isMobileTablet from '../shared/deviceUtil';
 import { FhubService } from '../shared/fhub.service';
 
 @Component({
@@ -32,7 +33,11 @@ export class MainMenuComponent implements OnInit {
 
     public user: any;
 
-    constructor(private router: Router, private element: ElementRef, private fhubService: FhubService) {
+    constructor(
+        private router: Router, 
+        private deviceService: DeviceDetectorService,
+        private fhubService: FhubService
+        ) {
         if ( window.innerWidth < 1200 ) {
             this.navState = 'collapsed';
         } else {
@@ -47,7 +52,7 @@ export class MainMenuComponent implements OnInit {
         });
     }
     ngOnInit(): void {
-        this.isMobile = isMobileTablet();
+        this.isMobile = this.deviceService.isMobile();
     }
 
     @HostBinding('attr.id') protected get id(): string {

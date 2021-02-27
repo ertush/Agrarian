@@ -8,7 +8,7 @@ import { Component, Input, HostBinding } from '@angular/core';
                     <app-loading-spinner>
                     </app-loading-spinner>
         </div>
-        <div class="k-card-body height-1" *ngIf="!loading && dataset.length">
+        <div class="k-card-body height-1 mb-1" *ngIf="!loading && dataset.length">
             <kendo-chart (seriesHover)="onHover($event)">
                 <kendo-chart-series>
                     <kendo-chart-series-item
@@ -26,8 +26,8 @@ import { Component, Input, HostBinding } from '@angular/core';
             <div class="comp-label chart-label" [style.color]="hoverColor">
                 <div class="issues-count">
                   {{donutPercent}}
-                  <span class="unit">{{ getDatasetUnits(donutLabel) }}</span>
                 </div>
+                <span class="unit">{{ getDatasetUnits(donutLabel) }}</span>
                 <div class="data-label">{{donutLabel}}</div>
             </div>
         </div>

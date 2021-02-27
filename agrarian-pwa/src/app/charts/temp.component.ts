@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-temp',
   template: `
    <div class="k-card">
-   <h2 class="k-card-header m-0">Temperature</h2>
+   <h2 class="k-card-header text-center m-0">Temperature</h2>
           <div class="col-12">
                 <div *ngIf="isLoading" style="height: 400px">
                     <app-loading-spinner>

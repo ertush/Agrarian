@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
-import isMobileTablet from '../shared/deviceUtil';
+import { DeviceDetectorService } from 'ngx-device-detector';
+// import isMobileTablet from '../shared/deviceUtil';
 import { GithubService } from './../shared/github.service';
 import { IssuesProcessor } from './../shared/issues-processor.service';
 
@@ -14,7 +15,7 @@ import { IssuesProcessor } from './../shared/issues-processor.service';
     templateUrl: './issues.template.html'
 })
 export class IssuesComponent {
-    public isMobile = isMobileTablet();
+    public isMobile = this.deviceService.isMobile();
     public isLoading = true;
     public selectedPeriod = 3;
     public issues: any;
@@ -33,7 +34,11 @@ export class IssuesComponent {
     @HostBinding('attr.id') get get_id() { return 'issues'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
-    constructor(public http: HttpClient, public githubService: GithubService, public issuesProcessor: IssuesProcessor) {
+    constructor(public http: HttpClient,
+         public githubService: GithubService,
+         public issuesProcessor: IssuesProcessor,
+         private deviceService: DeviceDetectorService
+         ) {
 
         githubService.getGithubIssues({ pages: 5 }).subscribe((data: any[]) => {
             data = data.reduce((agg, curr) => [...agg, ...curr], []).filter(issue => issue.pull_request ? false : true);
