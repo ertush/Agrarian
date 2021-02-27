@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-// import isMobileTablet from '../shared/deviceUtil';
 import { GithubService } from './../shared/github.service';
 import { IssuesProcessor } from './../shared/issues-processor.service';
 

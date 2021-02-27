@@ -2,7 +2,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, HostBinding, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-// import isMobileTablet from '../shared/deviceUtil';
 import { FhubService } from '../shared/fhub.service';
 
 @Component({
