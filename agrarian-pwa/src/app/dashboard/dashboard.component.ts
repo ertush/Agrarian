@@ -44,11 +44,13 @@ export class DashboardComponent implements OnDestroy {
     public light = [];
     public atm = [];
 
-    public pageTitle = 'Statistics';
+    public lat = 36.9785;
+    public lng = 1.4577;
 
+    public pageTitle = 'Statistics';
+   
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
-
 
     constructor(
               private MqttClientService: MqttService,
@@ -56,7 +58,6 @@ export class DashboardComponent implements OnDestroy {
               private chartTempService: ChartTempService,
               private chartDonutService: ChartDonutService
         ) {
-
 
         /* Line Real time chart */
         this.MqttClientService.fetchData()
@@ -114,6 +115,7 @@ export class DashboardComponent implements OnDestroy {
 
 
               });
+
           }
 
 

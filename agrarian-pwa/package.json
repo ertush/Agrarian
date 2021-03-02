@@ -68,6 +68,7 @@
     "marked": "^0.6.3",
     "moment": "^2.29.1",
     "ngx-device-detector": "^2.0.5",
+    "ol": "^6.5.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "websocket-stream": "^5.5.2",

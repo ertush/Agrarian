@@ -1,3 +1,4 @@
+
 import { TempComponent } from './charts/temp.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,6 +38,7 @@ import { DefaultComponent } from './charts/default.component';
 import { ChartDonutComponent } from './charts/chart-donut.component';
 import { ChartsLineComponent } from './charts/charts-line.component';
 import { ChartsAreaComponent } from './charts/charts-area.component';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -78,8 +80,8 @@ export function createTranslateLoader(http: HttpClient) {
         AvgLineChartPipe,
         MinmaxPipe,
         UserAvatarComponent,
-        HeaderComponent
-        
+        HeaderComponent,
+        MapComponent
 
     ],
     imports: [
