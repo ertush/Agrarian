@@ -18,6 +18,18 @@
       "sizes": "16x16 32x32"
     },
     {
+      "src": "/assets/app_icon/16x16-logo.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "density": "0.65"
+    },
+    {
+      "src": "/assets/app_icon/32x32-logo.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "density": "0.70"
+    },
+    {
       "src": "/assets/app_icon/36x36-logo.png",
       "sizes": "36x36",
       "type": "image/png",
