@@ -8,6 +8,12 @@
         min-height: 400px;
     }
 
+    .tabStripMenu {
+        flex-flow: row nowrap;
+        justify-content: center;
+        flex: 1
+    }
+
     .comp-label {
         .issues-count {
             font-size: 3.1rem;

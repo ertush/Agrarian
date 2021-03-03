@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-temp',
@@ -11,7 +12,12 @@ import { Component, Input, OnInit } from '@angular/core';
                     </app-loading-spinner>
                 </div>
           <div class="col-12 all-issues">
-            <!-- -->
+            <!-- tabStrip menu -->
+            <div  *ngIf="!isLoading && isMobile" class="tabStripMenu text-center">
+                <kendo-dropdownlist [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+                </kendo-dropdownlist>
+            </div>
+            <!-- End of tabStrip menu -->
           <kendo-chart [transitions]="false" [pannable]="{ lock: 'y' }"
           [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading" style="margin-top: 20px">
           <kendo-chart-tooltip format="{1} &deg;C"></kendo-chart-tooltip>
@@ -86,9 +92,21 @@ export class TempComponent implements OnInit {
     this.dataset = data_r;
     }
 
-  constructor() { }
+    @Output() public dropDownSelect = new EventEmitter<string>();
+
+
+    public tabItems: Array<string> = ['Map'];
+    public defaultTab = 'Graph';
+    public isMobile: boolean;
+
+    public onSelect(value: string) {
+        this.dropDownSelect.emit(value);
+    }
+
+  constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
   }
 
 }

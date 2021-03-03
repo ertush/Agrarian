@@ -51,6 +51,7 @@ import { UserAvatarComponent } from './profile/user-avatar/user-avatar.component
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvgLineChartPipe } from './charts/avglinechart.pipe';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -97,6 +98,7 @@ export function createTranslateLoader(http: HttpClient) {
         ButtonsModule,
         LayoutModule,
         BrowserAnimationsModule,
+        DropDownsModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {

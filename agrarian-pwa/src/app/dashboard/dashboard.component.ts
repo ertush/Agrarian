@@ -1,12 +1,14 @@
 import { ChartsAreaService } from './../shared/charts-area.service';
-import { Component, ViewEncapsulation, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding, OnDestroy, ViewChild } from '@angular/core';
 import 'hammerjs';
 import { Subscription } from 'rxjs';
+import { TabStripComponent } from '@progress/kendo-angular-layout/dist/es2015/tabstrip/tabstrip.component';
 
 import { MqttService } from './../shared/mqtt.service';
 import { ChartTempService } from '../shared/chart-temp.service';
 import { ChartDonutService } from '../shared/chart-donut.service';
 import { environment as env  } from 'src/environments/environment';
+
 
 
 @Component({
@@ -43,14 +45,17 @@ export class DashboardComponent implements OnDestroy {
     public soil = [];
     public light = [];
     public atm = [];
+    public isMobile: boolean;
 
     public lat = 36.9785;
     public lng = 1.4577;
 
     public pageTitle = 'Statistics';
-   
+
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
+
+    @ViewChild('tabStrip') public tabStrip: TabStripComponent;
 
     constructor(
               private MqttClientService: MqttService,
@@ -58,6 +63,7 @@ export class DashboardComponent implements OnDestroy {
               private chartTempService: ChartTempService,
               private chartDonutService: ChartDonutService
         ) {
+
 
         /* Line Real time chart */
         this.MqttClientService.fetchData()
@@ -182,6 +188,10 @@ export class DashboardComponent implements OnDestroy {
         );
     }
 
+    public onDropDownSelect(val: string) {
+      const tabs = {Graph: 0, Map: 1};
+      this.tabStrip.selectTab(tabs[val]);
+    }
 
     ngOnDestroy() {
       if (this.subscription) {

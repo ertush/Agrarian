@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -11,6 +11,7 @@ import Icon from 'ol/style/Icon';
 import OSM from 'ol/source/OSM';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-map',
@@ -22,6 +23,12 @@ import TileLayer from 'ol/layer/Tile';
                 <app-loading-spinner>
                 </app-loading-spinner>
             </div>
+             <!-- tabStrip menu -->
+             <div  *ngIf="isMobile" class="tabStripMenu text-center">
+                <kendo-dropdownlist [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+                </kendo-dropdownlist>
+            </div>
+            <!-- End of tabStrip menu -->
           <div id="map" class="ol-map"></div>
         </div>
 
@@ -45,13 +52,19 @@ export class MapComponent implements OnInit {
   @Input() public isReady: boolean;
   @Input() public lat: number;
   @Input() public lng: number;
+  @Output() public dropDownSelect = new EventEmitter<string>();
+  
   public map: Map;
+  public isMobile: boolean;
+  public tabItems: Array<string> = ['Graph'];
+  public defaultTab = 'Map';
 
-  constructor() {
+  constructor(private deviceService: DeviceDetectorService) {
 
   }
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
     this.map = new Map({
       target: 'map',
       layers: [
@@ -71,6 +84,10 @@ export class MapComponent implements OnInit {
       console.log(evt.coordinate);
     });
   }
+
+  public onSelect(value: string) {
+    this.dropDownSelect.emit(value);
+}
 
   setCenter() {
     const view = this.map.getView();

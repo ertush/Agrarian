@@ -11,20 +11,20 @@
         </kendo-buttongroup>
     </div>
 </div> -->
-<app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading" [title]="pageTitle" ></app-header>
+<app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading" [title]="pageTitle"></app-header>
 
 <div id="statistics">
-  <kendo-tabstrip>
-      <kendo-tabstrip-tab #deviceTab [title]="'Device'" [selected]="true">
+  <kendo-tabstrip #tabStrip>
+      <kendo-tabstrip-tab  [title]="'Graph'"  [selected]="true">
         <ng-template kendoTabContent>
-            <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max"></app-temp>
+            <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max" (dropDownSelect)="onDropDownSelect($event)"></app-temp>
             <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
 
       <kendo-tabstrip-tab [title]="'Map'" [selected]="false">
         <ng-template kendoTabContent>
-            <app-map [isReady]="1 === 1" [lat]="lat" [lng]="lng"></app-map>
+            <app-map [isReady]="1 === 1" [lat]="lat" [lng]="lng" (dropDownSelect)="onDropDownSelect($event)"></app-map>
             <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
