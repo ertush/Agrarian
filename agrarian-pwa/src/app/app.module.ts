@@ -52,6 +52,7 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvgLineChartPipe } from './charts/avglinechart.pipe';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { WeatherComponent } from './weather/weather.component';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -62,7 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-    declarations: [
+    declarations: [	
         LabelClass,
         AppComponent,
         MainMenuComponent,
@@ -82,9 +83,9 @@ export function createTranslateLoader(http: HttpClient) {
         MinmaxPipe,
         UserAvatarComponent,
         HeaderComponent,
-        MapComponent
-
-    ],
+        MapComponent,
+      WeatherComponent
+   ],
     imports: [
         AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

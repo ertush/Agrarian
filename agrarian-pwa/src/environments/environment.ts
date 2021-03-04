@@ -10,11 +10,14 @@ export const environment = {
     host : 'ws://localhost',
     topic : {
       soil: 'soil',
-      custom: 'custom',
       atmp: 'atpressure',
       temp: 'temperature',
       light: 'light',
       humidity: 'humidity'
+    },
+    api: {
+      url: 'http://api.openweathermap.org/data/2.5/weather',
+      appId: 'fd7aadde4652a91a190ed2267fb6e162'
     }
 };
 

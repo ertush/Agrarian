@@ -8,7 +8,7 @@ import { Component, Input, HostBinding } from '@angular/core';
                     <app-loading-spinner>
                     </app-loading-spinner>
         </div>
-        <div class="k-card-body height-1 mb-1" *ngIf="!loading && dataset.length">
+        <div class="k-card-body height-1 mb-1" *ngIf="!loading && isDataSet()">
             <kendo-chart (seriesHover)="onHover($event)">
                 <kendo-chart-series>
                     <kendo-chart-series-item
@@ -39,6 +39,9 @@ export class ChartDonutComponent {
     public hoverColor = 'rgb(255, 99, 88)';
     public dataset;
 
+    
+
+
     @Input() public loading;
     @Input() public set data(data) {
         if (data !== undefined) {
@@ -62,6 +65,8 @@ export class ChartDonutComponent {
     @HostBinding('class') get className() {
         return 'k-card issue-types';
     }
+
+    public isDataSet():boolean {if (this.dataset !== undefined) { return this.dataset.length > 0} return false}
 
     public onHover(event) {
         this.setDonutLegend(event);

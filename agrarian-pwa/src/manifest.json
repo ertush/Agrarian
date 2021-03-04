@@ -15,7 +15,8 @@
   "icons": [
     {
       "src": "/favicon.ico",
-      "sizes": "16x16 32x32"
+      "sizes": "16x16 32x32",
+      "density": "0.65"
     },
     {
       "src": "/assets/app_icon/16x16-logo.png",
