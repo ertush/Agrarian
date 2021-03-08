@@ -47,8 +47,8 @@ export class DashboardComponent implements OnDestroy {
     public atm = [];
     public isMobile: boolean;
 
-    public lat = 36.9785;
-    public lng = 1.4577;
+    public lat = -1.45;
+    public lng = 36.97;
 
     public pageTitle = 'Statistics';
 
@@ -189,7 +189,7 @@ export class DashboardComponent implements OnDestroy {
     }
 
     public onDropDownSelect(val: string) {
-      const tabs = {Graph: 0, Map: 1};
+      const tabs = {Graph: 0, Map: 1, Weather: 2};
       this.tabStrip.selectTab(tabs[val]);
     }
 

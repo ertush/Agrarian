@@ -1,21 +1,30 @@
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment as env } from './../../environments/environment';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-weather',
   template: `
     <div class="k-card">
-        <h2 class="k-card-header text-center m-0">Weather</h2>
+        <h2 class="k-card-header text-center m-0">Weather On Site</h2>
         <div class="row">
           <div *ngIf="isLoading" style="height: 400px">
               <app-loading-spinner></app-loading-spinner>
           </div>
           <div  *ngIf="!isLoading" class="weather-icon">
-            <h1 class="mt-2">
+            <h1 class="mt-0 mb-4">
               <i [ngClass]="getClasses(icon)"></i>
             </h1>
+            <h2>{{ description }}</h2>
             <h3>{{ location }}</h3>
+            <h4 *ngFor="let key of ['temperature','humidity', 'seaLevel']">  {{ key }} : {{ weatherData[key] }}</h4>
           </div>
+          <!-- tabStrip menu -->
+          <div  *ngIf="isMobile && !isLoading" class="tabStripMenu text-center">
+                <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+                </kendo-dropdownlist>
+            </div>
+            <!-- End of tabStrip menu -->
        </div>
   </div>
         `,
@@ -32,37 +41,49 @@ import { Component, Input, OnInit } from '@angular/core';
 
   .weather-icon i {
     flex: 1;
-    padding: 1em;
   }
+
   `]
 })
 export class WeatherComponent implements OnInit {
 
   @Input() public lat: number;
   @Input() public lon: number;
+  @Output() public dropDownSelect = new EventEmitter<string>();
 
   public isLoading = true;
   public icon: string;
   public location: string;
+  public weatherData = {};
+  public description: string;
   public uri: string;
-  constructor() { }
+  public isMobile: boolean;
+  public tabItems = ['Graph','Map'];
+  public defaultTab = 'Weather';
+
+  constructor(private deviceDetectorService: DeviceDetectorService) {
+   }
 
   ngOnInit() {
-    
+    this.isMobile = this.deviceDetectorService.isMobile();
     this.uri = `${env.api.url}?lat=${this.lat}&lon=${this.lon}&APPID=${env.api.appId}`;
-    // Debug
-    console.log({uri: this.uri});
+  
     fetch(this.uri)
     .then( res => {
       if (res.ok ) {
         this.isLoading = false;
         res.json()
         .then( value => {
-          // Debug
-          console.log({value});
+    
+          this.icon = value.weather[0].icon;
+          this.location = value.name;
+          this.description = value.weather[0].description;
+          this.weatherData = {
+            humidity: value.main.humidity,
+            temperature: Math.round(value.main.temp / 10),
+            seaLevel: value.main.pressure
+          }
 
-          this.icon = value.icon;
-          this.location = value.loaction;
         })
         .catch(err => console.log(err))
       }
@@ -73,6 +94,10 @@ export class WeatherComponent implements OnInit {
   }
 
   public getClasses(icon: string): string{
-    return `fa-4x wi wi-owm-${icon}`;
+    return `fa-6x wi wi-owm-${icon}`;
   }
+
+  public onSelect(value: string) {
+    this.dropDownSelect.emit(value);
+}
 }

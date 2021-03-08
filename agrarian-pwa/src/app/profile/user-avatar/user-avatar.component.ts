@@ -6,10 +6,10 @@ import isMobileTablet from 'src/app/shared/deviceUtil';
   template: `
       <div class="container-avatar">
           <div class="avatar">
-            <img [src]="user.avatar_url" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
+            <img [src]="user.picture" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
           </div>
           <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
-            <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.name }} </p>
+            <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.given_name }} </p>
             <p class="user-label-email mt-sm-auto" [ngStyle]="{'font-size.px': labelSize}"> {{ user.email }} </p>
           </div>
       </div>

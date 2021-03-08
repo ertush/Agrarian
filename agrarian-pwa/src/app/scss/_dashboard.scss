@@ -1,4 +1,5 @@
 #dashboard {
+
     .k-content {
         padding: 0;
         overflow: visible;
@@ -12,6 +13,11 @@
         flex-flow: row nowrap;
         justify-content: center;
         flex: 1
+    }
+
+    .k-dropdown{
+      width: 5.2rem;
+      text-align: center !important;
     }
 
     .comp-label {

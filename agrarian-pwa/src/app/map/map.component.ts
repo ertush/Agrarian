@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 
+/*
 import Map from 'ol/Map';
 import View from 'ol/View';
 import VectorLayer from 'ol/layer/Vector';
@@ -11,6 +12,10 @@ import Icon from 'ol/style/Icon';
 import OSM from 'ol/source/OSM';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
+*/
+
+import * as L from 'leaflet';
+
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -23,14 +28,14 @@ import { DeviceDetectorService } from 'ngx-device-detector';
                 <app-loading-spinner>
                 </app-loading-spinner>
             </div>
-             <!-- tabStrip menu -->
-             <div  *ngIf="isMobile" class="tabStripMenu text-center">
-                <kendo-dropdownlist [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+          <div #map id="map" class="ol-map"></div>
+           <!-- tabStrip menu -->
+           <div  *ngIf="isMobile" class="tabStripMenu text-center">
+                <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
                 </kendo-dropdownlist>
             </div>
             <!-- End of tabStrip menu -->
-          <div id="map" class="ol-map"></div>
-        </div>
+          </div>
 
       </div>
   `,
@@ -47,71 +52,50 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   ]
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   @Input() public isReady: boolean;
   @Input() public lat: number;
   @Input() public lng: number;
   @Output() public dropDownSelect = new EventEmitter<string>();
-  
-  public map: Map;
+
+  @ViewChild('map') private mapElem: ElementRef<HTMLElement>;
+
+  public map: L.Map;
   public isMobile: boolean;
-  public tabItems: Array<string> = ['Graph'];
+  public tabItems: Array<string> = ['Graph', 'Weather'];
   public defaultTab = 'Map';
 
   constructor(private deviceService: DeviceDetectorService) {
 
   }
 
+  ngAfterViewInit(): void {
+    this.map =  L.map(this.mapElem.nativeElement).setView([this.lat, this.lng], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    const mapIcon = L.icon({
+      iconUrl: '../../assets/marker.png',
+      iconAnchor: [0, -10]
+  });
+
+    L.marker([this.lat, this.lng], {icon: mapIcon}).addTo(this.map)
+    .bindPopup('AG-11 location.')
+    .openPopup();
+
+    this.map.on('click', val => console.log({val}));
+
+  }
+
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
-    this.map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        })
-      ],
-      view: new View({
-        center: olProj.fromLonLat([this.lat, this.lng]),
-        zoom: 10
-      })
-    });
-    this.addPoint(this.lat, this.lng);
-    this.setCenter();
-
-    this.map.on('pointermove', evt => {
-      console.log(evt.coordinate);
-    });
   }
 
   public onSelect(value: string) {
     this.dropDownSelect.emit(value);
 }
-
-  setCenter() {
-    const view = this.map.getView();
-    view.setCenter(olProj.fromLonLat([this.lat, this.lng]));
-    view.setZoom(10);
-  }
-
-  addPoint(lat: number, lng: number) {
-    const vectorLayer = new VectorLayer({
-      source: new VectorSource({
-        features: [new Feature({
-           geometry: new Point(olProj.transform([lat, lng], 'EPSG:4326', 'EPSG:3857')),
-        })]
-      }),
-      style: new Style({
-        image: new Icon({
-          anchor: [0.5, 0.5],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'fraction',
-          src: 'assets/marker.png'
-        })
-      })
-    });
-    this.map.addLayer(vectorLayer);
-    }
 
 }

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "types": []
   },
   "files": [

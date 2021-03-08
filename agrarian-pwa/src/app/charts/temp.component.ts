@@ -12,12 +12,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
                     </app-loading-spinner>
                 </div>
           <div class="col-12 all-issues">
-            <!-- tabStrip menu -->
-            <div  *ngIf="!isLoading && isMobile" class="tabStripMenu text-center">
-                <kendo-dropdownlist [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
-                </kendo-dropdownlist>
-            </div>
-            <!-- End of tabStrip menu -->
           <kendo-chart [transitions]="false" [pannable]="{ lock: 'y' }"
           [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading" style="margin-top: 20px">
           <kendo-chart-tooltip format="{1} &deg;C"></kendo-chart-tooltip>
@@ -64,6 +58,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
             </kendo-chart-y-axis>
           <kendo-chart-axis-defaults-labels></kendo-chart-axis-defaults-labels>
           </kendo-chart>
+          <!-- tabStrip menu -->
+          <div  *ngIf="!isLoading && isMobile" class="tabStripMenu text-center">
+                <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+                </kendo-dropdownlist>
+            </div>
+            <!-- End of tabStrip menu -->
           </div>
         </div>
     </div>
@@ -95,7 +95,7 @@ export class TempComponent implements OnInit {
     @Output() public dropDownSelect = new EventEmitter<string>();
 
 
-    public tabItems: Array<string> = ['Map'];
+    public tabItems: Array<string> = ['Map','Weather'];
     public defaultTab = 'Graph';
     public isMobile: boolean;
 

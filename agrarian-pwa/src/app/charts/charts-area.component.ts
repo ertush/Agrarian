@@ -39,7 +39,7 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
 
 
                         </div>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
+                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                         <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                                 <kendo-chart-category-axis>
                                     <kendo-chart-category-axis-item
@@ -93,7 +93,7 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                                 <div class="issues-label">2</div>
                             </div>
                         </span>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
+                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                             <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                             <kendo-chart-series-defaults type="column"
                             [stack]="true"
@@ -156,7 +156,7 @@ import { PlotAreaHoverEvent } from '@progress/kendo-angular-charts';
                         </div>
 
                         </span>
-                        <kendo-chart (plotAreaHover)="onPlotAreaHover($event)" style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
+                        <kendo-chart style="height: 100px;" [chartArea]="{margin: { left: 0 }}">
                               <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
                               <kendo-chart-category-axis>
 
@@ -299,8 +299,5 @@ export class ChartsAreaComponent {
         return times;
     }
 
-    onPlotAreaHover(e: PlotAreaHoverEvent): void {
-     console.log({e});
-}
 
 }

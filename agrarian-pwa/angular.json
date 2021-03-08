@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-     "agrarian-pwa": {
+    "agrarian-pwa": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -32,8 +32,15 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "hammerjs"
-           ]
+              "hammerjs",
+              "@firebase/app", 
+              "firebase/app", 
+              "@firebase/database", 
+              "@firebase/util", 
+              "@firebase/component", 
+              "@firebase/auth",
+              "@firebase/firestore"
+            ]
           },
           "configurations": {
             "production": {
@@ -116,6 +123,10 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

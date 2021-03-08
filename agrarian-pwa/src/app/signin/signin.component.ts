@@ -4,6 +4,7 @@ import { Component, ViewEncapsulation, HostBinding, ViewChild } from '@angular/c
 import { Router } from '@angular/router';
 import isMobileTablet from '../shared/deviceUtil';
 import { TextBoxComponent } from '@progress/kendo-angular-inputs';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
     selector: 'app-signin',
@@ -60,7 +61,7 @@ export class SigninComponent {
            ? null : {'mismatch': true};
      }
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private authService: AuthService) {
         this.isSignUp = false;
         this.marginTopExp = 22;
     }
@@ -86,8 +87,13 @@ export class SigninComponent {
 
 
     public onLoginClick(formValues: any): void {
-        console.log({formValues});
-        this.router.navigate(['./dashboard']);
+        // console.log({formValues});
+
+        this.authService.doEmailLogin(formValues)
+        .then(res => console.log({emailLoginResponse: res}))
+        .catch(err => console.log({emailLoginError: err}));
+        
+        // this.router.navigate(['./dashboard']);
     }
 
     public onSignUpClick(): void {
@@ -98,8 +104,8 @@ export class SigninComponent {
 
     public onCreateAccount(formValues: any): void {
         console.log({formValues});
-        this.isSignUp = false;
-        this.marginTopExp = 22;
+        // this.isSignUp = false;
+        // this.marginTopExp = 22;
     }
 
     public submitForm(): void {
@@ -111,13 +117,25 @@ export class SigninComponent {
     }
 
     public onGoogleSignIn(): void {
-        // GoogleSign In
+        this.authService.doGoogleLogin()
+        .then(res => {
 
-        console.log('Google Sign In');
+            if (this.authService.opType === res.operationType && this.authService.userProfile.verified_email){
+                this.router.navigate(['./dashboard']);
+            }
+            // console.log({LoginResponse: res}); // Debug
+
+        })    
+        .catch(err => console.log({googleLoginError: err}));
     }
 
     public onFacebookSignIn(): void {
-        // GoogleSign In
-        console.log('Facebook Sign In');
+        this.authService.doFacebookLogin()
+        .then(res => console.log({facebookLoginResponse: res}))
+        .catch(err => console.log({facebookLoginError: err}))
+    }
+
+    public onRegister() {
+
     }
 }

@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, HostBinding, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { FhubService } from '../shared/fhub.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
     selector: 'app-main-menu',
@@ -33,9 +33,9 @@ export class MainMenuComponent implements OnInit {
     public user: any;
 
     constructor(
-        private router: Router, 
+        private router: Router,
         private deviceService: DeviceDetectorService,
-        private fhubService: FhubService
+        private authService: AuthService
         ) {
         if ( window.innerWidth < 1200 ) {
             this.navState = 'collapsed';
@@ -44,14 +44,31 @@ export class MainMenuComponent implements OnInit {
         }
         this.menuTitle = 'Dashboard';
 
-        this.fhubService.getUsers().subscribe(data => {
-            this.user = data[1];
-        }, (err) => {
-            console.log(err);
-        });
+        
+
+        // const userProfile = this.cacheService.get('userProfile');
+        // const userInfo = this.cacheService.get('userInfo');
+        
+        // const providerData = this.cacheService.getProviderData();
+
+        // Load default user if user not set
+        if (this.user === undefined) {
+            console.log({userInfo: this.authService.getUserInfo()});
+            this.user = {
+                given_name: 'user',
+                email: 'user@email.domain',
+                picture: '../../assets/avatar-placeholder.png'
+            };
+        }
+
+        // if (userProfile !== undefined) this.user = userProfile;
+        // console.log({userProfile, userInfo}); // Debug
     }
+
     ngOnInit(): void {
         this.isMobile = this.deviceService.isMobile();
+
+
     }
 
     @HostBinding('attr.id') protected get id(): string {
@@ -81,7 +98,13 @@ export class MainMenuComponent implements OnInit {
             this.toggleNav();
             this.menuTitle = 'dashboard';
         }
-        this.router.navigate(['/signin']);
+        this.authService.doLogOut()
+        .then(val => {
+            console.log({logoutResponse: val});
+            this.router.navigate(['/signin']);
+        })
+        .catch(err => console.log({logoutError: err}));
+
     }
 
     public toggleNav() {

@@ -1,4 +1,4 @@
-
+import { environment } from './../environments/environment.prod';
 import { TempComponent } from './charts/temp.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,11 +40,8 @@ import { ChartsLineComponent } from './charts/charts-line.component';
 import { ChartsAreaComponent } from './charts/charts-area.component';
 import { MapComponent } from './map/map.component';
 
-
-
-
 // environment
-import { environment } from '../environments/environment';
+
 import { AvgPipe } from './charts/avg.pipe';
 import { MinmaxPipe } from './charts/minmax.pipe';
 import { UserAvatarComponent } from './profile/user-avatar/user-avatar.component';
@@ -53,6 +50,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvgLineChartPipe } from './charts/avglinechart.pipe';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { WeatherComponent } from './weather/weather.component';
+
+// Firebase imports
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment as env } from '../environments/environment';
+
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -98,6 +102,9 @@ export function createTranslateLoader(http: HttpClient) {
         InputsModule,
         ButtonsModule,
         LayoutModule,
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        AngularFireModule.initializeApp(env.firebase),
         BrowserAnimationsModule,
         DropDownsModule,
         HttpClientModule,

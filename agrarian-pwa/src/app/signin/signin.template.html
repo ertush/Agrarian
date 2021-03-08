@@ -1,8 +1,8 @@
-<div class="signin-form col-xl-4">
+<div [ngClass]="isMobile ? 'mt-4' : 'mt-1'" class="signin-form col-xl-4">
  
   <div class="k-card">
     <div class="container text-center mt-3">
-      <span class="logo-bg"> <img src="../../assets/app_icon/96x96-logo.png" alt="agrarian"></span>
+      <span class="logo-bg"> <img src="../../assets/app_icon/72x72-sq-logo.png" alt="agrarian"></span>
      
     </div>
     <h4 class="text-center mt-2">Agrarian</h4>
@@ -44,10 +44,10 @@
           <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
             <!-- <span class="k-icon k-i-google k-i-google-btn pr-2"></span> -->
             <i class="fab fa-google  k-i-google-btn pr-2"></i>
-             sign in</span>
+             {{ isMobile ? 'sign in': 'google sign in' }}</span>
           <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onFacebookSignIn()">
             <span class="k-icon k-i-facebook k-i-fb-btn pr-2"></span>
-             sign in</span>
+           {{ isMobile? 'sign in': 'facebook sign in' }}</span>
         </div>
       </form>
     </div>

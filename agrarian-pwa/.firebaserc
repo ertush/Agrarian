@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "agrarian-ec4bc": {
+      "hosting": {
+        "agrarian-pwa": [
+          "agrarian-ec4bc"
+        ]
+      }
+    }
+  }
+}
