@@ -1,8 +1,9 @@
+import { AngularFireAuth } from '@angular/fire/auth';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { AuthService } from '../shared/auth.service';
+
 
 @Component({
     selector: 'app-main-menu',
@@ -28,14 +29,15 @@ export class MainMenuComponent implements OnInit {
     public menuTitle: string;
     public isMobile: boolean;
 
-    // 'https://www.w3schools.com/w3images/avatar2.png',
+    return = '';
 
     public user: any;
 
     constructor(
         private router: Router,
         private deviceService: DeviceDetectorService,
-        private authService: AuthService
+        private afAuth: AngularFireAuth,
+        private route: ActivatedRoute
         ) {
         if ( window.innerWidth < 1200 ) {
             this.navState = 'collapsed';
@@ -44,29 +46,27 @@ export class MainMenuComponent implements OnInit {
         }
         this.menuTitle = 'Dashboard';
 
-        
-
-        // const userProfile = this.cacheService.get('userProfile');
-        // const userInfo = this.cacheService.get('userInfo');
-        
-        // const providerData = this.cacheService.getProviderData();
-
+        this.afAuth.authState.subscribe(user => {
+            if(user){
+                this.user = user;
+            }
+        });
+    
         // Load default user if user not set
         if (this.user === undefined) {
-            console.log({userInfo: this.authService.getUserInfo()});
             this.user = {
-                given_name: 'user',
+                displayName: 'user',
                 email: 'user@email.domain',
-                picture: '../../assets/avatar-placeholder.png'
+                photoUrl: '../../assets/avatar-placeholder.png'
             };
         }
 
-        // if (userProfile !== undefined) this.user = userProfile;
-        // console.log({userProfile, userInfo}); // Debug
     }
 
     ngOnInit(): void {
         this.isMobile = this.deviceService.isMobile();
+        this.route.queryParams
+        .subscribe(params => this.return = params['return'] || '/dashboard');
 
 
     }
@@ -98,9 +98,8 @@ export class MainMenuComponent implements OnInit {
             this.toggleNav();
             this.menuTitle = 'dashboard';
         }
-        this.authService.doLogOut()
-        .then(val => {
-            console.log({logoutResponse: val});
+        this.afAuth.auth.signOut()
+        .finally(() => {
             this.router.navigate(['/signin']);
         })
         .catch(err => console.log({logoutError: err}));

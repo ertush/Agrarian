@@ -1,6 +1,7 @@
 <div [ngClass]="isMobile ? 'mt-4' : 'mt-1'" class="signin-form col-xl-4">
- 
+  <span class="error" *ngIf="error.length > 0">{{ error }}</span>
   <div class="k-card">
+    
     <div class="container text-center mt-3">
       <span class="logo-bg"> <img src="../../assets/app_icon/72x72-sq-logo.png" alt="agrarian"></span>
      
@@ -8,7 +9,7 @@
     <h4 class="text-center mt-2">Agrarian</h4>
    
     <!-- Logo Header -->
-    <div class="k-card-block" *ngIf="!isSignUp">
+    <div class="k-card-block" *ngIf="!isSignUp && isSignedIn">
       <form class="k-form" [formGroup]="loginForm" (ngSubmit)="onLoginClick(loginForm.value)">
         <div class="form-group mt-1 ml-2 mr-2">
           <kendo-textbox-container class="custom-width" floatingLabel="Email">
@@ -51,7 +52,30 @@
         </div>
       </form>
     </div>
-    <!-- Endof Signin -->
+    <!-- Endof Signin --> 
+      <div class="k-card-block" style="height:fit-content; width:fit-content" *ngIf="!isSignedIn">
+        <div class="container" style="
+          height:inherit; 
+          width:inherit; 
+          flex-flow: column nowrap; 
+          justify-content: space-evenly;
+          display: flex;
+          align-items: center;
+          margin: 1rem;
+          ">
+          <div class="row text-center" style="display: block; margin-bottom: 1.5rem;">  
+            <div class="k-i-loading text-center" style="
+              font-size: 100px; 
+              color: #252830;
+              width: 100px;
+              height: 100px;
+              "></div>
+          </div>
+          <div class="row text-center" style="display: block; flex:1">  
+            <span *ngIf="error.length > 0" class=" k-button k-shadow ag-theme-btn" (mousedown)="goBack()"> back to login </span>
+          </div>
+        </div>
+      </div>
     <!-- Signup block -->
     <div class="k-card-body" *ngIf="isSignUp">
       <form class="k-form"  [formGroup]="signUpForm" (ngSubmit)="onCreateAccount(signUpForm.value)">
@@ -62,7 +86,7 @@
       </div>
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Email">
-            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail"  #signUpEmail required></kendo-textbox>
+            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
         </kendo-textbox-container>
         <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="!signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
       </div>
@@ -86,10 +110,11 @@
           <button kendoRippleContainer type="submit" class="k-button k-shadow ag-theme-btn" [disabled]="signUpForm.status === 'INVALID'">
             Create account</button>
       </div>
-    </form>
+    </form> 
     </div>
     <!-- Endof Signup -->
     
   </div>
+  
 
 </div>

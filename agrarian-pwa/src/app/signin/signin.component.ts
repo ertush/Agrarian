@@ -1,10 +1,13 @@
+import { AngularFireAuth } from '@angular/fire/auth';
 import { formValidationMessages } from './validation.messages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, ViewEncapsulation, HostBinding, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import isMobileTablet from '../shared/deviceUtil';
+import * as firebase from 'firebase/app';
 import { TextBoxComponent } from '@progress/kendo-angular-inputs';
-import { AuthService } from '../shared/auth.service';
+// import { User } from '../models/user';
+
 
 @Component({
     selector: 'app-signin',
@@ -12,17 +15,25 @@ import { AuthService } from '../shared/auth.service';
     templateUrl: './signin.template.html'
 })
 
-export class SigninComponent {
+export class SigninComponent implements OnInit {
 
     @ViewChild('password') public passwordTxtbox: TextBoxComponent;
-    @ViewChild('newPassword') public newPasswordTxtbox: TextBoxComponent;
-    @ViewChild('confirmPassword') public confirmTxtbox: TextBoxComponent;
+    @ViewChild('newPassword', {static: true}) public newPasswordTxtbox: TextBoxComponent;
+    @ViewChild('confirmPassword', {static: true}) public confirmTxtbox: TextBoxComponent;
 
     public isMobile = isMobileTablet();
     public userName = '';
     public isSignUp: boolean;
     public marginTopExp;
     public formValidationMessages = formValidationMessages;
+
+    isSignedIn: boolean;
+    googleAuthProvider: any;
+    facebookAuthProvider: any;
+    error: any;
+    errorCode: any;
+    return = '';
+    user: firebase.User;
 
 
     public loginForm: FormGroup = new FormGroup({
@@ -61,9 +72,38 @@ export class SigninComponent {
            ? null : {'mismatch': true};
      }
 
-    constructor(private router: Router, private authService: AuthService) {
+    constructor(private router: Router, private afAuth: AngularFireAuth) {
+        this.isSignedIn = false;
         this.isSignUp = false;
         this.marginTopExp = 22;
+        this.error = ' ';
+      
+        this.error = '';
+
+        this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+
+        this.afAuth.auth.getRedirectResult()
+        .then(result => {
+            if(result.user) {
+                this.isSignedIn = true;
+                this.router.navigate(['./dashboard']);
+            }
+        })
+        .catch(error => {
+            this.errorCode = error.code;
+            this.error = error.message;
+        });
+
+       
+
+        this.afAuth.authState.subscribe(auth => {
+            if (!auth) {
+               this.router.navigateByUrl(this.return);
+            }
+         });
+    }
+    ngOnInit(): void {
+        this.isSignedIn = true;
     }
 
     @HostBinding('attr.id') protected get id(): string {
@@ -83,17 +123,19 @@ export class SigninComponent {
         const elemPwd = this.passwordTxtbox.input.nativeElement;
         elemPwd.type = elemPwd.type === 'password' ? 'text' : 'password';
 
+
     }
 
-
     public onLoginClick(formValues: any): void {
-        // console.log({formValues});
-
-        this.authService.doEmailLogin(formValues)
-        .then(res => console.log({emailLoginResponse: res}))
-        .catch(err => console.log({emailLoginError: err}));
-        
-        // this.router.navigate(['./dashboard']);
+        this.isSignedIn = false;
+        this.afAuth.auth.signInWithEmailAndPassword(formValues.userEmail, formValues.password)
+        .then((success) => {
+            if (success.user) { 
+                this.isSignedIn = true;
+                this.router.navigate(['./dashboard']);
+            }
+        })
+        .catch(error => this.error = error.message);
     }
 
     public onSignUpClick(): void {
@@ -104,8 +146,17 @@ export class SigninComponent {
 
     public onCreateAccount(formValues: any): void {
         console.log({formValues});
-        // this.isSignUp = false;
-        // this.marginTopExp = 22;
+
+        this.afAuth.auth.createUserWithEmailAndPassword(formValues.signUpEmail, formValues.newPassword)
+        .then((success) => {
+            this.isSignUp = false;
+        })
+        .catch(err => {
+            if (err.code == 'auth/weak-password') this.error = err;
+            this.error = err;
+            console.error({error: err.message});
+            console.log(err.message);
+        });
     }
 
     public submitForm(): void {
@@ -116,26 +167,21 @@ export class SigninComponent {
         this.loginForm.reset();
     }
 
-    public onGoogleSignIn(): void {
-        this.authService.doGoogleLogin()
-        .then(res => {
-
-            if (this.authService.opType === res.operationType && this.authService.userProfile.verified_email){
-                this.router.navigate(['./dashboard']);
-            }
-            // console.log({LoginResponse: res}); // Debug
-
-        })    
-        .catch(err => console.log({googleLoginError: err}));
+    public onGoogleSignIn() {
+        this.isSignedIn = false;
+        this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+        this.afAuth.auth.signInWithRedirect(this.googleAuthProvider);
     }
 
     public onFacebookSignIn(): void {
-        this.authService.doFacebookLogin()
-        .then(res => console.log({facebookLoginResponse: res}))
-        .catch(err => console.log({facebookLoginError: err}))
+        this.isSignedIn = false;
+        this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+        this.afAuth.auth.signInWithRedirect(this.facebookAuthProvider);
     }
 
-    public onRegister() {
-
+    public goBack() {
+        this.isSignUp = false;
+        this.isSignedIn = true;
+        this.error = '';
     }
 }

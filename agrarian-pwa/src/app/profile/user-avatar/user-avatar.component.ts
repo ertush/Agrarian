@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import isMobileTablet from 'src/app/shared/deviceUtil';
+
 
 @Component({
   selector: 'app-user-avatar',
   template: `
       <div class="container-avatar">
           <div class="avatar">
-            <img [src]="user.picture" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
+            <img [src]="user.photoURL === undefined ? '../../../assets/avatar-placeholder.png' : user.photoURL" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
           </div>
           <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
-            <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.given_name }} </p>
+            <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.displayName == undefined ? user.email.split('@')[0] : user.displayName }} </p>
             <p class="user-label-email mt-sm-auto" [ngStyle]="{'font-size.px': labelSize}"> {{ user.email }} </p>
           </div>
       </div>
@@ -22,7 +22,9 @@ export class UserAvatarComponent implements OnInit {
   public labelSize: Number;
   public labelMargin: Number;
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   ngOnInit(): void {
     this.avatarWidth = '40%';

@@ -1,7 +1,11 @@
+import * as firebase from 'firebase';
+
 export interface User {
-    id: string;
+    uid: string;
+    displayName: string;
     email: string;
-    password?: string;
-    picture?: string;
+    emailVerified: boolean;
+    photoUrl: string;
+    operationType?: string;
+    provdierData?: Array<firebase.UserInfo>;
 }
-  

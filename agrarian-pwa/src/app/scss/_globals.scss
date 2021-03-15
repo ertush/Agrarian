@@ -75,6 +75,16 @@ p {
   float: right;
 }
 
+.error {
+  background: #ce4e18;
+  border-radius: $btn-border-radius;
+  color:#fefefe;
+  padding: 1em;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+}
+
 
 .k-card-header {
   // padding: 0.65rem 1.25rem;

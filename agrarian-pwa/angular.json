@@ -33,7 +33,7 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "hammerjs",
-              "@firebase/app", 
+              "@firebase/app",  
               "firebase/app", 
               "@firebase/database", 
               "@firebase/util", 
