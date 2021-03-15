@@ -30,8 +30,8 @@ export class MainMenuComponent implements OnInit {
     public isMobile: boolean;
 
     return = '';
-
-    public user: any;
+    user: any;
+    defaultPhoto: string = '../../assets/avatar-placeholder.png';
 
     constructor(
         private router: Router,
@@ -51,13 +51,16 @@ export class MainMenuComponent implements OnInit {
                 this.user = user;
             }
         });
+
+     
+      
     
         // Load default user if user not set
         if (this.user === undefined) {
             this.user = {
                 displayName: 'user',
                 email: 'user@email.domain',
-                photoUrl: '../../assets/avatar-placeholder.png'
+                photoURL: this.defaultPhoto
             };
         }
 
@@ -96,15 +99,15 @@ export class MainMenuComponent implements OnInit {
     public logOut() {
         if (this.isMobile) {
             this.toggleNav();
-            this.menuTitle = 'dashboard';
+            this.menuTitle = 'Dashboard';
         }
-        this.afAuth.auth.signOut()
-        .finally(() => {
-            this.router.navigate(['/signin']);
-        })
-        .catch(err => console.log({logoutError: err}));
-
+        
+        if (this.afAuth.auth.currentUser) {
+            this.afAuth.auth.signOut()
+           this.router.navigate(['/signin'])
+        }
     }
+
 
     public toggleNav() {
         if ( this.navState === 'expanded' ) {

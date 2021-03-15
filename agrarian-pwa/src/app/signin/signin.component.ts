@@ -1,3 +1,4 @@
+import { UserModel } from './../models/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { formValidationMessages } from './validation.messages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -34,7 +35,6 @@ export class SigninComponent implements OnInit {
     errorCode: any;
     return = '';
     user: firebase.User;
-
 
     public loginForm: FormGroup = new FormGroup({
         userEmail: new FormControl('', Validators.compose([
@@ -145,7 +145,8 @@ export class SigninComponent implements OnInit {
     }
 
     public onCreateAccount(formValues: any): void {
-        console.log({formValues});
+        
+        localStorage.setItem('userName', formValues.userName);
 
         this.afAuth.auth.createUserWithEmailAndPassword(formValues.signUpEmail, formValues.newPassword)
         .then((success) => {

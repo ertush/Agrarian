@@ -41,15 +41,25 @@
           <a style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
         </p>
         <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
-        <div class="form-group mb-2 btn-group">
+
+        <div class="form-group mb-0 btn-group">
           <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
-            <!-- <span class="k-icon k-i-google k-i-google-btn pr-2"></span> -->
-            <i class="fab fa-google  k-i-google-btn pr-2"></i>
-             {{ isMobile ? 'sign in': 'google sign in' }}</span>
-          <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onFacebookSignIn()">
+          <span class="fab fa-google  k-i-google-btn pr-2"></span>
+           {{'continue with google' }}
+          </span>
+        </div>  
+
+          <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
+
+          <div class="form-group mb-0 btn-group">
+            <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onFacebookSignIn()">
             <span class="k-icon k-i-facebook k-i-fb-btn pr-2"></span>
-           {{ isMobile? 'sign in': 'facebook sign in' }}</span>
-        </div>
+            {{ 'continue with facebook' }}
+          </span>
+          </div>
+        
+        <!-- <div class="form-group mb-2 btn-group">
+        </div>   -->
       </form>
     </div>
     <!-- Endof Signin --> 
@@ -81,7 +91,7 @@
       <form class="k-form"  [formGroup]="signUpForm" (ngSubmit)="onCreateAccount(signUpForm.value)">
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Username" >
-            <input kendoTextBox type="text" id="username" formControlName="userName" #username/>
+            <input kendoTextBox type="text" id="username" formControlName="userName" #userName/>
         </kendo-textbox-container>
       </div>
       <div class="form-group">

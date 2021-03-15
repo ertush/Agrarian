@@ -76,7 +76,7 @@ p {
 }
 
 .error {
-  background: #ce4e18;
+  background: $brand-danger;
   border-radius: $btn-border-radius;
   color:#fefefe;
   padding: 1em;

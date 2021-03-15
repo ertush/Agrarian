@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
       <div class="container-avatar">
           <div class="avatar">
-            <img [src]="user.photoURL === undefined ? '../../../assets/avatar-placeholder.png' : user.photoURL" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
+            <img [src]="user.photoURL === null ? defaultPhotoURL : user.photoURL" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
           </div>
           <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
             <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.displayName == undefined ? user.email.split('@')[0] : user.displayName }} </p>
@@ -21,6 +21,8 @@ export class UserAvatarComponent implements OnInit {
   public avatarWidth: string;
   public labelSize: Number;
   public labelMargin: Number;
+
+  defaultPhotoURL = '../../../assets/avatar-placeholder.png';
 
   constructor() {
     

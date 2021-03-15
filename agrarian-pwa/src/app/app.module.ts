@@ -56,6 +56,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment as env } from '../environments/environment';
+import { PageSpinnerComponent } from './page-spinner/page-spinner.component';
 
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
@@ -67,7 +68,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-    declarations: [	
+    declarations: [		
         LabelClass,
         AppComponent,
         MainMenuComponent,
@@ -88,7 +89,8 @@ export function createTranslateLoader(http: HttpClient) {
         UserAvatarComponent,
         HeaderComponent,
         MapComponent,
-      WeatherComponent
+      WeatherComponent,
+      PageSpinnerComponent
    ],
     imports: [
         AppRoutingModule,

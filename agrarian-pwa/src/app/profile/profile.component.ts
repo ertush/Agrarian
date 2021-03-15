@@ -1,5 +1,5 @@
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     templateUrl: './profile.template.html'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
     public isLoading = true;
     
     public profileDialogVisible = false;
@@ -16,6 +16,8 @@ export class ProfileComponent {
     user: any;
     error = '';
     errorCode: any;
+    userName: string;
+    defaultPhoto = '../../assets/avatar-placeholder.png';
 
     @HostBinding('attr.id') get get_id() { return 'profile'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
@@ -32,6 +34,8 @@ export class ProfileComponent {
                 this.errorCode = error.code;
                 this.error = error;
             });
+    }
+    ngOnInit(): void {
     }
 
     public onProfileDialogClose() {
