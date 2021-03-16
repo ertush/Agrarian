@@ -100,25 +100,28 @@
 
 .google-btn {
  flex: 1;
- background-color: rgb(255, 60, 0);
- color: $white;
+ background-color: rgb(253, 215, 207);//rgb(255, 60, 0);
+ color: $brand-danger;
  border-radius: $btn-border-radius;
 }
 
-.fb-btn {
+.twitter-btn {
   flex: 1;
-  background-color: rgb(0, 128, 255);
-  color: $white;
+  background-color: rgb(179, 230, 250);//rgb(0, 128, 255);
+  color: #00a2ff;
   border-radius: $btn-border-radius;
 }
 
+.eye-icon{
+  color: $gray
+}
 
 .k-i-google-btn{
   size: 32px;
-  color:$white;
+  color: $brand-danger;
 }
 
-.k-i-fb-btn{
+.k-i-twitter-btn{
   size: 32px;
   color:rgba($black, 2)
 }

@@ -4,8 +4,6 @@
             (mousedown)="toggleNav()"> 
 
             <div *ngIf="navState === 'collapsed'" class="app-bar-title">
-                <!-- <span  class="k-icon k-i-hamburger"></span> -->
-
                 
                 <div class="title-bar-header">
                     <div class="avatar" style="flex: 1">
@@ -28,7 +26,7 @@
        
         <div class="container mt-0">
             <div *ngIf="navState === 'expanded' && isMobile" class="mt-3 mr-0 app-bar-title" style="float: right;">
-                <span  class="k-icon k-i-close" (mousedown)="toggleNav()"></span>
+                <i  class="k-icon k-i-close" (mousedown)="toggleNav()"></i>
             </div> 
           <h1 id="app-title" class="mb-0 mt-0" [ngClass]="{'pt-3': isMobile}" >Agrarian</h1>
           <p id="app-subtitle" class="h4 mb-3">{{ menuTitle }}</p>
@@ -39,11 +37,11 @@
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
                   <a [routerLink]=" ['./dashboard'] "  class="nav-link" (mousedown)="navigate('/dashboard')" routerLinkActive="active">
-                    <span class="k-icon k-i-graph k-icon-sm" routerLinkActive="active"></span>Dashboard</a>
+                    <i class="k-icon k-i-graph k-icon-sm" routerLinkActive="active"></i>Dashboard</a>
               </li>
               <li class="nav-item" id="issues">
                   <a [routerLink]=" ['./issues'] " class="nav-link" (mousedown)="navigate('/issues')" routerLinkActive="active">
-                    <span class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></span>Reports</a>
+                    <i class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></i>Reports</a>
               </li>
           </ul>
           
@@ -51,11 +49,11 @@
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
                   <a [routerLink]=" ['./profile'] "  class="nav-link" (mousedown)="navigate('/profile')" routerLinkActive="active">
-                    <span class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></span>My Profile</a>
+                    <i class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></i>My Profile</a>
               </li>
               <li class="nav-item" id="signout">
                   <a class="nav-link" style="cursor: pointer;" (mousedown)="logOut()" routerLinkActive="active">
-                    <span class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></span>Log Out</a>
+                    <i class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></i>Log Out</a>
               </li>
           </ul>
           
@@ -64,12 +62,12 @@
               <li class="nav-item" id="source">
                   <a class="nav-link" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
                   role="button">
-                  <span class="k-icon k-i-download k-icon-sm"></span>Download</a>
+                  <i class="k-icon k-i-download k-icon-sm"></i>Download</a>
               </li>
               <li class="nav-item" id="documentation">
                   <a class="nav-link" href="https://agrarian-iot.github.io" target="_blank"
                   role="button">
-                  <span class="k-icon k-i-hyperlink-globe k-icon-sm"></span>Website</a>
+                  <i class="k-icon k-i-hyperlink-globe k-icon-sm"></i>Website</a>
               </li>
           </ul>
         </div>

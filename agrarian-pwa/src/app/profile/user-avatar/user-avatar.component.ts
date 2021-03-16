@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
           <div class="avatar">
             <img [src]="user.photoURL === null ? defaultPhotoURL : user.photoURL" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
           </div>
+
           <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
             <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.displayName == undefined ? user.email.split('@')[0] : user.displayName }} </p>
             <p class="user-label-email mt-sm-auto" [ngStyle]="{'font-size.px': labelSize}"> {{ user.email }} </p>

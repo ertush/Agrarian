@@ -58,17 +58,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment as env } from '../environments/environment';
 import { PageSpinnerComponent } from './page-spinner/page-spinner.component';
 
-
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
-
-
+// I keep the new line
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http as any, './assets/i18n/', '.json');
 }
 
 @NgModule({
-    declarations: [		
+    declarations: [
         LabelClass,
         AppComponent,
         MainMenuComponent,
@@ -89,9 +87,9 @@ export function createTranslateLoader(http: HttpClient) {
         UserAvatarComponent,
         HeaderComponent,
         MapComponent,
-      WeatherComponent,
-      PageSpinnerComponent
-   ],
+        WeatherComponent,
+        PageSpinnerComponent
+    ],
     imports: [
         AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -117,10 +115,11 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClientModule]
             }
         }),
-        RippleModule,
+        RippleModule
     ],
     providers: [],
-    bootstrap: [ AppComponent ]
+    bootstrap: [AppComponent]
 })
 
-export class AppModule {}
+export class AppModule {
+}

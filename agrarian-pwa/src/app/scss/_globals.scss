@@ -4,9 +4,24 @@ body {
   font-size: $font-size-root;
 }
 
-input{
-  color: $primary;
+kendo-textbox,
+kendo-card,
+kendo-chart,
+kendo-button,
+kendo-tabstrip,
+input,
+span,
+h4,
+h5,
+h3,
+h2,
+h1,
+label,
+a,
+p{
+  font-family: $font-family-sans-serif !important;
 }
+
 
 app-maestro-app,
 app-main-menu,
@@ -76,9 +91,9 @@ p {
 }
 
 .error {
-  background: $brand-danger;
+  background: $brand-light-danger; // $brand-danger;
   border-radius: $btn-border-radius;
-  color:#fefefe;
+  color: $brand-danger; // #fefefe;
   padding: 1em;
   width: 100%;
   display: block;
@@ -115,9 +130,14 @@ small,
 }
 
 .ag-theme-btn{
-  background-color: $primary;
-  color: $white;
+  font-family: $font-family-sans-serif !important;
+  background-color: $gray-lighter;
+  color: $primary;
   border-radius: $btn-border-radius;
+}
+
+.delete-btn{
+  font-family: $font-family-sans-serif !important;
 }
 
 @media (max-width: 768px) {

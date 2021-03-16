@@ -21,9 +21,10 @@
         </div>
         <div class="form-group ml-2 mr-2">
           <kendo-textbox-container class="custom-width"  floatingLabel="Password">
-              <kendo-textbox kendoTextBox formControlName="password" type="password" [clearButton]="true" #password required>
+              <kendo-textbox kendoTextBox formControlName="password" type="password" #password required>
                 <ng-template kendoTextBoxSuffixTemplate>
-                  <span kendoButton look="clear" icon="eye" (mousedown)="toggleVisibility()"></span>
+                  <i *ngIf="isText;else eyeslash" class="eye-icon fas fa-eye" (mousedown)="toggleVisibility()"></i>
+                  <ng-template #eyeslash> <i class="eye-icon fas fa-eye-slash" (mousedown)="toggleVisibility()"></i> </ng-template>
               </ng-template>
               </kendo-textbox>
           </kendo-textbox-container>
@@ -36,15 +37,16 @@
         </div>
         <div class="form-group mb-0 btn-group">
           <button kendoRippleContainer type="submit" class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline"  [disabled]="loginForm.status === 'INVALID'">Log in</button>
-        </div>
+        </div>  
         <p class="text-xs-right small mb-0 pb-0 ml-2">
           <a style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
         </p>
+
         <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
 
         <div class="form-group mb-0 btn-group">
           <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
-          <span class="fab fa-google  k-i-google-btn pr-2"></span>
+          <i class="fab fa-google  k-i-google-btn pr-2"></i>
            {{'continue with google' }}
           </span>
         </div>  
@@ -52,9 +54,9 @@
           <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
 
           <div class="form-group mb-0 btn-group">
-            <span kendoRippleContainer class="k-button k-shadow fb-btn ml-2 mr-2" look="outline" (mousedown)="onFacebookSignIn()">
-            <span class="k-icon k-i-facebook k-i-fb-btn pr-2"></span>
-            {{ 'continue with facebook' }}
+            <span kendoRippleContainer class="k-button k-shadow twitter-btn ml-2 mr-2 mb-2" look="outline" (mousedown)="onTwitterSignIn()">
+            <i class="k-icon k-i-twitter k-i-twitter-btn pr-2"></i>
+            {{ 'continue with twitter' }}
           </span>
           </div>
         
@@ -91,18 +93,18 @@
       <form class="k-form"  [formGroup]="signUpForm" (ngSubmit)="onCreateAccount(signUpForm.value)">
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Username" >
-            <input kendoTextBox type="text" id="username" formControlName="userName" #userName/>
+            <input kendoTextBox type="text" id="username" placeholder="Optional" formControlName="userName" #userName/>
         </kendo-textbox-container>
       </div>
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Email">
-            <kendo-textbox kendoTextBox type="text" id="email"  formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
+            <kendo-textbox kendoTextBox type="text" id="email" formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
         </kendo-textbox-container>
         <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="!signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
       </div>
           <div class="form-group">
               <kendo-textbox-container class="custom-width"  floatingLabel="New password">
-                  <input type="password" kendoTextBox  formControlName="newPassword" [clearButton]="true" #newPasword required>
+                  <input type="password" kendoTextBox  formControlName="newPassword" #newPasword required>
               </kendo-textbox-container>
               <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!signUpForm.get('newPassword').hasError(validation.type)">
                 {{ validation.message }}

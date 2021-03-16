@@ -52,9 +52,14 @@ export class ProfileComponent implements OnInit{
 
     public onDeleteClick() {
         this.deleteDialogVisible = true;
+        
     }
 
     public onDeleteDialogClose() {
         this.deleteDialogVisible = false;
+    }
+
+    onPictureEdit(event: any) {    
+        console.log({event});
     }
 }

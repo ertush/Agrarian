@@ -30,9 +30,10 @@ export class SigninComponent implements OnInit {
 
     isSignedIn: boolean;
     googleAuthProvider: any;
-    facebookAuthProvider: any;
+    twitterAuthProvider: any;
     error: any;
     errorCode: any;
+    isText = false;
     return = '';
     user: firebase.User;
 
@@ -122,7 +123,7 @@ export class SigninComponent implements OnInit {
     public toggleVisibility(): void {
         const elemPwd = this.passwordTxtbox.input.nativeElement;
         elemPwd.type = elemPwd.type === 'password' ? 'text' : 'password';
-
+        this.isText = elemPwd.type === 'password' ? false : true;
 
     }
 
@@ -174,10 +175,10 @@ export class SigninComponent implements OnInit {
         this.afAuth.auth.signInWithRedirect(this.googleAuthProvider);
     }
 
-    public onFacebookSignIn(): void {
+    public onTwitterSignIn(): void {
         this.isSignedIn = false;
-        this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-        this.afAuth.auth.signInWithRedirect(this.facebookAuthProvider);
+        this.twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
+        this.afAuth.auth.signInWithRedirect(this.twitterAuthProvider);
     }
 
     public goBack() {
@@ -185,4 +186,5 @@ export class SigninComponent implements OnInit {
         this.isSignedIn = true;
         this.error = '';
     }
+
 }

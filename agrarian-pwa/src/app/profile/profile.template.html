@@ -24,8 +24,34 @@
 
                     <div class="row">
                         <div class="col-md-3 text-xs-center">
-                            <img  [src]="user.photoURL === null ? defaultPhoto : user.photoURL"  [ngStyle]="{'max-width': '70%'}" class="img-circle mx-auto mb-3" />
-                        </div>
+                                <img  [src]="user.photoURL === null ? defaultPhoto : user.photoURL"  style="max-width: 100px; max-height:100px" class="img-circle mx-auto mb-3" />
+                                <div class="row text-center m-1 p-1" style=" width: 100%; height: fit-content">
+                                    <ul class="p-1" style="
+                                        list-style: none; 
+                                        flex-flow: column nowrap;
+                                        justify-content: space-evenly;
+                                        align-items: flex-start;
+                                        display: flex;
+                                        ">
+                                        <li style="flex: 1" class="mb-4">
+                                            <i class="fab fa-twitter" style="font-size:15px; color: rgb(88, 208, 255)"></i>
+                                            <span class="ml-1">@twitter</span>
+                                        </li>
+                                        <li style="flex: 1" class="mb-4">
+                                            <i class="fab fa-facebook" style="font-size:15px; color: rgb(88, 119, 255)"></i>
+                                            <span class="ml-1">@facebook</span>
+                                        </li>
+                                        <li style="flex: 1" class="mb-4">
+                                            <i class="fab fa-google-plus" style="font-size:15px; color: rgb(255, 88, 88)"></i>
+                                            <span class="ml-1">@google+</span>
+                                        </li>
+                                        <li style="flex: 1" class="mb-4">
+                                            <i class="fas fa-phone-alt" style="font-size:15px; color: rgb(93, 91, 91)"></i>
+                                            <span class="ml-1">{{ user.phoneNumber  || '000-000-000' }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         <div class="col-md-9">
                             <div class="form-group">
                                 <kendo-textbox-container class="custom-width" floatingLabel="Username">
@@ -63,9 +89,9 @@
             <div class="k-card" id="delete-account">
                 <h3 class="k-card-header">Delete Account</h3>
                 <div class="k-card-body">
-                    <p>You will immediately lose access to your repositories and all other information associated with your account. <strong>This cannot be undone!</strong></p>
+                    <p>You will immediately lose access to your reports and all other information associated with your account. <strong>This cannot be undone!</strong></p>
                     <div class="v-spacer">
-                        <button kendoRippleContainer class="k-button k-shadow" style="background-color: red; color: whitesmoke; border-radius: 0.5rem;" (mousedown)="onDeleteClick()">Delete Account</button>
+                        <button kendoRippleContainer class="k-button delete-btn k-shadow" style="background-color: red; color: whitesmoke; border-radius: 0.5rem;" (mousedown)="onDeleteClick()">Delete Account</button>
                     </div>
                 </div>
                 
@@ -118,11 +144,23 @@
         </kendo-dialog-actions>
     </kendo-dialog>
 
-    <kendo-dialog title="Are you sure you want to do this?" *ngIf="deleteDialogVisible" (close)="onDeleteDialogClose()">
-        <p>Account deletetion cannot be undone!</p>
+    <kendo-dialog style="border-radius: 1.5rem;" *ngIf="deleteDialogVisible" (close)="onDeleteDialogClose()">
+        <div class="row ml-1 mr-1 text-center"><h3>Are you sure you want to proceed?</h3></div>
+        <div class="row m-1 text-center">
+        <span style="
+        background: rgb(253, 185, 185); 
+        border-radius: 0.5rem; 
+        padding: 0.8rem;
+        color: #ce4e18">Account deletetion cannot be undone!</span>
+        </div>
+        <div class="row m-1 mb-2 text-center">
+        <kendo-textbox-container floatingLabel="Enter email to confirm">
+            <kendo-textbox #confirmDelete style="font-size:15px; color: red;"></kendo-textbox>
+        </kendo-textbox-container>
+        </div>
         <kendo-dialog-actions>
-            <button kendoRippleContainer kendoButton (mousedown)="onDeleteDialogClose()">Cancel</button>
-            <button kendoRippleContainer kendoButton (mousedown)="onDeleteDialogClose()" [primary]="true">Delete Account</button>
+            <button class="delete-btn" kendoRippleContainer kendoButton (mousedown)="onDeleteDialogClose()">Cancel</button>
+            <button class="delete-btn" kendoRippleContainer kendoButton [disabled]="!confirmDelete.value" (mousedown)="onDeleteDialogClose()" [primary]="true" style="background-color: red; color: whitesmoke;">Delete Account</button>
         </kendo-dialog-actions>
     </kendo-dialog>
 

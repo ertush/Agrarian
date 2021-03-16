@@ -27,12 +27,18 @@ $gray-light:                #818a91;
 $gray-lighter:              #eceeef;
 $gray-lightest:             #f7f7f9;
 
+$light-danger:              rgb(255, 172, 172);
+$light-primary:             #8af7c0ef;
 $brand-primary:             #03bd9eef;
 $brand-success:             #27c46d;
 $brand-info:                #52c3d3;
 $brand-warning:             #ffc466;
 $brand-danger:              #ce4e18;
 $brand-inverse:             $gray-dark;
+
+$brand-light-primary:       rgb(172, 255, 172);
+$brand-light-danger:        rgb(253, 185, 185);
+$brand-light-warning:       rgb(255, 231, 125);
 
 
 
@@ -41,10 +47,10 @@ $brand-inverse:             $gray-dark;
 //
 // Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-$font-family-serif:      Georgia, "Times New Roman", Times, serif;
-$font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-$font-family-base:       "Roboto", "Helvetica Neue", sans-serif;
+$font-family-sans-serif: "Titillium Web", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+$font-family-serif:      "Titillium Web", serif;
+$font-family-monospace:  "Titillium Web", monospace;
+$font-family-base:       "Titillium Web", sans-serif;
 
 // Pixel value used to responsively scale all typography. Applied to the `<html>` element.
 $font-size-root: 14px;
