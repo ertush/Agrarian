@@ -9,13 +9,11 @@
 #include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
-#include "WebSocketStreamClient.h"
-#include "WebSocketClient250.h"
 #include <PubSubClient.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
 
-// For Debugging WebsocketStreamClient
+// For Debugging MQTT Client
 #define DEBUG_MAIN(...) Serial.printf(__VA_ARGS__)
 
 #ifndef DEBUG_MAIN
@@ -54,9 +52,7 @@ TinyGPS gps;
 SoftwareSerial ss(NEO_RX, NEO_TX);
 
 WiFiClientSecure espClient;
-WebSocketClient250 wsClient(espClient, MQTT_SVR, MQTT_PORT);
-//WebSocketStreamClient wsStreamClient(wsClient, path);
-PubSubClient client(wsClient);
+PubSubClient client(espClient);
 
 long now = millis();
 long lastMeasure = 0;
