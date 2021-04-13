@@ -23,10 +23,15 @@
                 <div class="k-card-body">
 
                     <div class="row">
-                        <div class="col-md-3 text-xs-center">
-                                <img  [src]="user.photoURL === null ? defaultPhoto : user.photoURL"  style="max-width: 100px; max-height:100px" class="img-circle mx-auto mb-3" />
-                                <div class="row text-center m-1 p-1" style=" width: 100%; height: fit-content">
-                                    <ul class="p-1" style="
+                        <div class="col-md-3 text-xs-center user-profile-cnt">
+                                
+                                <img *ngIf="user.photoURL !== null; else userInitialAvatar" [src]="user.photoURL"  style="max-width: 100px; max-height:100px;" class="img-circle mx-auto " />
+                                <ng-template #userInitialAvatar>
+                                    <div class="initials-avatar"><p>{{user.displayName ? user.displayName.substr(0,2) : user.email.split('@')[0].substr(0,2)}}</p></div>
+                                </ng-template>
+
+                                <div class="row text-center m-1 social-links">
+                                    <ul class="p-1 pt-4" style="
                                         list-style: none; 
                                         flex-flow: column nowrap;
                                         justify-content: space-evenly;
@@ -47,7 +52,7 @@
                                         </li>
                                         <li style="flex: 1" class="mb-4">
                                             <i class="fas fa-phone-alt" style="font-size:15px; color: rgb(93, 91, 91)"></i>
-                                            <span class="ml-1">{{ user.phoneNumber  || '000-000-000' }}</span>
+                                            <span class="ml-1">{{ user.phoneNumber  || '000-000' }}</span>
                                         </li>
                                     </ul>
                                 </div>

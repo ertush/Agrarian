@@ -6,12 +6,22 @@
             <div *ngIf="navState === 'collapsed'" class="app-bar-title">
                 
                 <div class="title-bar-header">
-                    <div class="avatar" style="flex: 1">
-                        <img [src]="user.photoURL === null ? defaultPhoto : user.photoURL" class="img-circle mx-auto" style="max-width: 30px"/>
-                    </div>
-                    <p style="flex: 1" class="h5 ml-3">@{{ (user.displayName ? user.displayName : user.email.split('@')[0]).replace(' ','') }}</p>
-                    <p id="app-title" style="flex: 1" class="menu-title h5 ml-3">{{ menuTitle }}</p>
-                    <span style="flex: 1;" [ngStyle]="{'background': 1 === 1 ? '#ce4e18' : '$primary'}" class="h5 ml-3 status-badge text-center">offline</span>
+                    <span class="user-wrapper">
+                        <div class="avatar">
+                            <img *ngIf="user.photoURL !== null; else userInitialAvatar" [src]="user.photoURL" class="img-circle mx-auto" style="max-width: 30px"/>
+                            <ng-template #userInitialAvatar>
+                                <div class="initials-avatar mx-auto" style="width: 30px !important; height: 30px !important">
+                                    <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.displayName ? user.displayName.substr(0,2) : user.email.split('@')[0].substr(0,2)}}</p>
+                                </div>
+                            </ng-template>
+                            
+                        </div>
+                        <p class="h5 ml-1">@{{ (user.displayName ? user.displayName : user.email.split('@')[0]).replace(' ','') }}</p>
+                    </span>
+
+                    <p id="app-title" class="menu-title h5">{{ menuTitle }}</p>
+                    
+                    <span [ngStyle]="{'background': 1 === 1 ? '#ce4e18' : '$primary'}" class="h5 status-badge text-center">offline</span>
                 </div>  
                 
             </div>
@@ -25,7 +35,7 @@
         >
        
         <div class="container mt-0">
-            <div *ngIf="navState === 'expanded' && isMobile" class="mt-3 mr-0 app-bar-title" style="float: right;">
+            <div *ngIf="navState === 'expanded' && isMobile" class="mt-3 mr-0" style="float: right;">
                 <i  class="k-icon k-i-close" (mousedown)="toggleNav()"></i>
             </div> 
           <h1 id="app-title" class="mb-0 mt-0" [ngClass]="{'pt-3': isMobile}" >Agrarian</h1>
@@ -61,7 +71,7 @@
           <ul class="nav nav-pills flex-column"> 
               <li class="nav-item" id="source">
                   <a class="nav-link" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
-                  role="button">
+                      role="button">
                   <i class="k-icon k-i-download k-icon-sm"></i>Download</a>
               </li>
               <li class="nav-item" id="documentation">
