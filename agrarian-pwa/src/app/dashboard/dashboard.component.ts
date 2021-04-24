@@ -8,6 +8,7 @@ import { MqttService } from './../shared/mqtt.service';
 import { ChartTempService } from '../shared/chart-temp.service';
 import { ChartDonutService } from '../shared/chart-donut.service';
 import { environment as env  } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 
@@ -20,50 +21,62 @@ import { environment as env  } from 'src/environments/environment';
 
 export class DashboardComponent implements OnDestroy {
 
-    public min: Date = new Date();
-    public max: Date = new Date(this.min.getTime() + 60000);
-    public style = 'smooth';
-    public unit = 'fit';
+    min: Date = new Date();
+    max: Date = new Date(this.min.getTime() + 60000);
+    style = 'smooth';
+    unit = 'fit';
+    user: any;
 
-    public allData: any[];
+    allData: any[];
 
-    public isLoading = true;
-    public today: Date = new Date();
-    public rangeStart: Date;
+    isLoading = true;
+    today: Date = new Date();
+    rangeStart: Date;
 
-    public months = 3;
+    months = 3;
 
     private subscription: Subscription;
 
-    public _espData = [];
-    public _tempHumidityData = [];
-    public _tempData = [];
+    _espData = [];
+    _tempHumidityData = [];
+    _tempData = [];
 
-    public _csData = {temperature: [], humidity: [], soil: [], light: [], atpressure: []};
-    public temp = [];
-    public humid = [];
-    public soil = [];
-    public light = [];
-    public atm = [];
-    public isMobile: boolean;
+    _csData = {temperature: [], humidity: [], soil: [], light: [], atpressure: []};
+    temp = [];
+    humid = [];
+    soil = [];
+    light = [];
+    atm = [];
+    isMobile: boolean;
 
-    public lat = -1.45;
-    public lng = 36.97;
+    lat = -1.45;
+    lng = 36.97;
 
-    public pageTitle = 'Statistics';
+    pageTitle = 'Statistics';
 
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
-    @ViewChild('tabStrip') public tabStrip: TabStripComponent;
+    @ViewChild('tabStrip') tabStrip: TabStripComponent;
 
     constructor(
+              private afAuth: AngularFireAuth,
               private MqttClientService: MqttService,
               private chartAreaService: ChartsAreaService,
               private chartTempService: ChartTempService,
               private chartDonutService: ChartDonutService
         ) {
 
+        // Auth Guard
+
+        this.afAuth.authState.subscribe(user => {
+          console.log({user});
+            if(user){
+                this.user = user;
+            }else{
+              return;
+            }
+        });
 
         /* Line Real time chart */
         this.MqttClientService.fetchData()
@@ -188,7 +201,7 @@ export class DashboardComponent implements OnDestroy {
         );
     }
 
-    public onDropDownSelect(val: string) {
+    onDropDownSelect(val: string) {
       const tabs = {Graph: 0, Map: 1, Weather: 2};
       this.tabStrip.selectTab(tabs[val]);
     }

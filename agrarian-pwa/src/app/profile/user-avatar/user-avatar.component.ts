@@ -6,7 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
       <div class="container-avatar">
           <div class="avatar">
-            <img [src]="user.photoURL === null ? defaultPhotoURL : user.photoURL" class="img-circle mx-auto" [ngStyle]="{'max-width': avatarWidth}" alt="Avatar"/>
+            
+            <img *ngIf="user.photoURL !== null; else userInitialAvatar" [src]="user.photoURL"  style="max-width: 100px; max-height:100px;" class="img-circle mx-auto " />
+            <ng-template #userInitialAvatar>
+              <div class="initials-avatar"><p>{{user.displayName ? user.displayName.substr(0,2) : user.email.split('@')[0].substr(0,2)}}</p></div>
+            </ng-template>
           </div>
 
           <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
@@ -18,12 +22,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserAvatarComponent implements OnInit {
 
-  @Input() public user: any;
-  public avatarWidth: string;
-  public labelSize: Number;
-  public labelMargin: Number;
-
-  defaultPhotoURL = '../../../assets/avatar-placeholder.png';
+  @Input() user: any;
+  avatarWidth: string;
+  labelSize: Number;
+  labelMargin: Number;
 
   constructor() {
     
@@ -32,7 +34,7 @@ export class UserAvatarComponent implements OnInit {
   ngOnInit(): void {
     this.avatarWidth = '40%';
     this.labelSize = 14;
-    this.labelMargin = 0; // (isMobileTablet() ? 0 : 10 );
+    this.labelMargin = 0; 
   }
 
 }

@@ -24,14 +24,14 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     encapsulation: ViewEncapsulation.None
 })
 export class MainMenuComponent implements OnInit {
-    public year = new Date().getFullYear();
-    public navState: string;
-    public menuTitle: string;
-    public isMobile: boolean;
+    year = new Date().getFullYear();
+    navState: string;
+    menuTitle: string;
+    isMobile: boolean;
 
     return = '';
     user: any;
-    defaultPhoto: string = '../../assets/avatar-placeholder.png';
+    // defaultPhoto: string = '../../assets/avatar-placeholder.png';
 
     constructor(
         private router: Router,
@@ -60,7 +60,7 @@ export class MainMenuComponent implements OnInit {
             this.user = {
                 displayName: 'user',
                 email: 'user@email.domain',
-                photoURL: this.defaultPhoto
+                photoURL: null
             };
         }
 
@@ -91,25 +91,25 @@ export class MainMenuComponent implements OnInit {
         }
     }
 
-    public showNav() {
+    showNav() {
         return this.router.url !== '/signin';
     }
 
 
-    public logOut() {
+    logOut() {
         if (this.isMobile) {
             this.toggleNav();
             this.menuTitle = 'Dashboard';
         }
         
         if (this.afAuth.auth.currentUser) {
-            this.afAuth.auth.signOut()
-           this.router.navigate(['/signin'])
+            this.afAuth.auth.signOut();
+           this.router.navigate(['/signin']);
         }
     }
 
 
-    public toggleNav() {
+    toggleNav() {
         if ( this.navState === 'expanded' ) {
             this.navState = 'collapsed';
         } else {
@@ -117,7 +117,7 @@ export class MainMenuComponent implements OnInit {
         }
     }
 
-    public navigate(path: string): void {
+    navigate(path: string): void {
 
         if (this.isMobile) {
             this.toggleNav();

@@ -14,23 +14,6 @@
   }
 }
 
-.initials-avatar {
-  background: $deep-green;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.initials-avatar p {
-  padding-top: 0.5rem;
-  text-transform: uppercase;
-  font-size: 400%;
-  color: #fff;
-}
-
 .social-links { 
   width: auto; 
   height: fit-content; 

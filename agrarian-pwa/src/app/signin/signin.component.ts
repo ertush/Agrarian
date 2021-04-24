@@ -77,7 +77,6 @@ export class SigninComponent implements OnInit {
         this.isSignedIn = false;
         this.isSignUp = false;
         this.marginTopExp = 22;
-        this.error = ' ';
       
         this.error = '';
 
@@ -172,13 +171,21 @@ export class SigninComponent implements OnInit {
     public onGoogleSignIn() {
         this.isSignedIn = false;
         this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-        this.afAuth.auth.signInWithRedirect(this.googleAuthProvider);
+        this.afAuth.auth.signInWithRedirect(this.googleAuthProvider)
+        .catch(error => {
+            this.errorCode = error.code;
+            this.error = error.message;
+        });
     }
 
     public onTwitterSignIn(): void {
         this.isSignedIn = false;
         this.twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
-        this.afAuth.auth.signInWithRedirect(this.twitterAuthProvider);
+        this.afAuth.auth.signInWithRedirect(this.twitterAuthProvider)
+        .catch(error => {
+            this.errorCode = error.code;
+            this.error = error.message;
+        });
     }
 
     public goBack() {

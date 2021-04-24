@@ -65,15 +65,14 @@
       </form>
     </div>
     <!-- Endof Signin --> 
-      <div class="k-card-block" style="height:fit-content; width:fit-content" *ngIf="!isSignedIn">
-        <div class="container" style="
-          height:inherit; 
-          width:inherit; 
-          flex-flow: column nowrap; 
+      <div class="k-card-block" *ngIf="!isSignedIn">
+        <div class="mt-3" style="
+          height:100%; 
+          width:100%;
           justify-content: space-evenly;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          margin: 1rem;
           ">
           <div class="row text-center" style="display: block; margin-bottom: 1.5rem;">  
             <div class="k-i-loading text-center" style="
@@ -84,9 +83,9 @@
               "></div>
           </div>
           <div class="row text-center" style="display: block; flex:1">  
-            <span *ngIf="error.length > 0" class=" k-button k-shadow ag-theme-btn" (mousedown)="goBack()"> back to login </span>
+            <span *ngIf="error.length > 0" class=" k-button k-shadow ag-theme-btn mb-3" (mousedown)="goBack()"> back to login </span>
           </div>
-        </div>
+        </div>  
       </div>
     <!-- Signup block -->
     <div class="k-card-body" *ngIf="isSignUp">
