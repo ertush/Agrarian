@@ -44,7 +44,7 @@ export class MainMenuComponent implements OnInit {
         } else {
             this.navState = 'expanded';
         }
-        this.menuTitle = 'Dashboard';
+        this.menuTitle = 'Home';
 
         this.afAuth.authState.subscribe(user => {
             if(user){
@@ -99,7 +99,7 @@ export class MainMenuComponent implements OnInit {
     logOut() {
         if (this.isMobile) {
             this.toggleNav();
-            this.menuTitle = 'Dashboard';
+            this.menuTitle = 'Home';
         }
         
         if (this.afAuth.auth.currentUser) {

@@ -86,7 +86,7 @@ export class SigninComponent implements OnInit {
         .then(result => {
             if(result.user) {
                 this.isSignedIn = true;
-                this.router.navigate(['./dashboard']);
+                this.router.navigate(['./home']);
             }
         })
         .catch(error => {
@@ -132,7 +132,7 @@ export class SigninComponent implements OnInit {
         .then((success) => {
             if (success.user) { 
                 this.isSignedIn = true;
-                this.router.navigate(['./dashboard']);
+                this.router.navigate(['./home']);
             }
         })
         .catch(error => this.error = error.message);

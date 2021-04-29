@@ -39,6 +39,7 @@ import { ChartDonutComponent } from './charts/chart-donut.component';
 import { ChartsLineComponent } from './charts/charts-line.component';
 import { ChartsAreaComponent } from './charts/charts-area.component';
 import { MapComponent } from './map/map.component';
+import { HomeComponent } from './home/home.component';
 
 // environment
 
@@ -57,6 +58,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment as env } from '../environments/environment';
 import { PageSpinnerComponent } from './page-spinner/page-spinner.component';
+
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -86,6 +88,7 @@ export function createTranslateLoader(http: HttpClient) {
         MinmaxPipe,
         UserAvatarComponent,
         HeaderComponent,
+        HomeComponent,
         MapComponent,
         WeatherComponent,
         PageSpinnerComponent

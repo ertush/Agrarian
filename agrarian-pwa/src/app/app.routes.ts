@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard';
+import { HomeComponent } from './home/home.component';
 import { IssuesComponent } from './issues';
 import { ProfileComponent } from './profile';
 import { SigninComponent } from './signin';
@@ -11,6 +12,7 @@ import { SigninComponent } from './signin';
 
 export const AppRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/signin' },
+    { path: 'home',  component: HomeComponent },
     { path: 'dashboard',  component: DashboardComponent },
     { path: 'issues',  component: IssuesComponent },
     { path: 'profile',  component: ProfileComponent },
