@@ -25,12 +25,14 @@
                     <div class="row">
                         <div class="col-md-3 text-xs-center user-profile-cnt">
                                 
+                            <div class="avatar">
                                 <img *ngIf="user.photoURL !== null; else userInitialAvatar" [src]="user.photoURL"  style="max-width: 100px; max-height:100px;" class="img-circle mx-auto " />
                                 <ng-template #userInitialAvatar>
                                     <div class="initials-avatar"><p>{{user.displayName ? user.displayName.substr(0,2) : user.email.split('@')[0].substr(0,2)}}</p></div>
                                 </ng-template>
+                            </div>
 
-                                <div class="row text-center m-1 social-links">
+                            <div class="row text-center m-1 social-links">
                                     <ul class="p-1 pt-4" style="
                                         list-style: none; 
                                         flex-flow: column nowrap;
@@ -55,8 +57,9 @@
                                             <span class="ml-1">{{ user.phoneNumber  || '000-000' }}</span>
                                         </li>
                                     </ul>
-                                </div>
                             </div>
+                            
+                        </div>
                         <div class="col-md-9">
                             <div class="form-group">
                                 <kendo-textbox-container class="custom-width" floatingLabel="Username">

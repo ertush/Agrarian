@@ -9,10 +9,10 @@
     <div class="title">
         Help us help you manage your farm
         <ul class="mt-3">
-            <li class="link-item"><object data="./../../assets/svgs/chart.svg" type="image/svg+xml"></object><h3>Get Awesome chart analytics</h3></li>
-            <li class="link-item"><object data="./../../assets/svgs/chip.svg" type="image/svg+xml"></object><h3>Get Awesome chart analytics</h3></li>
-            <li class="link-item"><object data="./../../assets/svgs/seedling.svg" type="image/svg+xml"></object><h3>Get Awesome chart analytics</h3></li>
-            <li class="link-item"><object data="./../../assets/svgs/star.svg" type="image/svg+xml"></object><h3>Get Awesome chart analytics</h3></li>
+            <li class="link-item"><object data="./../../assets/svgs/chart.svg" type="image/svg+xml"></object><h3>Get awesome chart analytics</h3></li>
+            <li class="link-item"><object data="./../../assets/svgs/chip.svg" type="image/svg+xml"></object><h3>Using the best of technology to monitor your farm</h3></li>
+            <li class="link-item"><object data="./../../assets/svgs/seedling.svg" type="image/svg+xml"></object><h3>Seedling care is at the heart of what we do</h3></li>
+            <li class="link-item"><object data="./../../assets/svgs/star.svg" type="image/svg+xml"></object><h3>Proven track record</h3></li>
         </ul>
     </div> 
 
@@ -20,16 +20,16 @@
 
         <div class="header-content p-3">
             <h2>Do you want to request a demo? or just write to us.</h2>
-            <button><h3 class="m-1">Get in touch</h3></button>
+            <button *ngIf="isGetInTouch" (click)="loadForm($event)"><h3 class="m-1">Request Demo</h3></button>
 
         </div>
 
-        <div class="grid-cell p-4">
+        <div *ngIf="isLoadForm" class="grid-cell p-4">
 
             <div class="flex-col">
                     <p> To request a demo please fill the following form, and we will get back to you, soonest possible <strong>Note: </strong><i>* Required fields</i></p>
-                    <div class="div-spacer"></div>
-                    <object data="../../assets/svgs/hands-tech.svg" type="image/svg+xml"></object>
+                    <!-- <div class="div-spacer"></div> -->
+                    <object class="ml-5" data="../../assets/svgs/hands-tech.svg" type="image/svg+xml"></object>
             </div> 
               
             <div class="flex-col">
@@ -79,7 +79,7 @@
                     width: 100%;
                     align-items: center;
                     ">
-                        <button class="m-1">
+                        <button (click)="onSubmit($event)" class="m-1">
                             <h3>submit</h3>
                         </button>
                     </div>
@@ -92,3 +92,9 @@
 
     </div>
 </div>
+<kendo-dialog title="Thank you" *ngIf="isDialogVisible" (close)="onSubmissionDialogClose()">
+    <p>Your submission has been successfully sent</p>
+    <kendo-dialog-actions>
+        <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onSubmissionDialogClose()">OK</button>
+    </kendo-dialog-actions>
+</kendo-dialog> 

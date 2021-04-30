@@ -27,16 +27,23 @@
 @media (max-width: 768px) {
  
   .user-profile-cnt{
-    display: flex;
+    display: grid;
     margin-right: 0.25rem;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .avatar{
+    display: grid;
+    grid-template-columns: 1fr;
+    place-content: center;
   }
 
   .social-links{
-    width: auto;
-    margin-left: 0.1rem;
-    height: fit-content; 
+    display: grid;
+    grid-template-columns: 1fr;
+    place-content: center;
   }
+
+
 }

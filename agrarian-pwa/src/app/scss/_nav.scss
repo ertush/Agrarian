@@ -109,19 +109,33 @@
   }
 
   .nav-link {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     color: $gray;
     padding: 0.5rem 2rem;
-    margin-left: -2rem;
+    margin-left: -1rem;
+    padding-left: .6rem;
     margin-right: -2rem;
     transition: color 0.2s ease;
     font-size: $font-size-sm;
 
-    &:hover {
-      color: $primary;
+    &:not(.active):hover {
+      color: $gray;
+      border-bottom-left-radius: 1.5rem;
+      border-top-left-radius: 1.5rem;
+      background: $light-primary;
+      i{
+        color: $gray;
+      }
     }
 
     &.active {
       color: $white;
+      background: $deep-green;
+      border-bottom-left-radius: 1.5rem;
+      border-top-left-radius: 1.5rem;
     }
   }
 

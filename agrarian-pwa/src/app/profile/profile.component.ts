@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
     templateUrl: './profile.template.html'
 })
 export class ProfileComponent implements OnInit{
-    public isLoading = true;
+    isLoading = true;
     
-    public profileDialogVisible = false;
-    public deleteDialogVisible = false;
+    profileDialogVisible = false;
+    deleteDialogVisible = false;
 
     user: any;
     error = '';
@@ -38,24 +38,24 @@ export class ProfileComponent implements OnInit{
     ngOnInit(): void {
     }
 
-    public onProfileDialogClose() {
+    onProfileDialogClose() {
         this.profileDialogVisible = false;
     }
 
-    public onSignOutClick() {
+    onSignOutClick() {
         this.router.navigate(['/signin']);
     }
 
-    public onUpdateClick() {
+    onUpdateClick() {
         this.profileDialogVisible = true;
     }
 
-    public onDeleteClick() {
+    onDeleteClick() {
         this.deleteDialogVisible = true;
         
     }
 
-    public onDeleteDialogClose() {
+    onDeleteDialogClose() {
         this.deleteDialogVisible = false;
     }
 
