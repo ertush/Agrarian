@@ -20,7 +20,7 @@
 
         <div class="header-content p-3">
             <h2>Do you want to request a demo? or just write to us.</h2>
-            <button *ngIf="isGetInTouch" (click)="loadForm($event)"><h3 class="m-1">Request Demo</h3></button>
+            <button *ngIf="isGetInTouch" (click)="loadForm($event)"><h3 class="m-1">Request A Demo ></h3></button>
 
         </div>
 
@@ -67,7 +67,7 @@
 
                     <div class="form-group" kendoRippleContainer [ngStyle]="{'width': '100%'}">
                         <p>Leave a message:</p>
-                        <textarea name="message-text" id="message-us" placeholder="write to us..." cols="50" rows="10"></textarea>  
+                        <textarea name="message-text" id="message-us" placeholder=" write to us..." cols="50" rows="10"></textarea>  
                         
                     </div>
                     
@@ -79,8 +79,8 @@
                     width: 100%;
                     align-items: center;
                     ">
-                        <button (click)="onSubmit($event)" class="m-1">
-                            <h3>submit</h3>
+                        <button (click)="onSubmit($event)" >
+                            <h3 class="m-1" >submit</h3>
                         </button>
                     </div>
 

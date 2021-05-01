@@ -58,6 +58,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment as env } from '../environments/environment';
 import { PageSpinnerComponent } from './page-spinner/page-spinner.component';
+import { CardChartComponent } from './card-chart/card-chart.component';
 
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
@@ -68,7 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-    declarations: [
+    declarations: [	
         LabelClass,
         AppComponent,
         MainMenuComponent,
@@ -91,8 +92,9 @@ export function createTranslateLoader(http: HttpClient) {
         HomeComponent,
         MapComponent,
         WeatherComponent,
-        PageSpinnerComponent
-    ],
+        PageSpinnerComponent,
+      CardChartComponent
+   ],
     imports: [
         AppRoutingModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

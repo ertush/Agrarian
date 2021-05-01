@@ -108,8 +108,8 @@
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 2rem;
-        background: $body-bg; //transparent;  
+        gap: 1.5rem; // 1.5rem, 2rem
+        background: whitesmoke; //transparent;  
         // background-color: rgba($color: #dddddd1c, $alpha: 0.8);
         border-radius: $btn-border-radius;
        
@@ -156,7 +156,7 @@
         border: none;
         text-transform: capitalize;
         &:hover {
-          background: $body-bg;
+          background: rgba(182, 182, 182, 0.932);
           color: $gray;
         }
       }
