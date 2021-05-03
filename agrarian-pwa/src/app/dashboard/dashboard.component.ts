@@ -202,7 +202,7 @@ export class DashboardComponent implements OnDestroy {
     }
 
     onDropDownSelect(val: string) {
-      const tabs = {Graph: 0, Map: 1, Weather: 2};
+      const tabs = {Graph: 0, Map: 1, Weather: 2, Chart: 3};
       this.tabStrip.selectTab(tabs[val]);
     }
 

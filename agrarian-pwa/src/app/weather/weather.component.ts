@@ -5,9 +5,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-weather',
   template: `
-    <div class="k-card">
-        <h2 class="k-card-header text-center m-0">Weather On Site</h2>
-        <div class="row">
+    <!-- <div class="k-card">
+        <h2 class="k-card-header text-center m-0">Weather On Site</h2> -->
+        <div class="row weather-container">
           <div *ngIf="isLoading" style="height: 400px">
               <app-loading-spinner></app-loading-spinner>
           </div>
@@ -26,9 +26,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
             </div>
             <!-- End of tabStrip menu -->
        </div>
-  </div>
+  <!-- </div> -->
         `,
-  styles: [`
+  styles: [`   
+    .weather-container{
+    margin-top: 7.5%;
+    }
+
     .weather-icon{
     display: flex;
     flex-flow: column nowrap;
@@ -42,6 +46,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   .weather-icon i {
     flex: 1;
   }
+
+
 
   `]
 })
@@ -58,7 +64,7 @@ export class WeatherComponent implements OnInit {
   public description: string;
   public uri: string;
   public isMobile: boolean;
-  public tabItems = ['Graph','Map'];
+  public tabItems = ['Graph','Map','Chart'];
   public defaultTab = 'Weather';
 
   constructor(private deviceDetectorService: DeviceDetectorService) {

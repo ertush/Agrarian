@@ -4,8 +4,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-temp',
   template: `
-   <div class="k-card">
-   <h2 class="k-card-header text-center m-0">Temperature</h2>
+   <div class="k-card graph-container">
+   <!-- <h2 class="k-card-header text-center m-0">Temperature</h2> -->
           <div class="col-12">
                 <div *ngIf="isLoading" style="height: 400px">
                     <app-loading-spinner>
@@ -72,6 +72,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       `kendo-chart{
         padding: 5px;
       }
+
+      .graph-container{
+        margin-top: 11%;
+      }
       `
     ]
 })
@@ -79,27 +83,27 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 export class TempComponent implements OnInit {
-    public dataset;
-    @Input() public min;
-    @Input() public max;
-    public isLoading;
-    @Input() public style;
-    @Input() public set loading(_isloading){
+    dataset;
+    @Input() min;
+    @Input() max;
+    isLoading;
+    @Input() style;
+    @Input() set loading(_isloading){
       this.isLoading = _isloading;
     }
 
-    @Input() public set data(data_r) {
+    @Input() set data(data_r) {
     this.dataset = data_r;
     }
 
-    @Output() public dropDownSelect = new EventEmitter<string>();
+    @Output() dropDownSelect = new EventEmitter<string>();
 
 
-    public tabItems: Array<string> = ['Map','Weather'];
-    public defaultTab = 'Graph';
-    public isMobile: boolean;
+    tabItems: Array<string> = ['Map','Weather','Chart'];
+    defaultTab = 'Graph';
+    isMobile: boolean;
 
-    public onSelect(value: string) {
+    onSelect(value: string) {
         this.dropDownSelect.emit(value);
     }
 

@@ -1,70 +1,156 @@
-<div class="chart-row three">
-  <div class="chart-container-wrapper">
-      <div class="chart-container k-card k-shadow p-3" >
-          <div class="chart-info-wrapper">
-              <h2>Temperature</h2>
-              <span class="pcnt">20.5 &deg;C</span>
-          </div>
-          <i class="fa-5x fas fa-temperature-low card-icon"></i>
-          <div class="chart-svg">
-              <svg viewBox="0 0 36 36" class="circular-chart pink">
-                  <path class="circle-bg" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                  <path class="circle" stroke-dasharray="70, 100" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831">
+<!-- <div class="k-card">
+    <h2 class="k-card-header text-center m-0">Charts</h2> -->
+    <div class="chart-row three">
+        <!-- Temperature chart -->
+    <div class="chart-container-wrapper">
+        <div class="chart-container k-card k-shadow p-3" >
+            <div class="chart-info-wrapper">
+                <h2>Temperature</h2>
+                <span class="pcnt">0 &deg;C</span>
+            </div>
+            <i class="fa-5x fas fa-temperature-low card-icon"></i>
+            <div class="chart-svg">
+                <svg viewBox="0 0 36 36" class="circular-chart pink">
+                    <path class="circle-bg" d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                    <path class="circle" [attr.stroke-dasharray]="tempArray" d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831">
+        </path>
+                    <text x="18" y="20.35" class="percentage">{{tempArray.split(',')[0]}}%</text>
+                
+                    </svg>
+            </div>
+        </div>
+    </div>
+        <!-- Humidity chart -->
+    <div class="chart-container-wrapper">
+        <div class="chart-container k-card k-shadow p-3" >
+            <div class="chart-info-wrapper">
+                <h2>Humidity</h2>
+                <span class="pcnt">0 %</span>
+            </div>
+            <!-- <i class="fa-5x wi wi-raindrops card-icon"></i> -->
+            <object  data="../../assets/svgs/humidity.svg" type="image/svg+xml"></object>
+            <div class="chart-svg">
+                <svg viewBox="0 0 36 36" class="circular-chart blue">
+                    <path class="circle-bg" d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                    <path class="circle" [attr.stroke-dasharray]="humidityArray" d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831">
     </path>
-                <text x="18" y="20.35" class="percentage">80%</text>
-               
+                <text x="18" y="20.35" class="percentage">{{humidityArray.split(',')[0]}}%</text>
+                
                 </svg>
-          </div>
-      </div>
-  </div>
-  <div class="chart-container-wrapper">
+            </div>
+        </div>
+    </div>
+        <!-- Soil chart -->
+    <div class="chart-container-wrapper">
     <div class="chart-container k-card k-shadow p-3" >
         <div class="chart-info-wrapper">
-            <h2>Humidity</h2>
-            <span class="pcnt">20.5 &deg;C</span>
-            <i></i>
+            <h2>Soil moisture</h2>
+            <span class="pcnt">0 lvl</span>
         </div>
-        <!-- <i class="fa-5x fas fa-heat card-icon"></i> -->
-        <object  data="../../assets/svgs/humidity.svg" type="image/svg+xml"></object>
+        <i class="fa-5x fas fa-water card-icon"></i>
         <div class="chart-svg">
-            <svg viewBox="0 0 36 36" class="circular-chart blue">
+            <svg viewBox="0 0 36 36" class="circular-chart orange">
                 <path class="circle-bg" d="M18 2.0845
     a 15.9155 15.9155 0 0 1 0 31.831
     a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                <path class="circle" stroke-dasharray="70, 100" d="M18 2.0845
+                <path class="circle"  [attr.stroke-dasharray]="soilArray" d="M18 2.0845
     a 15.9155 15.9155 0 0 1 0 31.831
     a 15.9155 15.9155 0 0 1 0 -31.831">
-  </path>
-              <text x="18" y="20.35" class="percentage">80%</text>
-             
-              </svg>
+    </path>
+                <text x="18" y="20.35" class="percentage">{{soilArray.split(',')[0]}}%</text>
+            
+                </svg>
         </div>
     </div>
-</div>
-<div class="chart-container-wrapper">
-  <div class="chart-container k-card k-shadow p-3" >
-      <div class="chart-info-wrapper">
-          <h2>Soil moisture</h2>
-          <span class="pcnt">20.5 &deg;C</span>
-      </div>
-      <i class="fa-5x fas fa-water card-icon"></i>
-      <div class="chart-svg">
-          <svg viewBox="0 0 36 36" class="circular-chart orange">
-              <path class="circle-bg" d="M18 2.0845
-  a 15.9155 15.9155 0 0 1 0 31.831
-  a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-              <path class="circle"  stroke-dasharray="70, 100" d="M18 2.0845
-  a 15.9155 15.9155 0 0 1 0 31.831
-  a 15.9155 15.9155 0 0 1 0 -31.831">
-</path>
-            <text x="18" y="20.35" class="percentage">80%</text>
-           
-            </svg>
-      </div>
-  </div>
-</div>
-</div>
+    </div>
+        <!-- light chart -->
+        <div class="chart-container-wrapper">
+            <div class="chart-container k-card k-shadow p-3" >
+                <div class="chart-info-wrapper">
+                    <h2>UV light</h2>
+                    <span class="pcnt">0 lum</span>
+                </div>
+                <!-- <i class="fa-5x fas fa-sun card-icon"></i> -->
+                <object  data="../../assets/svgs/sun.svg" type="image/svg+xml"></object>
+                <div class="chart-svg">
+                    <svg viewBox="0 0 36 36" class="circular-chart orange">
+                        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        <path class="circle"  [attr.stroke-dasharray]="lumensArray" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831">
+            </path>
+                        <text x="18" y="20.35" class="percentage">{{lumensArray.split(',')[0]}}%</text>
+                        </svg>
+                </div>
+            </div>
+            </div>
+
+        <!-- atmospheric pressure chart -->
+
+        <div class="chart-container-wrapper">
+            <div class="chart-container k-card k-shadow p-3" >
+                <div class="chart-info-wrapper">
+                    <h2>Sea level</h2>
+                    <span class="pcnt">0 bar</span>
+                </div>
+                <!-- <i class="fa-5x fas fa-water card-icon"></i> -->
+                <img src="../../assets/at-pressure.png" width="70px" height="70px" alt="at-pressure">
+                <div class="chart-svg">
+                    <svg viewBox="0 0 36 36" class="circular-chart orange">
+                        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        <path class="circle"  [attr.stroke-dasharray]="soilArray" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831">
+            </path>
+                        <text x="18" y="20.35" class="percentage">{{atmpArray.split(',')[0]}}%</text>
+                    
+                        </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- wind speed chart -->
+
+        <div class="chart-container-wrapper">
+            <div class="chart-container k-card k-shadow p-3" >
+                <div class="chart-info-wrapper">
+                    <h2>wind</h2>
+                    <span class="pcnt">0 knots</span>
+                </div>
+                <i class="fa-5x fas fa-wind card-icon"></i>
+                <!-- <img src="../../assets/at-pressure.png" width="70px" height="70px" alt="at-pressure"> -->
+                <div class="chart-svg">
+                    <svg viewBox="0 0 36 36" class="circular-chart orange">
+                        <path class="circle-bg" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        <path class="circle"  [attr.stroke-dasharray]="soilArray" d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831">
+            </path>
+                        <text x="18" y="20.35" class="percentage">{{windArray.split(',')[0]}}%</text>
+                    
+                        </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div  *ngIf="isMobile" class="mt-4 tabStripMenu text-center">
+        <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+        </kendo-dropdownlist>
+    </div>
+<!-- </div> -->

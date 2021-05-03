@@ -1,18 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 
-/*
-import Map from 'ol/Map';
-import View from 'ol/View';
-import VectorLayer from 'ol/layer/Vector';
-import Feature from 'ol/Feature';
-import VectorSource from 'ol/source/Vector';
-import Point from 'ol/geom/Point';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
-import OSM from 'ol/source/OSM';
-import * as olProj from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
-*/
 
 import * as L from 'leaflet';
 
@@ -21,9 +8,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-map',
   template: `
-      <div class="k-card">
-        <h2 class="k-card-header text-center m-0">Device Location</h2>
-        <div class="row">
+      <!-- <div class="k-card">
+        <h2 class="k-card-header text-center m-0">Device Location</h2> -->
+        <div class="row map-container">
             <div *ngIf="!isReady" style="height: 400px">
                 <app-loading-spinner>
                 </app-loading-spinner>
@@ -37,7 +24,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
             <!-- End of tabStrip menu -->
           </div>
 
-      </div>
+      <!-- </div> -->
   `,
   styles: [
     `
@@ -48,6 +35,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     border-radius: .5rem;
     }
 
+    .map-container{
+      margin-top: 7.5%;
+    }
     `
   ]
 })
@@ -63,7 +53,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   public map: L.Map;
   public isMobile: boolean;
-  public tabItems: Array<string> = ['Graph', 'Weather'];
+  public tabItems: Array<string> = ['Graph', 'Weather', 'Chart'];
   public defaultTab = 'Map';
 
   constructor(private deviceService: DeviceDetectorService) {
