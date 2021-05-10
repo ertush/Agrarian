@@ -8,27 +8,28 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     <!-- <div class="k-card">
         <h2 class="k-card-header text-center m-0">Weather On Site</h2> -->
         <div class="row weather-container">
-          <div *ngIf="isLoading" style="height: 400px">
-              <app-loading-spinner></app-loading-spinner>
-          </div>
+            <div *ngIf="isLoading" style="height: 400px">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
           <div  *ngIf="!isLoading" class="weather-icon">
-            <h1 class="mt-0 mb-4">
-              <i [ngClass]="getClasses(icon)"></i>
-            </h1>
-            <h2>{{ description }}</h2>
-            <h3>{{ location }}</h3>
-            <h4 *ngFor="let key of ['temperature','humidity', 'seaLevel']">  {{ key }} : {{ weatherData[key] }}</h4>
+              <h1 class="mt-0 mb-4">
+                <i [ngClass]="getClasses(icon)"></i>
+              </h1>
+              <h2>{{ description }}</h2>
+              <h3>{{ location }}</h3>
+              <h4 *ngFor="let key of ['temperature','humidity', 'seaLevel']">  {{ key }} : {{ weatherData[key] }}</h4>
           </div>
           <!-- tabStrip menu -->
           <div  *ngIf="isMobile && !isLoading" class="tabStripMenu text-center">
                 <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
                 </kendo-dropdownlist>
-            </div>
+          </div>
             <!-- End of tabStrip menu -->
        </div>
   <!-- </div> -->
         `,
-  styles: [`   
+  styles: [`
+
     .weather-container{
     margin-top: 7.5%;
     }
@@ -41,31 +42,31 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     justify-content: center;
     align-items: center;
     font-size: 3em;
-  }
+    }
 
-  .weather-icon i {
+    .weather-icon i {
     flex: 1;
-  }
-
-
+    }
 
   `]
 })
+
+
 export class WeatherComponent implements OnInit {
 
-  @Input() public lat: number;
-  @Input() public lon: number;
-  @Output() public dropDownSelect = new EventEmitter<string>();
+  @Input() lat: number;
+  @Input() lon: number;
+  @Output() dropDownSelect = new EventEmitter<string>();
 
-  public isLoading = true;
-  public icon: string;
-  public location: string;
-  public weatherData = {};
-  public description: string;
-  public uri: string;
-  public isMobile: boolean;
-  public tabItems = ['Graph','Map','Chart'];
-  public defaultTab = 'Weather';
+  isLoading = true;
+  icon: string;
+  location: string;
+  weatherData = {};
+  description: string;  
+  uri: string;
+  isMobile: boolean;
+  tabItems = ['Graph', 'Map', 'Chart'];
+  defaultTab = 'Weather';
 
   constructor(private deviceDetectorService: DeviceDetectorService) {
    }
@@ -73,14 +74,14 @@ export class WeatherComponent implements OnInit {
   ngOnInit() {
     this.isMobile = this.deviceDetectorService.isMobile();
     this.uri = `${env.api.url}?lat=${this.lat}&lon=${this.lon}&APPID=${env.api.appId}`;
-  
+
     fetch(this.uri)
     .then( res => {
       if (res.ok ) {
         this.isLoading = false;
         res.json()
         .then( value => {
-    
+
           this.icon = value.weather[0].icon;
           this.location = value.name;
           this.description = value.weather[0].description;
@@ -88,22 +89,22 @@ export class WeatherComponent implements OnInit {
             humidity: value.main.humidity,
             temperature: Math.round(value.main.temp / 10),
             seaLevel: value.main.pressure
-          }
+          };
 
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
       }
     })
     .catch( error => {
       console.log(error);
-    })
+    });
   }
 
-  public getClasses(icon: string): string{
+  getClasses(icon: string): string {
     return `fa-6x wi wi-owm-${icon}`;
   }
 
-  public onSelect(value: string) {
+  onSelect(value: string) {
     this.dropDownSelect.emit(value);
 }
 }

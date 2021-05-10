@@ -8,7 +8,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class CardChartComponent implements OnInit {
 
   defaultTab = 'Chart';
-  tabItems = ['Graph','Map','Weather'];
+  tabItems = ['Graph', 'Map', 'Weather'];
   tempArray = '0, 100';
   humidityArray = '0, 100';
   soilArray = '0, 100';

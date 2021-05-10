@@ -1,5 +1,5 @@
 import isMobileTablet from '../../../src/app/shared/deviceUtil';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +11,82 @@ import { Component, Input, OnInit } from '@angular/core';
     </div>
     <div class="col-sm text-sm-right mp-0 p-sm-3 mr-0 mt-4">
             <div class="group-header-icons">
-              <span class="ml-0  mt-1 mb-1" title="Notifications"><i class="k-icon k-i-notification"></i><span class="dot counter counter-lg">29</span></span>
-              <span class="ml-5  mt-1 mb-1" title="Reports"><i class="k-icon k-i-file-txt"></i><span class="dot counter counter-lg">3</span></span>
-              <span class="ml-5  mt-1 mb-1" title="Emails"><i class="k-icon k-i-email"></i><span class="dot counter counter-lg">11</span></span>
+              <span (click)="openNotification($event)"
+              *ngIf="alerts > 0"
+              class="ml-0 icon-button mt-1"
+              id="alerts"
+              title="Alerts">
+                <i class="k-icon k-i-notification"></i>
+                <span *ngIf="alerts > 0" class="dot counter counter-lg">{{alerts > 5 ? '5+' : alerts}}</span>
+              </span>
+              <div class="alerts popup k-shadow px-2 pb-2" *ngIf="notificationType === 'alerts' && showNotification
+              ">
+              <h3 class="popup-header py-2">Alerts</h3>
+                <ul>
+                  <li class="p-2" *ngFor="let user of users">
+                    <img *ngIf="user.imageURL; else userAvatar"src="user.imageURL" alt=""/>
+                    <ng-template #userAvatar>
+                      <div class="initials-avatar" style="width: 30px !important; height: 30px !important">
+                              <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.name.substr(0,2)}}</p>
+                      </div>
+                    </ng-template>
+
+                    <div class="ml-2">{{user.message}}</div>
+                  </li>
+                  <hr>
+                </ul>
+              </div>
+
+
+
+              <span  (click)="openNotification($event)"
+              *ngIf="reports > 0"
+              class="ml-5 icon-button mt-1"
+              id="reports" title="Reports">
+                <i class="k-icon k-i-file-txt"></i>
+                <span *ngIf="reports > 0" class="dot counter counter-lg">{{reports > 5 ? '5+' : reports}}</span>
+              </span>
+              <div class="reports popup k-shadow p-2" *ngIf="notificationType === 'reports' && showNotification
+              ">
+              <h3 class="popup-header">Reports</h3>  
+                <ul>
+                  <li class="p-2" *ngFor="let user of users">
+                    <i class="fa-2x fa fa-file"></i>
+
+                    <div class="ml-1">{{user.message.length > 31 ? user.message.substr(0, 31).concat(' ...') : user.message}}</div>
+                  </li>
+                  <hr>
+                </ul>
+              </div>
+
+
+
+              <span (click)="openNotification($event)"
+              *ngIf="messages > 0"
+              class="ml-5 icon-button mt-1"
+              id="messages" title="Messages">
+                <i class="k-icon k-i-email"></i>
+                <span *ngIf="messages > 0" class="dot counter counter-lg">{{messages > 5 ? '5+' : messages}}</span>
+              </span>
+              <div class="messages popup k-shadow p-2" *ngIf="notificationType === 'messages' && showNotification
+              ">
+              <h3 class="popup-header">Messages</h3>
+                <ul>
+                  <li class="p-2" *ngFor="let user of users">
+                    <img *ngIf="user.imageURL; else userAvatar"src="user.imageURL" alt=""/>
+                    <ng-template #userAvatar>
+                      <div class="initials-avatar" style="width: 30px !important; height: 30px !important">
+                              <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.name.substr(0,2)}}</p>
+                      </div>
+                    </ng-template>
+
+                    <div class="ml-2">{{user.message.length > 29 ? user.message.substr(0, 29).concat(' ...') : user.message}}</div>
+                  </li>
+                  <hr>
+                </ul>
+              </div>
+
+
           </div>
     </div>
     <div class="col-sm text-sm-right mp-0 p-sm-3 mr-0 mt-4" *ngIf="!_isMobileTablet">
@@ -24,20 +97,66 @@ import { Component, Input, OnInit } from '@angular/core';
         </kendo-buttongroup>
     </div>
 </div>
+
+
   `,
 })
 export class HeaderComponent implements OnInit {
 
   constructor() { }
-  @Input() public isLoading;
-  @Input() public range1;
-  @Input() public range2;
-  @Input() public title;
+  @Input() isLoading;
+  @Input() range1;
+  @Input() range2;
+  @Input() title;
 
-  public _isMobileTablet;
+  _isMobileTablet;
+  alerts = 10;
+  reports = 3;
+  messages = 1;
+  showNotification = false;
+  notificationType = '';
+
+  users = [
+    {
+    id: '1',
+    name: 'alex',
+    message: ' hi, there just logged in to the plaform',
+    themeColor: 'tomatoe'
+    },
+    {
+      id: '1',
+      name: 'alex',
+      message: ' hi, there just logged in to the plaform', 
+      themeColor: 'lightgreen'
+    },
+    {
+      id: '1',
+      name: 'alex',
+      message: ' hi, there just logged in to the plaform',
+      themeColor: 'skyblue'
+
+    },
+    {
+      id: '1',
+      name: 'alex',
+      message: ' hi, there just logged in to the plaform',
+      themeColor: 'purple'
+    }
+
+  ];
+  
 
   ngOnInit(): void {
     this._isMobileTablet = isMobileTablet();
   }
+
+
+
+  openNotification(e): void {
+    this.showNotification = !this.showNotification;  
+    this.notificationType = e.target.parentNode.id;
+    console.log(this.notificationType);
+  }
+
 
 }

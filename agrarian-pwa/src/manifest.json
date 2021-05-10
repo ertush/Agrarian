@@ -19,43 +19,43 @@
       "density": "0.65"
     },
     {
-      "src": "/assets/app_icon/16x16-logo.png",
+      "src": "/assets/app_logos/16x16-logo.png",
       "sizes": "16x16",
       "type": "image/png",
       "density": "0.65"
     },
     {
-      "src": "/assets/app_icon/32x32-logo.png",
+      "src": "/assets/app_logos/32x32-logo.png",
       "sizes": "32x32",
       "type": "image/png",
       "density": "0.70"
     },
     {
-      "src": "/assets/app_icon/36x36-logo.png",
+      "src": "/assets/app_logos/36x36-logo.png",
       "sizes": "36x36",
       "type": "image/png",
       "density": "0.75"
     },
     {
-      "src": "/assets/app_icon/48x48-logo.png",
+      "src": "/assets/app_logos/48x48-logo.png",
       "sizes": "48x48",
       "type": "image/png",  
       "density": "1.0"
     },
     {
-      "src": "/assets/app_icon/72x72-logo.png",
+      "src": "/assets/app_logos/72x72-logo.png",
       "sizes": "72x72",
       "type": "image/png",
       "density": "1.5"
     },
     {
-      "src": "/assets/app_icon/96x96-logo.png",
+      "src": "/assets/app_logos/96x96-logo.png",
       "sizes": "96x96", 
       "type": "image/png",
       "density": "2.0"
     },
     {
-      "src": "/assets/app_icon/144x144-logo.png",
+      "src": "/assets/app_logos/144x144-logo.png",
       "sizes": "144x144",
       "type": "image/png",
       "density": "3.0"

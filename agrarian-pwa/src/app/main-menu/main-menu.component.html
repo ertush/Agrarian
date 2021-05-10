@@ -6,18 +6,7 @@
             <div *ngIf="navState === 'collapsed'" class="app-bar-title">
                 
                 <div class="title-bar-header">
-                    <span class="user-wrapper">
-                        <div class="avatar">
-                            <img *ngIf="user.photoURL !== null; else userInitialAvatar" [src]="user.photoURL" class="img-circle mx-auto" style="max-width: 30px"/>
-                            <ng-template #userInitialAvatar>
-                                <div class="initials-avatar mx-auto" style="width: 30px !important; height: 30px !important">
-                                    <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.displayName ? user.displayName.substr(0,2) : user.email.split('@')[0].substr(0,2)}}</p>
-                                </div>
-                            </ng-template>
-                            
-                        </div>
-                        <p class="h5 ml-1">@{{ (user.displayName ? user.displayName : user.email.split('@')[0]).replace(' ','') }}</p>
-                    </span>
+                    <app-user-avatar [user]="user" class="app-bar-avatar"></app-user-avatar>
 
                     <p id="app-title" class="menu-title h5">{{ menuTitle }}</p>
                     
@@ -41,41 +30,47 @@
           <h1 id="app-title" class="mb-0 mt-0" [ngClass]="{'pt-3': isMobile}" >Agrarian</h1>
           <p id="app-subtitle" class="h4 mb-3">{{ menuTitle }}</p>
         
-            <app-user-avatar [user]="user"></app-user-avatar>
-          
-          <p class="h4 mt-2">Menu</p>
+           <div class="user-field">
+                <app-user-avatar [user]="user" class="nav-avatar"></app-user-avatar>
+                <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
+                    <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.displayName == undefined ? user.email.split('@')[0] : user.displayName }} </p>
+                    <p class="user-label-email mt-sm-auto" [ngStyle]="{'font-size.px': labelSize}"> {{ user.email }} </p>
+                </div>
+           </div> 
+         
+          <!-- <p class="h4 mt-3">Menu</p> -->
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
-                  <a [routerLink]=" ['./dashboard'] "  class="nav-link mt-1" (mousedown)="navigate('/dashboard')" routerLinkActive="active">
+                  <a [routerLink]=" ['./dashboard']"  class="nav-link mt-3" (mousedown)="navigate('/dashboard')" routerLinkActive="active">
                     <i class="k-icon k-i-graph k-icon-sm" routerLinkActive="active"></i>Dashboard</a>
               </li>
               <li class="nav-item" id="issues">
-                  <a [routerLink]=" ['./issues'] " class="nav-link mt-1" (mousedown)="navigate('/issues')" routerLinkActive="active">
+                  <a [routerLink]=" ['./issues'] " class="nav-link mt-3" (mousedown)="navigate('/issues')" routerLinkActive="active">
                     <i class="k-icon k-i-subreport k-icon-sm" routerLinkActive="active"></i>Reports</a>
               </li>
           </ul>
           
-          <p class="h4 mt-1">Account</p>
+          <!-- <p class="h4 mt-3">Account</p> -->
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
-                  <a [routerLink]=" ['./profile'] "  class="nav-link mt-1" (mousedown)="navigate('/profile')" routerLinkActive="active">
+                  <a [routerLink]=" ['./profile'] "  class="nav-link mt-3" (mousedown)="navigate('/profile')" routerLinkActive="active">
                     <i class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></i>My Profile</a>
               </li>
               <li class="nav-item" id="signout">
-                  <a class="nav-link mt-1" style="cursor: pointer;" (mousedown)="logOut()" routerLinkActive="active">
+                  <a class="nav-link mt-3" style="cursor: pointer;" (mousedown)="logOut()" routerLinkActive="active">
                     <i class="k-icon k-i-logout k-icon-sm" routerLinkActive="active"></i>Log Out</a>
               </li>
           </ul>
           
-          <p class="h4 mt-1">Resources</p>
+          <!-- <p class="h4 mt-3">Resources</p> -->
           <ul class="nav nav-pills flex-column"> 
               <li class="nav-item" id="source">
-                  <a class="nav-link mt-1" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
+                  <a class="nav-link mt-3" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
                       role="button">
                   <i class="k-icon k-i-download k-icon-sm"></i>Download</a>
               </li>
               <li class="nav-item" id="documentation">
-                  <a class="nav-link mt-1" href="https://agrarian-iot.github.io" target="_blank"
+                  <a class="nav-link mt-3" href="https://agrarian-iot.github.io" target="_blank"
                   role="button">
                   <i class="k-icon k-i-hyperlink-globe k-icon-sm"></i>Website</a>
               </li>

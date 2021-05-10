@@ -1,6 +1,6 @@
 .top-bar {
-	padding: .25em;
-	font-size: 32px;
+  padding: 0.25em;
+  font-size: 32px;
   line-height: 0.1;
   flex: 0 0 100%;
   z-index: 1022;
@@ -13,32 +13,40 @@
   text-transform: capitalize;
 }
 
-.status-badge{
+.status-badge {
   color: $white;
   border-radius: $btn-border-radius;
   padding: 0.25rem;
-  width:min-content;
+  width: min-content;
 }
 
-
-.title-bar-header{
+.title-bar-header {
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: space-between;
   flex-flow: nowrap;
   align-items: center;
+  gap: 1rem;
+
+  &>.app-bar-avatar{
+    img{
+      width: 30px !important;
+      height: 30px !important;
+    }
+    .initials-avatar{
+      width: 30px !important;
+      height: 30px !important;
+      .letter{
+        font-size: 20px !important;
+      }
+    }
+  }
 }
 
-.user-wrapper{
-  display: flex;
-  flex-flow: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-}
 
-.flex-1{
-  flex: 1
+.flex-1 {
+  flex: 1;
 }
 
 .nav-toggle {
@@ -49,27 +57,26 @@
     font-size: 32px;
     color: $gray;
   }
-  
 }
 
-.k-icon-sm{
- transition: color 0.2s ease;
- font-size: $font-size-sm;
- padding: 0.5rem 2rem;
- margin-left: -1rem;
- margin-right: -1rem;
- color: $gray;
- &:hover {
-  color: $primary;
-}
+.k-icon-sm {
+  transition: color 0.2s ease;
+  font-size: $font-size-sm;
+  padding: 0.5rem 2rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  color: $gray;
+  &:hover {
+    color: $primary;
+  }
 
-&.active {
-  color: $white;
-}
+  &.active {
+    color: $white;
+  }
 }
 
 .container-items {
-  justify-content: space-between; 
+  justify-content: space-between;
   margin: 0;
   height: 100%;
 }
@@ -80,6 +87,38 @@
   margin-top: 0;
   min-height: 600px;
   width: 70%;
+
+  .user-field {
+    flex-flow: raw wrap;
+    justify-content: flex-start;
+    padding: 0;
+    align-items: space-between;
+    gap: 1rem;
+    width: 100%;
+
+    .nav-avatar{
+       .initials-avatar{
+         margin-bottom: 1rem;
+       } 
+    }
+
+    .user-labels {
+      flex: 1;
+      margin: 0;
+      align-items: flex-start;
+    }
+
+    .user-label-name {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .user-label-email {
+      margin: 0;
+      font-weight: 100;
+      color: $gray;
+    }
+  }
 
   h1 {
     color: $primary;
@@ -109,14 +148,13 @@
   }
 
   .nav-link {
-
     display: flex;
     justify-content: flex-start;
     align-items: center;
     color: $gray;
     padding: 0.5rem 2rem;
     margin-left: -1rem;
-    padding-left: .6rem;
+    padding-left: 0.6rem;
     margin-right: -2rem;
     transition: color 0.2s ease;
     font-size: $font-size-sm;
@@ -126,7 +164,7 @@
       border-bottom-left-radius: 1.5rem;
       border-top-left-radius: 1.5rem;
       background: $light-primary;
-      i{
+      i {
         color: $gray;
       }
     }
@@ -165,9 +203,8 @@
   }
 }
 
-.app-bar-title{
+.app-bar-title {
   width: 100%;
-  
 }
 
 #nav-icon {
@@ -184,7 +221,7 @@
     position: absolute;
     height: 0.2rem;
     width: 100%;
-    background: rgba($black, .8);
+    background: rgba($black, 0.8);
     border-radius: 9px;
     opacity: 1;
     left: 0;
@@ -193,7 +230,7 @@
   }
 
   & > span:nth-child(1) {
-    top: .25rem;
+    top: 0.25rem;
   }
 
   &.open > span:nth-child(1) {

@@ -3,7 +3,7 @@
   height: 25px;
   width: 25px;
   color: $white;
-  background-color: red;
+  background-color: $deep-green;
   border-radius: 50%;
   display: inline-block;
   font-size: 12px;
@@ -36,12 +36,139 @@
   color: $gray;
 }
 
-.header-group-icons{
+.group-header-icons{
+  display: flex;
   flex-direction: row;
-  display: inline-flexbox;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+
+  span{
+    cursor: pointer;
+    position: relative;
+
+    &.icon-button{
+    width:45px;
+    height: 45px;
+    background: $body-bg;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    }
+
+    &:not(&>span):hover {
+     background: #c6c5c5 !important;
+     transition: ease-in-out .5s;
+    
+     i {
+         color: $deep-green;
+     }
+     span{
+      transition: ease-in-out .2s;
+      border: 2px solid $body-bg;
+      font-size: 10px;
+      
+     }
+    }
+  }
+
+  .popup{
+    position: absolute;
+    z-index: 100;
+    width: 250px;
+    height: 300px;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: $white;
+    border-radius: $btn-border-radius;
+    overflow-y: scroll;
+
+    scrollbar-width: none;
+
+    &.alerts{
+      top: 65px;
+      left: 60px;
+    }
+
+    &.reports{
+      top: 65px;
+      left: 170px;
+      i{
+        color:$deep-green
+      }
+    }
+
+    &.messages{
+      top: 65px;
+      left: 280px;
+    }
+
+    &::-webkit-scrollbar{
+      border-radius: 1.5rem;
+    }
+
+    .popup-header{
+      position: sticky;
+      top:0;
+      width:100%;
+      display: flex;
+      justify-self: flex-start;
+      background-color: $white;
+    }
+
+
+    ul{
+      margin: 0 !important;
+      padding: 0 !important;
+      width: fit-content;
+      display: flex;
+      list-style: none;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 1rem;
+
+      li{
+        background: $body-bg;
+        cursor: pointer;
+        width: 232px;
+        height: fit-content;
+        border-radius: $btn-border-radius;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        img{
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+
+        &:hover{
+          background: #c6c5c5;
+          color: $white;// #656565;
+        }
+
+        
+        
+      }
+    }
+
+  }
+
+  
 }
 
 #header {
+
+  .group-header-icons{
+    justify-content: center !important;
+  }
+
   .k-button-group {
     overflow: hidden;
   }
@@ -49,11 +176,51 @@
   @media (max-width: 768px) {
     text-align: center;
 
+    .popup{
+      &.alert, &.reports, &.messages {
+        top: 55px !important;
+        left: 62px !important;
+      }
+    }
+
     .k-button-group {
       width: 100%;
-      .k-button {
+      .k-button {   
         width: 100%;
       }
     }
   }
+}
+
+kendo-popup{
+  .contact{
+    display: flex;
+    height: 55px;
+    padding: 10px;
+    align-items: center;
+}
+.contact.border-top {
+    border-top: solid;
+    border-color: #ECEBEB;
+    border-width: thin;
+}
+.contact-details {
+    flex: 1;
+    margin-left: 10px;
+}
+.contact-name {
+    color: #656565;
+    font-weight: bolder;
+}
+.contact-email {
+    font-size: 0.7rem;
+    color: #BEBEBE;
+}
+.messages-label {
+    height: 20px;
+    width: 95px;
+    font-size: 11px;
+    line-height: 11px;
+    text-transform: none;
+}
 }

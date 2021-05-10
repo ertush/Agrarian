@@ -22,6 +22,10 @@
 .user-profile-cnt{
   width: 100%;
   height:fit-content; 
+  app-user-avatar{
+    width: 50px !important;
+    height: 50px !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -30,14 +34,11 @@
     display: grid;
     margin-right: 0.25rem;
     grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: flex-end;
     gap: 1rem;
   }
 
-  .avatar{
-    display: grid;
-    grid-template-columns: 1fr;
-    place-content: center;
-  }
 
   .social-links{
     display: grid;

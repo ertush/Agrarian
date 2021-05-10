@@ -50,20 +50,20 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DefaultComponent implements OnInit {
 
-    public cdata;
-    public edata;
-    @Input() public duration;
-    @Input() public isChartLoading: boolean;
-    @Input() public  set esdata(data) {
+    cdata;
+    edata;
+    @Input() duration;
+    @Input() isChartLoading: boolean;
+    @Input()  set esdata(data) {
         this.edata = data;
     }
-    @Input() public  set csdata(data) {
+    @Input()  set csdata(data) {
         this.cdata = data;
     }
-    @Input() public rate;
-    @Input() public data;
-    @Input() public loading;
-    @Input() public dataarr;
+    @Input() rate;
+    @Input() data;
+    @Input() loading;
+    @Input() dataarr;
    
     ngOnInit() {
         

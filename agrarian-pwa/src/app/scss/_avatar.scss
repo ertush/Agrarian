@@ -1,32 +1,39 @@
-.container-avatar {
-    flex-flow: raw wrap;
-    justify-content: flex-start;
-    padding: 0;
-    margin: 0;
+.avatar {
+  width: max-content;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+
+  .img-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  .initials-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: $deep-green;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+
+    p{
+        margin:0 !important;
+    }
+
+    .letter{
+        margin:0;
+        padding: 0;
+        font-size: 30px;
+        font-weight: 400;
+        color: $white;
+        text-transform: capitalize;
+    }
+  }
 }
 
-.avatar{
-    flex: 1;
-    margin-bottom: 0.7rem;
-    align-items: flex-start;
-}   
-
-.user-labels{
-    flex: 1;
-    margin: 0;
-    align-items: flex-start;
-}
-
-.user-label-name {
-    margin: 0;
-    font-weight: 600;
-    
-}
-
-.user-label-email {
-    margin: 0;
-    font-weight: 100;
-    color: $gray;
-}

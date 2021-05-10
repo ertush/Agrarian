@@ -54,7 +54,9 @@ export class MainMenuComponent implements OnInit {
 
      
       
-    
+        // Debug
+        // console.log({user: this.user});
+
         // Load default user if user not set
         if (this.user === undefined) {
             this.user = {

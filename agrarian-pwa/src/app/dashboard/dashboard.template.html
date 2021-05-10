@@ -11,7 +11,7 @@
         </kendo-buttongroup>
     </div>
 </div> -->
-<app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading" [title]="pageTitle"></app-header>
+<app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading"  [title]="pageTitle"></app-header>
 
 <div id="statistics">
   <kendo-tabstrip #tabStrip>
@@ -31,8 +31,9 @@
 
       <kendo-tabstrip-tab [title]="'Weather'" [selected]="false">
         <ng-template kendoTabContent>
+          <center> Weather </center>
             <app-weather  [lat]="lat" [lon]="lng" (dropDownSelect)="onDropDownSelect($event)"></app-weather>
-            <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
+            <app-default [isChartLoading]="_csData.tempeheadrature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
 
