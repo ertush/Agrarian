@@ -25,10 +25,6 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     
-                    <!-- <app-user-avatar [user]="user"></app-user-avatar> -->
-                    <!-- <div class="alert-icon p-1"> -->
-                      <!-- <img src="../../assets/issue-open.png"  alt="alert"/> -->
-                      <!-- </div> -->
                       <div [ngSwitch]="user.notification">
                         <div class="alert-icon p-1" *ngSwitchCase="'alert'">
                           <img src="../../assets/issue-open.png"  alt="alert"/>
