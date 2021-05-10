@@ -7,10 +7,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   template: `
     <!-- <div class="k-card">
         <h2 class="k-card-header text-center m-0">Weather On Site</h2> -->
+       
         <div class="row weather-container">
             <div *ngIf="isLoading" style="height: 400px">
                 <app-loading-spinner></app-loading-spinner>
             </div>
+
           <div  *ngIf="!isLoading" class="weather-icon">
               <h1 class="mt-0 mb-4">
                 <i [ngClass]="getClasses(icon)"></i>
@@ -32,8 +34,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
     .weather-container{
     margin-top: 7.5%;
+  
     }
-
+    
     .weather-icon{
     display: flex;
     flex-flow: column nowrap;
@@ -64,6 +67,8 @@ export class WeatherComponent implements OnInit {
   weatherData = {};
   description: string;  
   uri: string;
+  error: any;
+  errorCode: any;
   isMobile: boolean;
   tabItems = ['Graph', 'Map', 'Chart'];
   defaultTab = 'Weather';
@@ -92,7 +97,11 @@ export class WeatherComponent implements OnInit {
           };
 
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+
+          this.error = err;
+          this.errorCode = err.code;
+        });
       }
     })
     .catch( error => {

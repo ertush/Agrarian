@@ -22,10 +22,22 @@
 .user-profile-cnt{
   width: 100%;
   height:fit-content; 
-  app-user-avatar{
-    width: 50px !important;
-    height: 50px !important;
+
+  img{
+    width: 70px !important;
+    height: 70px !important;
+    
   }
+
+  .initials-avatar{
+    width: 70px !important;
+    height: 70px !important;
+    .letter{
+      font-size: 35px !important;
+    }
+  }
+
+
 }
 
 @media (max-width: 768px) {
@@ -35,8 +47,24 @@
     margin-right: 0.25rem;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 1rem;
+
+    img{
+      width: 90px !important;
+      height: 90px !important;
+      margin-left: 26px !important;
+    }
+
+    .initials-avatar{
+      width: 90px !important;
+      height: 90px !important;
+      margin-left: 26px !important;
+      .letter{
+        font-size: 60px !important;
+      }
+    }
+
   }
 
 

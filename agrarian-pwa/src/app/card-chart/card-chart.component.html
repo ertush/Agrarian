@@ -8,7 +8,7 @@
                 <h2>Temperature</h2>
                 <span class="pcnt">0 &deg;C</span>
             </div>
-            <i class="fa-5x fas fa-temperature-low card-icon"></i>
+            <i [ngClass]="getTempIcon(tempArray.split(',')[0])"></i>
             <div class="chart-svg">
                 <svg viewBox="0 0 36 36" class="circular-chart pink">
                     <path class="circle-bg" d="M18 2.0845

@@ -24,12 +24,23 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               <h3 class="popup-header py-2">Alerts</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
-                    <img *ngIf="user.imageURL; else userAvatar"src="user.imageURL" alt=""/>
-                    <ng-template #userAvatar>
-                      <div class="initials-avatar" style="width: 30px !important; height: 30px !important">
-                              <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.name.substr(0,2)}}</p>
-                      </div>
-                    </ng-template>
+                    
+                    <!-- <app-user-avatar [user]="user"></app-user-avatar> -->
+                    <!-- <div class="alert-icon p-1"> -->
+                      <!-- <img src="../../assets/issue-open.png"  alt="alert"/> -->
+                      <!-- </div> -->
+                      <div [ngSwitch]="user.notification">
+                        <div class="alert-icon p-1" *ngSwitchCase="'alert'">
+                          <img src="../../assets/issue-open.png"  alt="alert"/>
+                        </div>
+                        <div class="alert-icon p-1" *ngSwitchCase="'info'">
+                          <img src="../../assets/issueclosed.png"  alt="info"/>
+                        </div>
+                        <div class="alert-icon p-1" *ngSwitchCase="'action'">
+                          <img src="../../assets/issueclosed.png"  alt="action"/>  
+                        </div>
+          
+                    </div>
 
                     <div class="ml-2">{{user.message}}</div>
                   </li>
@@ -48,11 +59,11 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               </span>
               <div class="reports popup k-shadow p-2" *ngIf="notificationType === 'reports' && showNotification
               ">
-              <h3 class="popup-header">Reports</h3>  
+              <h3 class="popup-header">Reports</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     <i class="fa-2x fa fa-file"></i>
-
+                 
                     <div class="ml-1">{{user.message.length > 31 ? user.message.substr(0, 31).concat(' ...') : user.message}}</div>
                   </li>
                   <hr>
@@ -73,12 +84,8 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               <h3 class="popup-header">Messages</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
-                    <img *ngIf="user.imageURL; else userAvatar"src="user.imageURL" alt=""/>
-                    <ng-template #userAvatar>
-                      <div class="initials-avatar" style="width: 30px !important; height: 30px !important">
-                              <p style="font-size: 15px !important; padding-top: 1rem !important">{{user.name.substr(0,2)}}</p>
-                      </div>
-                    </ng-template>
+                    
+                    <app-user-avatar [user]="user"></app-user-avatar>
 
                     <div class="ml-2">{{user.message.length > 29 ? user.message.substr(0, 29).concat(' ...') : user.message}}</div>
                   </li>
@@ -119,28 +126,35 @@ export class HeaderComponent implements OnInit {
   users = [
     {
     id: '1',
-    name: 'alex',
-    message: ' hi, there just logged in to the plaform',
-    themeColor: 'tomatoe'
+    displayName: 'alex',
+    email: 'alex@gmail.com',
+    message: ' I need some assistance. When are you available?',
+    themeColor: 'tomatoe',
+    notification: 'alert'
+  },
+    {
+      id: '1',
+      displayName: 'tom',
+      email: 'tomly@gmail.com',
+      message: ' hi, there!',
+      themeColor: 'lightgreen',
+      notification: 'info'
     },
     {
       id: '1',
-      name: 'alex',
-      message: ' hi, there just logged in to the plaform', 
-      themeColor: 'lightgreen'
+      displayName: 'patrick',
+      email: 'patrick@yahoo.com',
+      message: ' Like the dashboard 😎',
+      themeColor: 'skyblue',
+      notification: 'action'
     },
     {
       id: '1',
-      name: 'alex',
-      message: ' hi, there just logged in to the plaform',
-      themeColor: 'skyblue'
-
-    },
-    {
-      id: '1',
-      name: 'alex',
-      message: ' hi, there just logged in to the plaform',
-      themeColor: 'purple'
+      displayName: 'bob',
+      email: 'bob@hotmail.com',
+      message: ' Not cool 😣',
+      themeColor: 'purple',
+      notification: 'alert'
     }
 
   ];
@@ -155,7 +169,6 @@ export class HeaderComponent implements OnInit {
   openNotification(e): void {
     this.showNotification = !this.showNotification;  
     this.notificationType = e.target.parentNode.id;
-    console.log(this.notificationType);
   }
 
 

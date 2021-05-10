@@ -142,10 +142,36 @@
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
-        img{
+
+        .alert-icon{
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          background: $body-bg;
+          border-radius: 50%;
           width: 30px;
           height: 30px;
-          border-radius: 50%;
+          
+          img{
+            width: 17px;
+            height: 17px;
+          }
+        }
+
+
+        img{
+          width: 2rem !important;
+          height: 2rem !important;
+          
+        }
+
+        .initials-avatar{
+          width: 2rem !important;
+          height: 2rem !important;
+          .letter{
+            font-size: 15px !important;
+          }
         }
 
         &:hover{

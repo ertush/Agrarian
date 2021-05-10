@@ -9,7 +9,7 @@ export class CardChartComponent implements OnInit {
 
   defaultTab = 'Chart';
   tabItems = ['Graph', 'Map', 'Weather'];
-  tempArray = '0, 100';
+  tempArray = '50, 100';
   humidityArray = '0, 100';
   soilArray = '0, 100';
   atmpArray = '0, 100';
@@ -30,6 +30,13 @@ export class CardChartComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
+  }
+
+  getTempIcon(icon: string): string{
+    const pcnt = parseInt(icon);
+   if (pcnt < 50) return 'fa-5x fas card-icon fa-temperature-low';
+   if (pcnt === 50) return 'fa-5x fas card-icon fa-thermometer-half';
+   if (pcnt > 50) return 'fa-5x fas card-icon fa-temperature-high';
   }
 
 }
