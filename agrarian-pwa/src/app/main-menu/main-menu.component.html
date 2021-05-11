@@ -31,14 +31,18 @@
           <p id="app-subtitle" class="h4 mb-3">{{ menuTitle }}</p>
         
            <div class="user-field">
-                <app-user-avatar [user]="user" class="nav-avatar"></app-user-avatar>
+                <object *ngIf="isMobile;else avatar" class="mb-2 app-logo" data="../../assets/svgs/app-logo.svg" type="image/svg+xml"></object>
+               
+                <ng-template #avatar>
+                    <app-user-avatar [user]="user" class="nav-avatar"></app-user-avatar>
+                </ng-template>
+                
                 <div class='user-labels' [ngStyle]="{'margin-left.px': labelMargin}">
                     <p class="user-label-name" [ngStyle]="{'font-size.px': labelSize}"> {{ user.displayName == undefined ? user.email.split('@')[0] : user.displayName }} </p>
                     <p class="user-label-email mt-sm-auto" [ngStyle]="{'font-size.px': labelSize}"> {{ user.email }} </p>
                 </div>
            </div> 
          
-          <!-- <p class="h4 mt-3">Menu</p> -->
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="dashbaord">
                   <a [routerLink]=" ['./dashboard']"  class="nav-link mt-3" (mousedown)="navigate('/dashboard')" routerLinkActive="active">
@@ -50,7 +54,7 @@
               </li>
           </ul>
           
-          <!-- <p class="h4 mt-3">Account</p> -->
+     
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
                   <a [routerLink]=" ['./profile'] "  class="nav-link mt-3" (mousedown)="navigate('/profile')" routerLinkActive="active">
@@ -62,7 +66,7 @@
               </li>
           </ul>
           
-          <!-- <p class="h4 mt-3">Resources</p> -->
+  
           <ul class="nav nav-pills flex-column"> 
               <li class="nav-item" id="source">
                   <a class="nav-link mt-3" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"

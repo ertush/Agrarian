@@ -19,31 +19,30 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
                 <i class="k-icon k-i-notification"></i>
                 <span *ngIf="alerts > 0" class="dot counter counter-lg">{{alerts > 5 ? '5+' : alerts}}</span>
               </span>
-              <div class="alerts popup k-shadow px-2 pb-2" *ngIf="notificationType === 'alerts' && showNotification
+              <div class="alerts popup k-shadow p-2" *ngIf="notificationType === 'alerts' && showNotification
               ">
               <h3 class="popup-header py-2">Alerts</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     
                       <div [ngSwitch]="user.notification">
-                        <div class="alert-icon p-1" *ngSwitchCase="'alert'">
-                          <img src="../../assets/issue-open.png"  alt="alert"/>
+                        <div [ngStyle]="{'background': 'rgb(221, 143, 97)'}" class="alert-icon p-1" *ngSwitchCase="'alert'">
+                         <i class="fas fa-exclamation"></i>
                         </div>
-                        <div class="alert-icon p-1" *ngSwitchCase="'info'">
-                          <img src="../../assets/issueclosed.png"  alt="info"/>
+                        <div [ngStyle]="{'background': 'rgb(97, 205, 221)'}" class="alert-icon p-1" *ngSwitchCase="'info'">
+                          <i class="fas fa-info"></i>
                         </div>
-                        <div class="alert-icon p-1" *ngSwitchCase="'action'">
-                          <img src="../../assets/issueclosed.png"  alt="action"/>  
+                        <div [ngStyle]="{'background': 'rgb(114, 221, 97)'}" class="alert-icon p-1" *ngSwitchCase="'action'">
+                          <i class="fas fa-check"></i>
                         </div>
           
                     </div>
 
-                    <div class="ml-2">{{user.message}}</div>
+                    <div class="ml-2">{{user.alert}}</div>
                   </li>
                   <hr>
                 </ul>
               </div>
-
 
 
               <span  (click)="openNotification($event)"
@@ -54,18 +53,17 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
                 <span *ngIf="reports > 0" class="dot counter counter-lg">{{reports > 5 ? '5+' : reports}}</span>
               </span>
               <div class="reports popup k-shadow p-2" *ngIf="notificationType === 'reports' && showNotification
-              ">
-              <h3 class="popup-header">Reports</h3>
+               ">
+              <h3 class="popup-header py-2">Reports</h3>
                 <ul>
-                  <li class="p-2" *ngFor="let user of users">
-                    <i class="fa-2x fa fa-file"></i>
+                  <li  class="p-2" *ngFor="let user of users">
+                    <i  class="fas fa-file"></i>
                  
-                    <div class="ml-1">{{user.message.length > 31 ? user.message.substr(0, 31).concat(' ...') : user.message}}</div>
+                    <div *ngIf="user.report" class="ml-1">{{user.report}}</div>
                   </li>
                   <hr>
                 </ul>
               </div>
-
 
 
               <span (click)="openNotification($event)"
@@ -77,13 +75,13 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               </span>
               <div class="messages popup k-shadow p-2" *ngIf="notificationType === 'messages' && showNotification
               ">
-              <h3 class="popup-header">Messages</h3>
+              <h3 class="popup-header  py-2">Messages</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     
-                    <app-user-avatar [user]="user"></app-user-avatar>
+                    <app-user-avatar *ngIf="user.message" [user]="user"></app-user-avatar>
 
-                    <div class="ml-2">{{user.message.length > 29 ? user.message.substr(0, 29).concat(' ...') : user.message}}</div>
+                    <div *ngIf="user.message" class="ml-2">{{user.message}}</div>
                   </li>
                   <hr>
                 </ul>
@@ -113,9 +111,9 @@ export class HeaderComponent implements OnInit {
   @Input() title;
 
   _isMobileTablet;
-  alerts = 10;
-  reports = 3;
-  messages = 1;
+  alerts = 5;
+  reports = 0;
+  messages = 5;
   showNotification = false;
   notificationType = '';
 
@@ -126,7 +124,8 @@ export class HeaderComponent implements OnInit {
     email: 'alex@gmail.com',
     message: ' I need some assistance. When are you available?',
     themeColor: 'tomatoe',
-    notification: 'alert'
+    notification: 'alert',
+    alert: 'Temperature sensor not responding'
   },
     {
       id: '1',
@@ -134,7 +133,9 @@ export class HeaderComponent implements OnInit {
       email: 'tomly@gmail.com',
       message: ' hi, there!',
       themeColor: 'lightgreen',
-      notification: 'info'
+      notification: 'info',
+      alert: 'AG11 connected to broker',
+      report: 'Server report ready'
     },
     {
       id: '1',
@@ -142,15 +143,19 @@ export class HeaderComponent implements OnInit {
       email: 'patrick@yahoo.com',
       message: ' Like the dashboard 😎',
       themeColor: 'skyblue',
-      notification: 'action'
+      notification: 'action',
+      alert: 'Humidity set to average',
+      report: 'Sensor report'
     },
     {
       id: '1',
       displayName: 'bob',
       email: 'bob@hotmail.com',
-      message: ' Not cool 😣',
+      message: ' Amazing work bob 👍',
       themeColor: 'purple',
-      notification: 'alert'
+      notification: 'alert',
+      report: 'closed',
+      alert: 'Soil moisture is above average'
     }
 
   ];

@@ -16,11 +16,40 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: $deep-green;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    &.theme-1{
+      background: rgb(220, 62, 14);
+    }
+
+    &.theme-2{
+      background: rgb(12, 111, 96) ;
+    }
+    
+    &.theme-3{
+      background: rgb(57, 12, 111);
+    }
+    
+    &.theme-4{
+      background: rgb(73, 111, 12);
+    }
+    
+    &.theme-5{
+      background: rgb(111,12,13);
+    }
+    
+    &.theme-6{
+      background: rgb(144, 109, 15);
+    }
+    
+    &.default-theme{
+      background: $deep-green;
+    }
+
+
 
     p{
         margin:0 !important;
