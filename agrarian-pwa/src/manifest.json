@@ -3,7 +3,7 @@
   "lang": "en",
   "name": "agrarian.io",
   "scope": "/",
-  "display": "fullscreen",
+  "display": "standalone",
   "start_url": "/",
   "short_name": "Agrarian",
   "theme_color": "#eceeef",
