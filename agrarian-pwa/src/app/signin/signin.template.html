@@ -1,4 +1,4 @@
-<div *ngIf="isMobileTablet" class="signin-form-mobile col-xl-4">
+<div *ngIf="isMobile" class="signin-form-mobile col-xl-4">
   <span class="error" *ngIf="error.length > 0">{{ error }}</span>
   <div>
     
@@ -143,7 +143,7 @@
 
 </div>
 
-<div *ngIf="!isMobileTablet" class="signin-page-desktop">
+<div *ngIf="!isMobile" class="signin-page-desktop">
   <div class="promo-banner">
     <div class="banner-header">
       <h2>Get more from Agrarian</h2>

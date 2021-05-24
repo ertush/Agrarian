@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
     @ViewChild('newPassword', {static: true}) newPasswordTxtbox: TextBoxComponent;
     @ViewChild('confirmPassword', {static: true}) confirmTxtbox: TextBoxComponent;
 
-    isMobileTablet = this.deviceDetectorService.isMobile() || this.deviceDetectorService.isTablet();
+    isMobile = this.deviceDetectorService.isMobile();
     userName = '';
     isSignUp: boolean;
     marginTopExp;

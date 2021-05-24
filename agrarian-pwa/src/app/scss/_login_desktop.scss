@@ -117,11 +117,10 @@
       }
     }
 
-    @media screen and (min-width: 560px) {
+    @media screen and (width: 768px) {
 
       .promo-banner{
-        display: none;
-        .banner-header{
+        .banner-header{ 
           display: none;
         }
       }
