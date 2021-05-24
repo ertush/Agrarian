@@ -1,12 +1,13 @@
-import { UserModel } from './../models/user';
+// import { UserModel } from './../models/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { formValidationMessages } from './validation.messages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ViewEncapsulation, HostBinding, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import isMobileTablet from '../shared/deviceUtil';
+// import isMobile from '../shared/deviceUtil';
 import * as firebase from 'firebase/app';
 import { TextBoxComponent } from '@progress/kendo-angular-inputs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 // import { User } from '../models/user';
 
 
@@ -18,15 +19,17 @@ import { TextBoxComponent } from '@progress/kendo-angular-inputs';
 
 export class SigninComponent implements OnInit {
 
-    @ViewChild('password') public passwordTxtbox: TextBoxComponent;
-    @ViewChild('newPassword', {static: true}) public newPasswordTxtbox: TextBoxComponent;
-    @ViewChild('confirmPassword', {static: true}) public confirmTxtbox: TextBoxComponent;
+    @ViewChild('password') passwordTxtbox: TextBoxComponent;
+    @ViewChild('newPassword', {static: true}) newPasswordTxtbox: TextBoxComponent;
+    @ViewChild('confirmPassword', {static: true}) confirmTxtbox: TextBoxComponent;
 
-    public isMobile = isMobileTablet();
-    public userName = '';
-    public isSignUp: boolean;
-    public marginTopExp;
-    public formValidationMessages = formValidationMessages;
+    isMobileTablet = this.deviceDetectorService.isMobile() || this.deviceDetectorService.isTablet();
+    userName = '';
+    isSignUp: boolean;
+    marginTopExp;
+    formValidationMessages = formValidationMessages;
+    showDialogue = false;
+    year = new Date().getFullYear();
 
     isSignedIn: boolean;
     googleAuthProvider: any;
@@ -37,7 +40,7 @@ export class SigninComponent implements OnInit {
     return = '';
     user: firebase.User;
 
-    public loginForm: FormGroup = new FormGroup({
+    loginForm: FormGroup = new FormGroup({
         userEmail: new FormControl('', Validators.compose([
             Validators.required,
             Validators.email  // '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\@\!\#\%\^\&\*a-zA-Z0-9]+$'
@@ -50,7 +53,7 @@ export class SigninComponent implements OnInit {
     }
     );
 
-    public signUpForm = new FormGroup({
+    signUpForm = new FormGroup({
         userName: new FormControl(''),
         signUpEmail: new FormControl('', Validators.compose([
             Validators.required,
@@ -68,12 +71,16 @@ export class SigninComponent implements OnInit {
         this.passwordMatchValidator
     );
 
-    public passwordMatchValidator(g: FormGroup) {
+    passwordMatchValidator(g: FormGroup) {
         return g.get('newPassword').value === g.get('confirmPassword').value
            ? null : {'mismatch': true};
      }
 
-    constructor(private router: Router, private afAuth: AngularFireAuth) {
+    constructor(
+        private router: Router, 
+        private afAuth: AngularFireAuth,
+        private deviceDetectorService: DeviceDetectorService,
+        ) {
         this.isSignedIn = false;
         this.isSignUp = false;
         this.marginTopExp = 22;
@@ -115,18 +122,26 @@ export class SigninComponent implements OnInit {
     }
 
     // tslint:disable-next-line: use-life-cycle-interface
-    public ngAfterViewInit(): void {
+    ngAfterViewInit(): void {
         this.passwordTxtbox.input.nativeElement.type = 'password';
     }
 
-    public toggleVisibility(): void {
+    toggleVisibility(): void {
         const elemPwd = this.passwordTxtbox.input.nativeElement;
         elemPwd.type = elemPwd.type === 'password' ? 'text' : 'password';
         this.isText = elemPwd.type === 'password' ? false : true;
 
     }
 
-    public onLoginClick(formValues: any): void {
+    sendMail(): void{
+        this.showDialogue = true;
+    }
+
+    onSubmissionDialogClose(): void{
+        this.showDialogue = false;
+    }
+
+    onLoginClick(formValues: any): void {
         this.isSignedIn = false;
         this.afAuth.auth.signInWithEmailAndPassword(formValues.userEmail, formValues.password)
         .then((success) => {
@@ -138,13 +153,13 @@ export class SigninComponent implements OnInit {
         .catch(error => this.error = error.message);
     }
 
-    public onSignUpClick(): void {
+    onSignUpClick(): void {
 
         this.isSignUp = true;
         this.marginTopExp = 'auto';
     }
 
-    public onCreateAccount(formValues: any): void {
+    onCreateAccount(formValues: any): void {
         
         localStorage.setItem('userName', formValues.userName);
 
@@ -160,15 +175,15 @@ export class SigninComponent implements OnInit {
         });
     }
 
-    public submitForm(): void {
+    submitForm(): void {
         this.loginForm.markAllAsTouched();
     }
 
-    public clearForm(): void {
+    clearForm(): void {
         this.loginForm.reset();
     }
 
-    public onGoogleSignIn() {
+    onGoogleSignIn() {
         this.isSignedIn = false;
         this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         this.afAuth.auth.signInWithRedirect(this.googleAuthProvider)
@@ -178,7 +193,7 @@ export class SigninComponent implements OnInit {
         });
     }
 
-    public onTwitterSignIn(): void {
+    onTwitterSignIn(): void {
         this.isSignedIn = false;
         this.twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
         this.afAuth.auth.signInWithRedirect(this.twitterAuthProvider)
@@ -188,7 +203,7 @@ export class SigninComponent implements OnInit {
         });
     }
 
-    public goBack() {
+    goBack() {
         this.isSignUp = false;
         this.isSignedIn = true;
         this.error = '';

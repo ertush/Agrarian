@@ -28,9 +28,11 @@ export class MainMenuComponent implements OnInit {
     navState: string;
     menuTitle: string;
     isMobile: boolean;
+    url;
 
     return = '';
     user: any;
+
     // defaultPhoto: string = '../../assets/avatar-placeholder.png';
 
     constructor(
@@ -52,11 +54,7 @@ export class MainMenuComponent implements OnInit {
             }
         });
 
-     
-      
-        // Debug
-        // console.log({user: this.user});
-
+    
         // Load default user if user not set
         if (this.user === undefined) {
             this.user = {
@@ -70,10 +68,15 @@ export class MainMenuComponent implements OnInit {
 
     ngOnInit(): void {
         this.isMobile = this.deviceService.isMobile();
+       
         this.route.queryParams
-        .subscribe(params => this.return = params['return'] || '/dashboard');
+        .subscribe(params => { 
+            this.return = params['return'] || '/dashboard';
+        });
 
-
+        this.url = document.location.hash;
+        console.log({url: this.url});
+     
     }
 
     @HostBinding('attr.id') protected get id(): string {
@@ -94,6 +97,7 @@ export class MainMenuComponent implements OnInit {
     }
 
     showNav() {
+
         return this.router.url !== '/signin';
     }
 
@@ -119,15 +123,19 @@ export class MainMenuComponent implements OnInit {
         }
     }
 
+
     navigate(path: string): void {
 
         if (this.isMobile) {
             this.toggleNav();
         }
 
+
         this.menuTitle = (path.split('/')[1] === 'issues' ? 'reports' : path.split('/')[1]);
 
         this.router.navigate([path]);
     }
+
+
 
 }

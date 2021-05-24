@@ -1,6 +1,6 @@
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { environment as env } from './../../environments/environment';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { WeatherService } from '../shared/weather.service';
 
 @Component({
   selector: 'app-weather',
@@ -57,8 +57,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export class WeatherComponent implements OnInit {
 
-  @Input() lat: number;
-  @Input() lon: number;
+
   @Output() dropDownSelect = new EventEmitter<string>();
 
   isLoading = true;
@@ -73,15 +72,18 @@ export class WeatherComponent implements OnInit {
   tabItems = ['Graph', 'Map', 'Chart'];
   defaultTab = 'Weather';
 
-  constructor(private deviceDetectorService: DeviceDetectorService) {
+  constructor(
+    private deviceDetectorService: DeviceDetectorService,
+    private weatherService: WeatherService
+    ) {
    }
 
   ngOnInit() {
     this.isMobile = this.deviceDetectorService.isMobile();
-    this.uri = `${env.api.url}?lat=${this.lat}&lon=${this.lon}&APPID=${env.api.appId}`;
+    
 
-    fetch(this.uri)
-    .then( res => {
+    this.weatherService.getWeatherData()
+    .then(res => {
       if (res.ok ) {
         this.isLoading = false;
         res.json()

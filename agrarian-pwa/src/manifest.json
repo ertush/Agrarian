@@ -1,10 +1,10 @@
 {
   "dir": "ltr",
-  "lang": "en",
+  "lang": "en",   
   "name": "agrarian.io",
   "scope": "/",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "http://localhost:8080/",
   "short_name": "Agrarian",
   "theme_color": "#eceeef",
   "description": "Platform to help farmers manager their farms",
@@ -37,28 +37,51 @@
       "density": "0.75"
     },
     {
-      "src": "/assets/app_logos/48x48-logo.png",
+      "src": "/assets/masked-icons/maskable_icon_x48.PNG",
       "sizes": "48x48",
       "type": "image/png",  
-      "density": "1.0"
+      "density": "1.0",
+      "purpose": "any maskable"
     },
     {
-      "src": "/assets/app_logos/72x72-logo.png",
+      "src": "/assets/masked-icons/maskable_icon_x72.PNG", 
       "sizes": "72x72",
       "type": "image/png",
-      "density": "1.5"
+      "density": "1.5",
+      "purpose": "any maskable"
     },
     {
-      "src": "/assets/app_logos/96x96-logo.png",
+      "src": "/assets/masked-icons/maskable_icon_x96.PNG",
       "sizes": "96x96", 
       "type": "image/png",
-      "density": "2.0"
+      "density": "2.0",
+      "purpose": "any maskable"
     },
     {
       "src": "/assets/app_logos/144x144-logo.png",
       "sizes": "144x144",
       "type": "image/png",
       "density": "3.0"
+    },
+    {
+      "src": "/assets/masked-icons/maskable_icon_x192.png", 
+      "type": "image/png",
+      "density": "3.5",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/masked-icons/maskable_icon_x384.PNG",
+      "sizes": "384x384", 
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/masked-icons/maskable_icon_x512.PNG",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "density": "5.0",
+      "purpose": "any maskable"
     }
   ]
 }

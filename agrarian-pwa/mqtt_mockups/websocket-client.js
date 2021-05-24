@@ -9,7 +9,7 @@ client.on('connect', function () {
           
         let payload_temperature = JSON.stringify(Math.round(Math.random() * 30))
         let payload_humid = JSON.stringify(Math.round(Math.random() * 70))
-        let payload_atmp = JSON.stringify(Math.round(Math.random() * 100))
+        let payload_atmp = JSON.stringify(Math.round(Math.random() * 110))
         let payload_soil = JSON.stringify(Math.round(Math.random() * 15))
         let payload_light = JSON.stringify(Math.round(Math.random() * 10))
            

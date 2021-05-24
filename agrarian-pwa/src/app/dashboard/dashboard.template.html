@@ -16,8 +16,8 @@
 <div id="statistics">
   <kendo-tabstrip #tabStrip>
       <kendo-tabstrip-tab  [title]="'Graph'"  [selected]="false">
-        <ng-template kendoTabContent>
-            <app-temp [loading]="isLoading" [style]="style" [data]="_tempData" [min]="min" [max]="max" (dropDownSelect)="onDropDownSelect($event)"></app-temp>
+        <ng-template kendoTabContent> 
+            <app-temp [loading]="isLoading" [style]="style"  [tempData]="_tempData" [min]="min" [max]="max" (dropDownSelect)="onDropDownSelect($event)"></app-temp>
             <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
@@ -38,7 +38,7 @@
 
       <kendo-tabstrip-tab [title]="'Chart'" [selected]="true">
         <ng-template kendoTabContent>
-            <app-card-chart (dropDownSelect)="onDropDownSelect($event)"></app-card-chart>
+            <app-card-chart (dropDownSelect)="onDropDownSelect($event)" [cardData]="allData"></app-card-chart>
             <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>

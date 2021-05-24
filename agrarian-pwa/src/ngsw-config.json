@@ -1,0 +1,30 @@
+{
+  "index": "/index.html",
+  "assetGroups": [{
+    "name": "app",
+    "installMode": "prefetch",
+    "resources": {
+      "files": [
+        "/favicon.ico",
+        "/index.html",
+        "/assets/**",
+        "/*.bundle.css",
+        "/*.bundle.js",
+        "/*.chunk.js",
+          "/manifest.webmanifest"
+      ]
+    }
+  }],
+  "dataGroups": [{
+      "name": "weather-api",
+      "urls": [
+        "https://api.openweathermap.org/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "3d",
+        "timeout": "30s"
+      }
+    }]
+}

@@ -31,7 +31,7 @@
           <p id="app-subtitle" class="h4 mb-3">{{ menuTitle }}</p>
         
            <div class="user-field">
-                <object *ngIf="isMobile;else avatar" class="mb-2 app-logo" data="../../assets/svgs/app-logo.svg" type="image/svg+xml"></object>
+                <object alt="agrarian-logo" *ngIf="isMobile;else avatar" class="mb-2 app-logo" data="../../assets/svgs/app-logo.svg" type="image/svg+xml"></object>
                
                 <ng-template #avatar>
                     <app-user-avatar [user]="user" class="nav-avatar"></app-user-avatar>
@@ -57,8 +57,8 @@
      
           <ul class="nav nav-pills flex-column">
               <li class="nav-item" id="profile">
-                  <a [routerLink]=" ['./profile'] "  class="nav-link mt-3" (mousedown)="navigate('/profile')" routerLinkActive="active">
-                    <i class="k-icon k-i-user k-icon-sm" routerLinkActive="active"></i>My Profile</a>
+                  <a [routerLink]=" ['./settings'] "  class="nav-link mt-3" (mousedown)="navigate('/settings')" routerLinkActive="active">
+                    <i class="k-icon k-i-gears k-icon-sm" routerLinkActive="active"></i>Settings</a>
               </li>
               <li class="nav-item" id="signout">
                   <a class="nav-link mt-3" style="cursor: pointer;" (mousedown)="logOut()" routerLinkActive="active">
@@ -71,7 +71,7 @@
               <li class="nav-item" id="source">
                   <a class="nav-link mt-3" href="https://github.com/telerik/kendo-angular/tree/master/examples/projects/integration-pwa-material" target="_blank"
                       role="button">
-                  <i class="k-icon k-i-download k-icon-sm"></i>Download</a>
+                  <i class="k-icon k-i-download k-icon-sm"></i>Install</a>
               </li>
               <li class="nav-item" id="documentation">
                   <a class="nav-link mt-3" href="https://agrarian-iot.github.io" target="_blank"
@@ -91,7 +91,7 @@
 
     </div>
 
-    <main class="content-wrapper col">
+    <main  [ngClass]="isMobile ? ((url === '#/signin') ? 'content-wrapper col': 'content-wrapper col') : ((url === '#/signin') ? '': 'content-wrapper col')">
         <router-outlet></router-outlet>
     </main>
 </div>

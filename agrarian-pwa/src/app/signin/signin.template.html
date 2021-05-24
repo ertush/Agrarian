@@ -1,11 +1,10 @@
-<div [ngClass]="isMobile ? 'mt-4' : 'mt-1'" class="signin-form col-xl-4">
+<div *ngIf="isMobileTablet" class="signin-form-mobile col-xl-4">
   <span class="error" *ngIf="error.length > 0">{{ error }}</span>
-  <div class="k-card">
+  <div>
     
     <div class="container text-center mt-3">
       <span class="logo-bg"> 
-        <!-- <img src="../../assets/app_icon/72x72-sq-logo.png" alt="agrarian"> -->
-        <object data="../../assets/svgs/app-logo.svg" type="image/svg+xml" width="72px" height="72px"></object>
+        <object alt="app-logo" data="../../assets/svgs/app-logo.svg" type="image/svg+xml" width="72px" height="72px"></object>
       </span>
      
     </div>
@@ -16,7 +15,8 @@
       <form class="k-form" [formGroup]="loginForm" (ngSubmit)="onLoginClick(loginForm.value)">
         <div class="form-group mt-1 ml-2 mr-2">
           <kendo-textbox-container class="custom-width" floatingLabel="Email">
-              <kendo-textbox kendoTextBox type="text" formControlName="userEmail" #userEmail required></kendo-textbox>
+              <kendo-textbox kendoTextBox id="email" type="text" formControlName="userEmail" #userEmail required></kendo-textbox>
+              <label for="email" style="display: none;"></label>
           </kendo-textbox-container>
           <kendo-formerror *ngFor="let validation of formValidationMessages.email" [hidden]="!loginForm.get('userEmail').hasError(validation.type)">
             {{  validation.message }}
@@ -24,47 +24,48 @@
         </div>
         <div class="form-group ml-2 mr-2">
           <kendo-textbox-container class="custom-width"  floatingLabel="Password">
-              <kendo-textbox kendoTextBox formControlName="password" type="password" #password required>
+              <kendo-textbox kendoTextBox id="pswd" formControlName="password" type="password" #password required>
                 <ng-template kendoTextBoxSuffixTemplate>
                   <i *ngIf="isText;else eyeslash" class="eye-icon fas fa-eye" (mousedown)="toggleVisibility()"></i>
                   <ng-template #eyeslash> <i class="eye-icon fas fa-eye-slash" (mousedown)="toggleVisibility()"></i> </ng-template>
               </ng-template>
               </kendo-textbox>
+              <label for="pswd" style="display: none;"></label>
           </kendo-textbox-container>
           <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!loginForm.get('password').hasError(validation.type)">
             {{  validation.message }}
           </kendo-formerror>
           <p class="text-xs-right small">
-            <a href="#">Forgot it?</a>
+            <a href="#" (click)="sendMail()">Forgot it?</a>
           </p>
         </div>
         <div class="form-group mb-0 btn-group">
           <button kendoRippleContainer type="submit" class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline"  [disabled]="loginForm.status === 'INVALID'">Log in</button>
         </div>  
         <p class="text-xs-right small mb-0 pb-0 ml-2">
-          <a style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
+          <a href="#" style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
         </p>
 
         <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
 
-        <div class="form-group mb-0 btn-group">
-          <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
-          <i class="fab fa-google  k-i-google-btn pr-2"></i>
-           {{'continue with google' }}
-          </span>
-        </div>  
-
-          <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
+        <div class="social-buttons">
+          <div class="form-group mb-0 btn-group">
+            <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNDggNDgiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNNDQuNSAyMEgyNHY4LjVoMTEuOEMzNC43IDMzLjkgMzAuMSAzNyAyNCAzN2MtNy4yIDAtMTMtNS44LTEzLTEzczUuOC0xMyAxMy0xM2MzLjEgMCA1LjkgMS4xIDguMSAyLjlsNi40LTYuNEMzNC42IDQuMSAyOS42IDIgMjQgMiAxMS44IDIgMiAxMS44IDIgMjRzOS44IDIyIDIyIDIyYzExIDAgMjEtOCAyMS0yMiAwLTEuMy0uMi0yLjctLjUtNHoiLz48L2RlZnM+PGNsaXBQYXRoIGlkPSJiIj48dXNlIHhsaW5rOmhyZWY9IiNhIiBvdmVyZmxvdz0idmlzaWJsZSIvPjwvY2xpcFBhdGg+PHBhdGggY2xpcC1wYXRoPSJ1cmwoI2IpIiBmaWxsPSIjRkJCQzA1IiBkPSJNMCAzN1YxMWwxNyAxM3oiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiNFQTQzMzUiIGQ9Ik0wIDExbDE3IDEzIDctNi4xTDQ4IDE0VjBIMHoiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiMzNEE4NTMiIGQ9Ik0wIDM3bDMwLTIzIDcuOSAxTDQ4IDB2NDhIMHoiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiM0Mjg1RjQiIGQ9Ik00OCA0OEwxNyAyNGwtNC0zIDM1LTEweiIvPjwvc3ZnPg==" style="margin-right: 10px; margin-bottom: 0px;" width="20px" height="20px">
+             <div class='mx-1 my-0 icon-text'>{{ 'google' }}</div>
+            </span>
+          </div>
 
           <div class="form-group mb-0 btn-group">
-            <span kendoRippleContainer class="k-button k-shadow twitter-btn ml-2 mr-2 mb-2" look="outline" (mousedown)="onTwitterSignIn()">
+            <span kendoRippleContainer class="k-button k-shadow twitter-btn ml-2 mr-2" look="outline" (mousedown)="onTwitterSignIn()">
             <i class="k-icon k-i-twitter k-i-twitter-btn pr-2"></i>
-            {{ 'continue with twitter' }}
+            <div class='mx-1 my-0 icon-text'>{{ 'twitter' }}</div>
           </span>
           </div>
+
+      </div>
         
-        <!-- <div class="form-group mb-2 btn-group">
-        </div>   -->
+ 
       </form>
     </div>
     <!-- Endof Signin --> 
@@ -78,7 +79,7 @@
           align-items: center;
           ">
           <div class="row text-center" style="display: block; margin-bottom: 1.5rem;">  
-            <div class="k-i-loading text-center" style="
+            <div *ngIf="!error.length > 0" class="k-i-loading text-center" style="
               font-size: 100px; 
               color: #252830;
               width: 100px;
@@ -96,6 +97,7 @@
       <div class="form-group">
         <kendo-textbox-container class="custom-width" floatingLabel="Username" >
             <input kendoTextBox type="text" id="username" placeholder="Optional" formControlName="userName" #userName/>
+            <label for="username" style="display: none;"></label>
         </kendo-textbox-container>
       </div>
       <div class="form-group">
@@ -107,6 +109,7 @@
           <div class="form-group">
               <kendo-textbox-container class="custom-width"  floatingLabel="New password">
                   <input type="password" kendoTextBox  formControlName="newPassword" #newPasword required>
+                  <label for="passwd" style="display: none;"></label>
               </kendo-textbox-container>
               <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!signUpForm.get('newPassword').hasError(validation.type)">
                 {{ validation.message }}
@@ -115,6 +118,7 @@
           <div class="form-group">
               <kendo-textbox-container class="custom-width"  floatingLabel="Confirm password">
                   <input type="password" kendoTextBox formControlName="confirmPassword" [clearButton]="true" #confirmPassword required>
+                  <label for="confirmPasswd" style="display: none;"></label>
               </kendo-textbox-container>
               <kendo-formerror *ngFor="let validation of formValidationMessages.confirmPassword" [hidden]="!signUpForm.get('confirmPassword').hasError(validation.type)">
                 {{ validation.message.length > 0 ? validation.message : 'Password mismatch' }}
@@ -129,6 +133,167 @@
     <!-- Endof Signup -->
     
   </div>
+  <kendo-dialog title="Password Reset" *ngIf="showDialogue" (close)="onSubmissionDialogClose()">
+    <p>A password reset email has been sent</p>
+    <kendo-dialog-actions>
+        <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onSubmissionDialogClose()">OK</button>
+    </kendo-dialog-actions>
+  </kendo-dialog> 
   
 
 </div>
+
+<div *ngIf="!isMobileTablet" class="signin-page-desktop">
+  <div class="promo-banner">
+    <div class="banner-header">
+      <h2>Get more from Agrarian</h2>
+      <ul class="pros">
+          <li class="banner-item"><i class="fa-2x fas fa-check"></i><h3>Timely analytics</h3></li>
+          <li class="banner-item"><i class="fa-2x fas fa-check"></i><h3>User friendly plaftorm</h3></li>
+          <li class="banner-item"><i class="fa-2x fas fa-check"></i><h3>Actionable insights</h3></li>
+          <li class="banner-item"><i class="fa-2x fas fa-check"></i><h3>24/7 monitoring</h3></li>
+          <li class="banner-item"><i class="fa-2x fas fa-check"></i><h3>Real time dashboard</h3></li>
+      </ul>
+
+      <p>For more info visit <a href="https://agrarian-iot.github.io">agrarian.io</a></p>
+
+      <div id="copy">
+        <p>Copyright &copy; {{year}},<br /><a href="https://eric-dev-me.vercel.app">Eric</a> and/or his subsidiaries or affiliates.</p>
+        <p>All Rights Reserved.</p>
+      </div>
+
+  </div> 
+  </div>
+
+  <div class="auth-forms">
+    <span class="error" *ngIf="error.length > 0">{{ error }}</span>
+    <!-- Logo & Header -->
+    <div class="container text-center mt-3">
+        <object alt="app-logo" data="../../assets/svgs/app-logo.svg" type="image/svg+xml" width="72px" height="72px"></object>   
+        <h4 class="text-center signin-title">Agrarian</h4>
+    </div>
+   
+    <!-- Endof Logo & Header -->
+    <!-- Login Form -->
+    <form class="k-form signin-form"  *ngIf="!isSignUp && isSignedIn" [formGroup]="loginForm" (ngSubmit)="onLoginClick(loginForm.value)">
+      <div class="form-group mt-1 ml-2 mr-2">
+        <kendo-textbox-container class="custom-width" floatingLabel="Email">
+            <kendo-textbox kendoTextBox id="email" type="text" formControlName="userEmail" #userEmail required></kendo-textbox>
+            <label for="email" style="display: none;"></label>
+        </kendo-textbox-container>
+        <kendo-formerror *ngFor="let validation of formValidationMessages.email" [hidden]="!loginForm.get('userEmail').hasError(validation.type)">
+          {{  validation.message }}
+        </kendo-formerror>
+      </div>
+      <div class="form-group ml-2 mr-2">
+        <kendo-textbox-container class="custom-width"  floatingLabel="Password">
+            <kendo-textbox kendoTextBox id="pswd" formControlName="password" type="password" #password required>
+              <ng-template kendoTextBoxSuffixTemplate>
+                <i *ngIf="isText;else eyeslash" class="eye-icon fas fa-eye" (mousedown)="toggleVisibility()"></i>
+                <ng-template #eyeslash> <i class="eye-icon fas fa-eye-slash" (mousedown)="toggleVisibility()"></i> </ng-template>
+            </ng-template>
+            </kendo-textbox>
+            <label for="pswd" style="display: none;"></label>
+        </kendo-textbox-container>
+        <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!loginForm.get('password').hasError(validation.type)">
+          {{  validation.message }}
+        </kendo-formerror>
+        <p class="text-xs-right small">
+          <a href="#" (click)="sendMail()">Forgot it?</a>
+        </p>
+      </div>
+      <div class="form-group mb-0 btn-group">
+        <button kendoRippleContainer type="submit" class="k-button k-shadow login-btn ag-theme-btn ml-2 mr-2" look="outline"  [disabled]="loginForm.status === 'INVALID'">Log in</button>
+      </div>  
+      <p class="text-xs-right small mb-0 pb-0 ml-2">
+        <a href="#" style="cursor: pointer;" (mousedown)="onSignUpClick()">Don't have an account?</a>
+      </p>
+
+      <div class="separator mt-0 pt-0 mb-2"><hr class="divider">or<hr class="divider"></div>
+
+      <div class="social-buttons">
+          <div class="form-group mb-0 btn-group">
+            <span kendoRippleContainer class="k-button k-shadow google-btn ml-2 mr-2" look="outline" (mousedown)="onGoogleSignIn()">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNDggNDgiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNNDQuNSAyMEgyNHY4LjVoMTEuOEMzNC43IDMzLjkgMzAuMSAzNyAyNCAzN2MtNy4yIDAtMTMtNS44LTEzLTEzczUuOC0xMyAxMy0xM2MzLjEgMCA1LjkgMS4xIDguMSAyLjlsNi40LTYuNEMzNC42IDQuMSAyOS42IDIgMjQgMiAxMS44IDIgMiAxMS44IDIgMjRzOS44IDIyIDIyIDIyYzExIDAgMjEtOCAyMS0yMiAwLTEuMy0uMi0yLjctLjUtNHoiLz48L2RlZnM+PGNsaXBQYXRoIGlkPSJiIj48dXNlIHhsaW5rOmhyZWY9IiNhIiBvdmVyZmxvdz0idmlzaWJsZSIvPjwvY2xpcFBhdGg+PHBhdGggY2xpcC1wYXRoPSJ1cmwoI2IpIiBmaWxsPSIjRkJCQzA1IiBkPSJNMCAzN1YxMWwxNyAxM3oiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiNFQTQzMzUiIGQ9Ik0wIDExbDE3IDEzIDctNi4xTDQ4IDE0VjBIMHoiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiMzNEE4NTMiIGQ9Ik0wIDM3bDMwLTIzIDcuOSAxTDQ4IDB2NDhIMHoiLz48cGF0aCBjbGlwLXBhdGg9InVybCgjYikiIGZpbGw9IiM0Mjg1RjQiIGQ9Ik00OCA0OEwxNyAyNGwtNC0zIDM1LTEweiIvPjwvc3ZnPg==" style="margin-right: 10px; margin-bottom: 0px;" width="20px" height="20px">
+             <div class='mx-1 my-0 icon-text'>{{ 'Continue with google' }}</div>
+            </span>
+          </div>
+
+          <div class="form-group mb-0 btn-group">
+            <span kendoRippleContainer class="k-button k-shadow twitter-btn ml-2 mr-2" look="outline" (mousedown)="onTwitterSignIn()">
+            <i class="k-icon k-i-twitter k-i-twitter-btn pr-2"></i>
+            <div class='mx-1 my-0 icon-text'>{{ 'Continue with twitter' }}</div>
+          </span>
+          </div>
+
+      </div>
+
+    </form>
+    <!-- Endof Login Form -->
+    <!-- Spinner -->
+    <div class="spinner-container" *ngIf="!isSignedIn">
+      <div class="mt-3" style="
+      height:100%; 
+      width:100%;
+      justify-content: space-evenly;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      ">
+      <div class="row text-center" style="display: block; margin-bottom: 1.5rem;">  
+        <div class="k-i-loading text-center" *ngIf="!error.length > 0" style="
+          font-size: 100px; 
+          color: #252830;
+          width: 100px;
+          height: 100px;
+          "></div>
+          <h3 *ngIf="error.length > 0">{{ errorCode }}</h3>
+      </div>
+      <div class="row text-center" style="display: block; flex:1">  
+        <span *ngIf="error.length > 0" class=" k-button k-shadow ag-theme-btn my-2" (mousedown)="goBack()"> back to login </span>
+      </div>
+      </div>  
+    </div>
+    <!-- Endof Spinner -->
+    <!-- SignUp Form -->
+    <form class="k-form signup-form"  *ngIf="isSignUp"  [formGroup]="signUpForm" (ngSubmit)="onCreateAccount(signUpForm.value)">
+      <div class="form-group">
+        <kendo-textbox-container class="custom-width" floatingLabel="Username" >
+            <input kendoTextBox type="text" id="username" placeholder="Optional" formControlName="userName" #userName/>
+            <label for="username" style="display: none;"></label>
+        </kendo-textbox-container>
+      </div>
+      <div class="form-group">
+        <kendo-textbox-container class="custom-width" floatingLabel="Email">
+            <kendo-textbox kendoTextBox type="text" id="email" formControlName="signUpEmail" #signUpEmail required></kendo-textbox>
+        </kendo-textbox-container>
+        <kendo-formerror  *ngFor="let validation of formValidationMessages.email" [hidden]="!signUpForm.get('signUpEmail').hasError(validation.type)">{{ validation.message }}</kendo-formerror>
+      </div>
+          <div class="form-group">
+              <kendo-textbox-container class="custom-width"  floatingLabel="New password">
+                  <input type="password" kendoTextBox  formControlName="newPassword" #newPasword required>
+                  <label for="passwd" style="display: none;"></label>
+              </kendo-textbox-container>
+              <kendo-formerror *ngFor="let validation of formValidationMessages.password" [hidden]="!signUpForm.get('newPassword').hasError(validation.type)">
+                {{ validation.message }}
+              </kendo-formerror>
+          </div>
+          <div class="form-group">
+              <kendo-textbox-container class="custom-width"  floatingLabel="Confirm password">
+                  <input type="password" kendoTextBox formControlName="confirmPassword" [clearButton]="true" #confirmPassword required>
+                  <label for="confirmPasswd" style="display: none;"></label>
+              </kendo-textbox-container>
+              <kendo-formerror *ngFor="let validation of formValidationMessages.confirmPassword" [hidden]="!signUpForm.get('confirmPassword').hasError(validation.type)">
+                {{ validation.message.length > 0 ? validation.message : 'Password mismatch' }}
+              </kendo-formerror>
+          </div>
+      <div class="form-group v-spacer">
+          <button kendoRippleContainer type="submit" class="k-button k-shadow ag-theme-btn" [disabled]="signUpForm.status === 'INVALID'">
+            Create account</button>
+      </div>
+    </form> 
+    <!-- Endof SignUp Form -->
+  </div>
+</div>
+
+

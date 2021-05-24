@@ -1,0 +1,132 @@
+.signin-page-desktop{
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    justify-content: center;
+    box-sizing:border-box;
+    padding: 0 !important;
+    margin:0 !important;
+    gap: 0 !important;
+    .promo-banner{
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-image: url('./../../assets/svgs/bg-card.svg');
+      background-size: cover;
+      padding: 1rem;
+      .banner-header{
+        position: absolute;
+        top: 100vh * .075;
+        left: 5%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 3rem;
+
+        h2 {
+          color: #0a514e;
+          font-size: 3rem;
+          text-transform: uppercase;
+        }
+
+        .pros{
+          margin: 0 !important;
+          padding: 0 !important;
+          list-style: none;
+          .banner-item{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 2rem;
+            i{
+              color: #95f0c7;
+            }
+
+            h3{
+              color: #95f0c7;
+              font-size: 2rem;
+              
+            }
+          }
+        }
+
+        a{
+          color: moccasin !important;
+          font-size: 1rem;
+        }
+
+        p{
+          color: $body-bg !important;
+          font-size: 1rem !important;
+        }
+        
+      }
+    }
+  
+    .auth-forms{
+      display: flex;
+      width: 100%;
+      height: max-content;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: $body-bg;
+      height: max-content;
+      gap: 2rem;
+      padding: 1rem;
+
+      &>.error{
+        width: fit-content !important;
+      }
+
+      .signup-form{
+        width: 650px; 
+      }
+
+      .signin-form{
+        width:650px;
+        margin: auto;
+        .social-buttons{
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          .google-btn{
+            width: fit-content;
+          }
+
+          .twitter-btn{
+            width: fit-content;
+          }
+        }
+
+      }
+
+      .signin-title{
+        color: #2e5b3e;
+      }
+
+      .spinner-container{
+        width: 650px;
+        height: max-content;
+      }
+    }
+
+    @media screen and (min-width: 560px) {
+
+      .promo-banner{
+        display: none;
+        .banner-header{
+          display: none;
+        }
+      }
+    }
+
+  }
+  
+  

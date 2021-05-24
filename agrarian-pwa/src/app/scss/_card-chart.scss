@@ -59,6 +59,21 @@
               .circle { stroke: #ff7dcb; }
               .circle-bg { stroke: #6f5684; }
             }
+
+            &.red {
+              .circle { stroke: $brand-danger; }
+              .circle-bg { stroke: $brand-light-danger; }
+            }
+
+            &.green {
+              .circle { stroke: #046935;}
+              .circle-bg { stroke: $brand-primary;}
+            }
+
+            &.purple {
+              .circle { stroke: #582e7b;}
+              .circle-bg { stroke: #b962ff; }
+            }
           }
           
           .percentage {
@@ -109,4 +124,4 @@
     .chart-row{
       grid-template-columns: 1fr !important;
     }
-  }
+  }      

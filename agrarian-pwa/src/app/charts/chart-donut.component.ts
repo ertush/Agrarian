@@ -34,16 +34,14 @@ import { Component, Input, HostBinding } from '@angular/core';
     `
 })
 export class ChartDonutComponent {
-    public donutPercent: string;
-    public donutLabel: string;
-    public hoverColor = 'rgb(255, 99, 88)';
-    public dataset;
+    donutPercent: string;
+    donutLabel: string;
+    hoverColor = 'rgb(255, 99, 88)';
+    dataset;
 
+    @Input() loading;
     
-
-
-    @Input() public loading;
-    @Input() public set data(data) {
+    @Input() set data(data) {
         if (data !== undefined) {
         this.dataset = data;
         data.forEach(series =>  {
@@ -66,13 +64,13 @@ export class ChartDonutComponent {
         return 'k-card issue-types';
     }
 
-    public isDataSet():boolean {if (this.dataset !== undefined) { return this.dataset.length > 0} return false}
+    isDataSet():boolean {if (this.dataset !== undefined) { return this.dataset.length > 0} return false}
 
-    public onHover(event) {
+    onHover(event) {
         this.setDonutLegend(event);
     }
 
-    public getDatasetUnits(dtLabel: string): string {
+    getDatasetUnits(dtLabel: string): string {
         switch (dtLabel) {
             case 'temperature':
                 return '°C';

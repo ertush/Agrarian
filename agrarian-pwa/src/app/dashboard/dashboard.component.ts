@@ -40,6 +40,7 @@ export class DashboardComponent implements OnDestroy {
     _espData = [];
     _tempHumidityData = [];
     _tempData = [];
+    _humidityData = [];
 
     _csData = {temperature: [], humidity: [], soil: [], light: [], atpressure: []};
     temp = [];
@@ -70,10 +71,10 @@ export class DashboardComponent implements OnDestroy {
         // Auth Guard
 
         this.afAuth.authState.subscribe(user => {
-          console.log({user});
-            if(user){
+          // console.log({user}); // debug
+            if (user) {
                 this.user = user;
-            }else{
+            } else {
               return;
             }
         });
@@ -177,6 +178,7 @@ export class DashboardComponent implements OnDestroy {
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
+                  if (data.humid.length === 5) this._humidityData = [{value: data.humid, time: new Date(0)}];
                  });
                 break;
 

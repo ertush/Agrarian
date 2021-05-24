@@ -60,11 +60,13 @@
                                 <kendo-textbox-container class="custom-width" floatingLabel="Username">
                                     <input kendoTextBox type="text" id="username" 
                                     [value]="user.displayName ? user.displayName : user.email.split('@')[0]" />
+                                    <label for="username" style="display: none;"></label>
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group">
                                 <kendo-textbox-container class="custom-width" floatingLabel="Email">
                                     <input kendoTextBox type="email" id="email" [value]="user.email" />
+                                    <label for="email" style="display: none;"></label>
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group" kendoRippleContainer>
@@ -74,11 +76,13 @@
                             <div class="form-group">
                                 <kendo-textbox-container class="custom-width" floatingLabel="Company">
                                     <input kendoTextBox type="text" id="company" [value]="user.company" />
+                                    <label for="company" style="display: none;"></label>
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group">
                                 <kendo-textbox-container class="custom-width" floatingLabel="Location">
                                     <input kendoTextBox type="text" id="location" [value]="user.location" />
+                                    <label for="location" style="display: none;"></label>
                                 </kendo-textbox-container>
                             </div>
                             <div class="form-group v-spacer">
@@ -119,17 +123,20 @@
                 <div class="k-card-body">
                     <div class="form-group">
                         <kendo-textbox-container class="custom-width" floatingLabel="Old password">
-                            <input kendoTextBox type="password" />
+                            <input kendoTextBox id="oldPasswd" type="password" />
+                            <label for="oldPasswd" style="display: none;"></label>
                         </kendo-textbox-container>
                     </div>
                     <div class="form-group">
                         <kendo-textbox-container class="custom-width" floatingLabel="New password">
-                            <input kendoTextBox type="password" />
+                            <input kendoTextBox id="passwd" type="password" />
+                            <label for="passwd" style="display: none;"></label>
                         </kendo-textbox-container>
                     </div>
                     <div class="form-group">
                         <kendo-textbox-container class="custom-width" floatingLabel="Confirm password">
-                            <input kendoTextBox type="password" />
+                            <input kendoTextBox id="confirmPasswd" type="password" />
+                            <label for="confirmPasswd" style="display: none;"></label>
                         </kendo-textbox-container>
                     </div>
                     <div class="form-group v-spacer">

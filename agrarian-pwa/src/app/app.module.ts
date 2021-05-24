@@ -1,4 +1,3 @@
-import { environment } from './../environments/environment.prod';
 import { TempComponent } from './charts/temp.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +41,7 @@ import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 
 // environment
+import { environment } from '../environments/environment';
 
 import { AvgPipe } from './charts/avg.pipe';
 import { MinmaxPipe } from './charts/minmax.pipe';
@@ -56,7 +56,6 @@ import { WeatherComponent } from './weather/weather.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment as env } from '../environments/environment';
 import { PageSpinnerComponent } from './page-spinner/page-spinner.component';
 import { CardChartComponent } from './card-chart/card-chart.component';
 
@@ -109,7 +108,7 @@ export function createTranslateLoader(http: HttpClient) {
         LayoutModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
-        AngularFireModule.initializeApp(env.firebase),
+        AngularFireModule.initializeApp(environment.firebase),
         BrowserAnimationsModule,
         DropDownsModule,
         HttpClientModule,

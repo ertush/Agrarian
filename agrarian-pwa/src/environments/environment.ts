@@ -13,10 +13,11 @@ export const environment = {
       atmp: 'atpressure',
       temp: 'temperature',
       light: 'light',
-      humidity: 'humidity'
+      humidity: 'humidity',
+      coordinates: 'gps-cordinates'
     },
     api: {
-      url: 'http://api.openweathermap.org/data/2.5/weather',
+      url: 'https://api.openweathermap.org/data/2.5/weather',
       appId: 'fd7aadde4652a91a190ed2267fb6e162'
     },
     firebase : {

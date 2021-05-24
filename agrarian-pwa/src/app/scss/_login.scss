@@ -1,6 +1,8 @@
+
+
 #login {
-  .signin-form {
-    margin: auto;
+  .signin-form-mobile {
+    margin-top: 20%;
     display: block;
     flex-direction: row;
     justify-content: center;
@@ -12,6 +14,19 @@
     
     .signin-title{
       color: #2e5b3e;
+    }
+
+    .social-buttons{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      .google-btn{
+        width: fit-content;
+      }
+
+      .twitter-btn{
+        width: fit-content;
+      }
     }
    
   }
@@ -104,16 +119,32 @@
 
 .google-btn {
  flex: 1;
- background-color: rgb(253, 215, 207);//rgb(255, 60, 0);
- color: $brand-danger;
+ background-color: $white; // rgb(253, 215, 207);//rgb(255, 60, 0);
  border-radius: $btn-border-radius;
+ width: fit-content;
+ .icon-text{
+   font-weight: 700;
+   text-transform: capitalize;
+ }
+
 }
 
 .twitter-btn {
   flex: 1;
-  background-color: rgb(179, 230, 250);//rgb(0, 128, 255);
+  background-color: $white; // rgb(179, 230, 250);//rgb(0, 128, 255);
   color: #00a2ff;
   border-radius: $btn-border-radius;
+  width: fit-content;
+
+  .icon-text{
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .k-i-twitter-btn{
+    color: #00a2ff; 
+    size: 30px;
+  }
 }
 
 .eye-icon{
@@ -125,10 +156,7 @@
   color: $brand-danger;
 }
 
-.k-i-twitter-btn{
-  size: 32px;
-  color:rgba($black, 2)
-}
+
 
 .logo-cnt {
   display: inline-flex;
@@ -154,5 +182,6 @@ margin: 0.5rem
 position: absolute;
 flex: 1;
 }
+
 
 

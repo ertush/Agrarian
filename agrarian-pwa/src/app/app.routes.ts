@@ -15,6 +15,6 @@ export const AppRoutes: Routes = [
     { path: 'home',  component: HomeComponent },
     { path: 'dashboard',  component: DashboardComponent },
     { path: 'issues',  component: IssuesComponent },
-    { path: 'profile',  component: ProfileComponent },
+    { path: 'settings',  component: ProfileComponent },
     { path: 'signin',  component: SigninComponent }
 ];

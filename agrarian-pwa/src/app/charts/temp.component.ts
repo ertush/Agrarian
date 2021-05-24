@@ -18,11 +18,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 
              <kendo-chart-series-defaults [type]="'scatterLine'" [stack]="true" [gap]="0.03" [overlay]="false">
              </kendo-chart-series-defaults>
-            <kendo-chart-series>              <kendo-chart-title text="         "></kendo-chart-title>
+            <kendo-chart-series>            
+              <kendo-chart-title text="Temperature"></kendo-chart-title>
               <kendo-chart-series-item
               [border]="{color: '#27c46d', opacity: 0.8}"
               type="scatterLine"
-              [data]="dataset"
+              [data]="tempData"
               yField="value"
               xField="time"
               [style]="style"
@@ -32,8 +33,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
               <kendo-chart-series-item
               [border]="{color: '#35C473', opacity: 0.8}"
               type="scatterLine"
-              [data]="dataset"
-              yField="value2"
+              [data]="humidityData"
+              yField="value"
               xField="time"
               [style]="style"
               [color]="'#e91e63'">
@@ -68,8 +69,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
         </div>
     </div>
   `,
-    styles: [
-      `kendo-chart{
+  styles: [
+    `kendo-chart{
         padding: 5px;
       }
 
@@ -77,40 +78,40 @@ import { DeviceDetectorService } from 'ngx-device-detector';
         margin-top: 11%;
       }
       `
-    ]
+  ]
 })
 
 
 
 export class TempComponent implements OnInit {
-    dataset;
-    @Input() min;
-    @Input() max;
-    isLoading;
-    @Input() style;
-    @Input() set loading(_isloading){
-      this.isLoading = _isloading;
-    }
+  dataset;
+  @Input() min;
+  @Input() max;
+  isLoading;
+  @Input() style;
+  @Input() set loading(_isloading) {
+    this.isLoading = _isloading;
+  }
 
-    @Input() set data(data_r) {
-    this.dataset = data_r;
-    }
+  @Input() tempData;
+  @Input() humidityData;
 
-    @Output() dropDownSelect = new EventEmitter<string>();
+  @Output() dropDownSelect = new EventEmitter<string>();
 
 
-    tabItems: Array<string> = ['Map','Weather','Chart'];
-    defaultTab = 'Graph';
-    isMobile: boolean;
+  tabItems: Array<string> = ['Map', 'Weather', 'Chart'];
+  defaultTab = 'Graph';
+  isMobile: boolean;
 
-    onSelect(value: string) {
-        this.dropDownSelect.emit(value);
-    }
+  onSelect(value: string) {
+    this.dropDownSelect.emit(value);
+  }
 
   constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
+    console.log({dataset: this.dataset}); // debug
   }
 
 }
