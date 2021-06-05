@@ -9,12 +9,13 @@ export const environment = {
     clientId : c_id,
     host : 'ws://localhost',
     topic : {
-      soil: 'soil',
-      atmp: 'atpressure',
-      temp: 'temperature',
-      light: 'light',
-      humidity: 'humidity',
-      coordinates: 'gps-cordinates'
+      soil: 'esp8266/soil',
+      atmp: 'esp8266/atpressure',
+      temp: 'esp8266/temperature',
+      light: 'esp8266/light',
+      humidity: 'esp8266/humidity',
+      lat: 'esp8266/lat',
+      lng: 'esp8266/lng'
     },
     api: {
       url: 'https://api.openweathermap.org/data/2.5/weather',

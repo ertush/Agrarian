@@ -28,8 +28,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
-import { IssuesComponent } from './issues/issues.component';
-import { LabelClass } from './issues/label.directive';
+import { ReportsComponent } from './reports/reports.component';
+import { LabelClass } from './reports/label.directive';
 import { MarkdownComponent } from './markdown/markdown.component';
 
 import { LoadingComponent } from './shared/spinner.component';
@@ -75,7 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
         SigninComponent,
         DashboardComponent,
         ProfileComponent,
-        IssuesComponent,
+        ReportsComponent,
         TempComponent,
         MarkdownComponent,
         LoadingComponent,

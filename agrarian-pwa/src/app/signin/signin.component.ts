@@ -166,12 +166,16 @@ export class SigninComponent implements OnInit {
         this.afAuth.auth.createUserWithEmailAndPassword(formValues.signUpEmail, formValues.newPassword)
         .then((success) => {
             this.isSignUp = false;
+            if(!success.user.emailVerified){
+                success.user.sendEmailVerification();
+            }
+
+            this.isSignUp = false;
         })
         .catch(err => {
             if (err.code == 'auth/weak-password') this.error = err;
             this.error = err;
-            console.error({error: err.message});
-            console.log(err.message);
+            console.log(err.message); //message
         });
     }
 

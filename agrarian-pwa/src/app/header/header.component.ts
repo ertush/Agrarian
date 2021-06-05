@@ -21,7 +21,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               </span>
               <div class="alerts popup k-shadow p-2" *ngIf="notificationType === 'alerts' && showNotification
               ">
-              <h3 class="popup-header py-2">Alerts</h3>
+              <h3 class="popup-header py-2">{{alerts > 1 ? 'Alerts': 'Alert'}}</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     
@@ -54,7 +54,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               </span>
               <div class="reports popup k-shadow p-2" *ngIf="notificationType === 'reports' && showNotification
                ">
-              <h3 class="popup-header py-2">Reports</h3>
+              <h3 class="popup-header py-2">{{reports > 1 ? 'Reports' : 'Report'}}</h3>
                 <ul>
                   <li  class="p-2" *ngFor="let user of users">
                     <i  class="fas fa-file"></i>
@@ -75,7 +75,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
               </span>
               <div class="messages popup k-shadow p-2" *ngIf="notificationType === 'messages' && showNotification
               ">
-              <h3 class="popup-header  py-2">Messages</h3>
+              <h3 class="popup-header  py-2">{{messages > 1 ? 'messages' : 'message'}}</h3>
                 <ul>
                   <li class="p-2" *ngFor="let user of users">
                     
@@ -111,22 +111,22 @@ export class HeaderComponent implements OnInit {
   @Input() title;
 
   _isMobileTablet;
-  alerts = 5;
+  alerts = 1;
   reports = 0;
-  messages = 5;
+  messages = 0;
   showNotification = false;
   notificationType = '';
 
   users = [
     {
     id: '1',
-    displayName: 'alex',
-    email: 'alex@gmail.com',
-    message: ' I need some assistance. When are you available?',
+    displayName: 'admin',
+    email: 'admin@agrarian.io',
+    message: 'You need to procure a device, inorder to use the app',
     themeColor: 'tomatoe',
     notification: 'alert',
-    alert: 'Temperature sensor not responding'
-  },
+    alert: 'No sensor device found'
+  }/*,
     {
       id: '1',
       displayName: 'tom',
@@ -153,10 +153,11 @@ export class HeaderComponent implements OnInit {
       email: 'bob@hotmail.com',
       message: ' Amazing work bob 👍',
       themeColor: 'purple',
-      notification: 'alert',
+      notification: 'info',
       report: 'closed',
       alert: 'Soil moisture is above average'
     }
+    */
 
   ];
   

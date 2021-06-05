@@ -7,20 +7,30 @@ import { WeatherService } from '../shared/weather.service';
   template: `
     <!-- <div class="k-card">
         <h2 class="k-card-header text-center m-0">Weather On Site</h2> -->
-       
+
         <div class="row weather-container">
             <div *ngIf="isLoading" style="height: 400px">
                 <app-loading-spinner></app-loading-spinner>
             </div>
 
-          <div  *ngIf="!isLoading" class="weather-icon">
+          <div  *ngIf="!isLoading; else noData" class="weather-icon">
               <h1 class="mt-0 mb-4">
-                <i [ngClass]="getClasses(icon)"></i>
+                <i *ngIf="icon;else noDataIcon" [ngClass]="getClasses(icon)"></i>
+                <ng-template #noDataIcon>
+                <i class="fa-3x fas fa-exclamation"></i>
+                </ng-template>
               </h1>
-              <h2>{{ description }}</h2>
-              <h3>{{ location }}</h3>
+              <h2>{{ description ? description : '' }}</h2>
+              <h3>{{ location ? location : ''}}</h3>
               <h4 *ngFor="let key of ['temperature','humidity', 'seaLevel']">  {{ key }} : {{ weatherData[key] }}</h4>
           </div>
+          <ng-template #noData>
+            <div class="d-flex flex-d-row align-items-center justify-content-center w-100 "><h3>No Data</h3></div>
+            <div  class="tabStripMenu text-center">
+                <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
+                </kendo-dropdownlist>
+          </div>
+          </ng-template>
           <!-- tabStrip menu -->
           <div  *ngIf="isMobile && !isLoading" class="tabStripMenu text-center">
                 <kendo-dropdownlist class="dropDownlist" [data]="tabItems" [defaultItem]="defaultTab" (valueChange)="onSelect($event)">
@@ -34,9 +44,9 @@ import { WeatherService } from '../shared/weather.service';
 
     .weather-container{
     margin-top: 7.5%;
-  
+
     }
-    
+
     .weather-icon{
     display: flex;
     flex-flow: column nowrap;
@@ -64,13 +74,17 @@ export class WeatherComponent implements OnInit {
   icon: string;
   location: string;
   weatherData = {};
-  description: string;  
+  description: string;
   uri: string;
   error: any;
   errorCode: any;
   isMobile: boolean;
   tabItems = ['Graph', 'Map', 'Chart'];
   defaultTab = 'Weather';
+
+  timeOut;
+  timedOut = false;
+  wait = 5000;
 
   constructor(
     private deviceDetectorService: DeviceDetectorService,
@@ -80,14 +94,18 @@ export class WeatherComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = this.deviceDetectorService.isMobile();
-    
+
 
     this.weatherService.getWeatherData()
     .then(res => {
       if (res.ok ) {
-        this.isLoading = false;
+      
         res.json()
         .then( value => {
+          if(value){
+            if (this.timeOut) clearTimeout(this.timeOut);
+            this.isLoading = false;
+          }
 
           this.icon = value.weather[0].icon;
           this.location = value.name;
@@ -109,6 +127,11 @@ export class WeatherComponent implements OnInit {
     .catch( error => {
       console.log(error);
     });
+
+    this.timeOut = setTimeout(() => {
+      this.timedOut = true;
+      this.isLoading = false;
+  }, this.wait);
   }
 
   getClasses(icon: string): string {

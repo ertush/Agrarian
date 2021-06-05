@@ -25,33 +25,35 @@ export class CardChartComponent implements OnInit {
   @Output() dropDownSelect = new EventEmitter<string>();  
   isMobile: boolean;
 
-  @Input() set cardData(cardData){
-    
-    cardData.map(item => {
-      switch(item.topic){
-        case env.topic.temp:
-          const ceilTemp = 30;
-          const pcntTemp = Math.round((item.payload * 100) / ceilTemp);
-          this.tempArray = `${item.payload}, ${pcntTemp}`;
-        break;
-        case env.topic.humidity:
-          const ceilHumidity = 70;
-          const pcntHumidity = Math.round((item.payload * 100) / ceilHumidity);
-          this.humidityArray = `${item.payload}, ${pcntHumidity}`;
-        break;
-        case env.topic.soil:
-          const ceilSoil = 15;
-          const pcntSoil = Math.round((item.payload * 100) / ceilSoil);
-          this.soilArray = `${item.payload}, ${pcntSoil}`;
-        break;
-        case env.topic.light:
-          const ceilLight = 10;
-          const pcntLight = Math.round((item.payload * 100) / ceilLight);
-          this.lumensArray = `${item.payload}, ${pcntLight}`;
-        break;
-      }
-      
-    });
+  @Input() set cardData(_data){
+    console.log({_data}) //debug
+    if(_data !== undefined) {
+      _data.map(item => {
+        switch(item.topic){
+          case env.topic.temp:
+            const ceilTemp = 30;
+            const pcntTemp = Math.round((item.payload * 100) / ceilTemp);
+            this.tempArray = `${item.payload}, ${pcntTemp}`;
+          break;
+          case env.topic.humidity:
+            const ceilHumidity = 70;
+            const pcntHumidity = Math.round((item.payload * 100) / ceilHumidity);
+            this.humidityArray = `${item.payload}, ${pcntHumidity}`;
+          break;
+          case env.topic.soil:
+            const ceilSoil = 15;
+            const pcntSoil = Math.round((item.payload * 100) / ceilSoil);
+            this.soilArray = `${item.payload}, ${pcntSoil}`;
+          break;
+          case env.topic.light:
+            const ceilLight = 10;
+            const pcntLight = Math.round((item.payload * 100) / ceilLight);
+            this.lumensArray = `${item.payload}, ${pcntLight}`;
+          break;
+        }
+        
+      });
+  }
 
   };
 
@@ -73,7 +75,7 @@ export class CardChartComponent implements OnInit {
         res.json()
         .then(value => {
             
-            const ceilWind = 3;
+            const ceilWind = 5;
             const ceilAtmp = 2000;
             this.windArray = `${value.wind.speed}, ${Math.round((value.wind.speed * 100) / ceilWind)}`;
             this.atmpArray = `${value.main.pressure}, ${Math.round((value.main.pressure * 100) / ceilAtmp)}`;

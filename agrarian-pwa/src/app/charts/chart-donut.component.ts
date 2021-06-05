@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-chart-donut',
@@ -8,7 +8,10 @@ import { Component, Input, HostBinding } from '@angular/core';
                     <app-loading-spinner>
                     </app-loading-spinner>
         </div>
-        <div class="k-card-body height-1 mb-1" *ngIf="!loading && isDataSet()">
+        <div class="d-flex justify-content-center align-items-center"  style="height: 400px" *ngIf="!loading && timedOut">
+            <h2>No Data</h2>
+        </div>
+        <div class="k-card-body height-1 mb-1" *ngIf="!loading && isDataSet() && !timedOut">
             <kendo-chart (seriesHover)="onHover($event)">
                 <kendo-chart-series>
                     <kendo-chart-series-item
@@ -33,17 +36,24 @@ import { Component, Input, HostBinding } from '@angular/core';
         </div>
     `
 })
-export class ChartDonutComponent {
+export class ChartDonutComponent implements OnInit{
+   
     donutPercent: string;
     donutLabel: string;
     hoverColor = 'rgb(255, 99, 88)';
     dataset;
+    timeOut;
+    timedOut = false;
+    wait = 5000;
 
     @Input() loading;
-    
     @Input() set data(data) {
         if (data !== undefined) {
-        this.dataset = data;
+        
+        this.timedOut = false;
+        if (this.timeOut) clearTimeout(this.timeOut);
+
+        this.dataset = data.filter(val => (val.topic !== 'lat' && val.topic !== 'lng'));
         data.forEach(series =>  {
             if (series.topic === 'soil') {
                 this.setDonutLegend({
@@ -64,7 +74,12 @@ export class ChartDonutComponent {
         return 'k-card issue-types';
     }
 
-    isDataSet():boolean {if (this.dataset !== undefined) { return this.dataset.length > 0} return false}
+    isDataSet():boolean {
+        if (this.dataset !== undefined) { 
+            return this.dataset.length > 0
+        } 
+        return false;
+    }
 
     onHover(event) {
         this.setDonutLegend(event);
@@ -96,5 +111,14 @@ export class ChartDonutComponent {
         this.hoverColor = series.point.options.color;
         this.donutPercent = Math.round(series.value) + '';
         this.donutLabel = series.category;
+    }
+
+    constructor() {}
+
+    ngOnInit(): void {
+        this.timeOut = setTimeout(() => {
+            this.timedOut = true;
+            this.loading = false;
+        }, this.wait);
     }
 }

@@ -4,7 +4,7 @@
   "name": "agrarian.io",
   "scope": "/",
   "display": "standalone",
-  "start_url": "http://localhost:8080/",
+  "start_url": "https://agrarian-io-pwa.netlify.app/",
   "short_name": "Agrarian",
   "theme_color": "#eceeef",
   "description": "Platform to help farmers manager their farms",

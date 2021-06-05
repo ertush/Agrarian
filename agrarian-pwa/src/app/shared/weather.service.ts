@@ -6,8 +6,8 @@ import { environment as env } from './../../environments/environment';
 })
 export class WeatherService {
 
-  lat = -1.45;
-  lon = 36.97;
+  lat = -1000; // -1.45;
+  lon = -1000; // 36.97;
 
   uri = `${env.api.url}?lat=${this.lat}&lon=${this.lon}&APPID=${env.api.appId}`;
   constructor() { }

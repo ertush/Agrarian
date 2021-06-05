@@ -11,14 +11,17 @@ import { DeviceDetectorService } from 'ngx-device-detector';
                     <app-loading-spinner>
                     </app-loading-spinner>
                 </div>
+               <div class="d-flex justify-content-center align-items-center"  style="height: 400px" *ngIf="!isLoading && timedOut">
+                 <h2>No Data</h2>
+               </div>
           <div class="col-12 all-issues">
           <kendo-chart [transitions]="false" [pannable]="{ lock: 'y' }"
-          [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading" style="margin-top: 20px">
+          [zoomable]="{ mousewheel: { lock: 'y' } }"  *ngIf="!isLoading && !timedOut" style="margin-top: 20px">
           <kendo-chart-tooltip format="{1} &deg;C"></kendo-chart-tooltip>
 
              <kendo-chart-series-defaults [type]="'scatterLine'" [stack]="true" [gap]="0.03" [overlay]="false">
              </kendo-chart-series-defaults>
-            <kendo-chart-series>            
+            <kendo-chart-series>
               <kendo-chart-title text="Temperature"></kendo-chart-title>
               <kendo-chart-series-item
               [border]="{color: '#27c46d', opacity: 0.8}"
@@ -84,24 +87,34 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 export class TempComponent implements OnInit {
-  dataset;
+  // dataset;
   @Input() min;
   @Input() max;
-  isLoading;
   @Input() style;
+
+  isLoading;
+  tempData;
+  timeOut;
+  timedOut = false;
+  wait = 5000;
+  tabItems: Array<string> = ['Map', 'Weather', 'Chart'];
+  defaultTab = 'Graph';
+  isMobile: boolean;
+
   @Input() set loading(_isloading) {
     this.isLoading = _isloading;
   }
 
-  @Input() tempData;
-  @Input() humidityData;
+  @Input() set data(_data) {
+    this.tempData = _data;
+    this.timedOut = false;
+    if (this.timeOut) clearTimeout(this.timeOut);
+  }
+
+  // @Input() humidityData;
 
   @Output() dropDownSelect = new EventEmitter<string>();
 
-
-  tabItems: Array<string> = ['Map', 'Weather', 'Chart'];
-  defaultTab = 'Graph';
-  isMobile: boolean;
 
   onSelect(value: string) {
     this.dropDownSelect.emit(value);
@@ -111,7 +124,11 @@ export class TempComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
-    console.log({dataset: this.dataset}); // debug
+
+    this.timeOut = setTimeout(() => {
+      this.timedOut = true;
+      this.isLoading = false;
+  }, this.wait);
   }
 
 }

@@ -8,8 +8,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-map',
   template: `
-      <!-- <div class="k-card">
-        <h2 class="k-card-header text-center m-0">Device Location</h2> -->
+
         <div class="row map-container">
             <div *ngIf="!isReady" style="height: 400px">
                 <app-loading-spinner>

@@ -17,16 +17,15 @@ export class MqttService implements OnDestroy {
      this.client.on('connect', () => {
     console.log('Client connected:' + env.clientId);
     // Subscribe to all Sensor Topics
-    // this.client.subscribe(env.topic.esp8266, { qos: 0 }, (state: any) => {console.log({state}); });
-    // this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
-
+ 
     this.client.subscribe(env.topic.temp, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.humidity, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.atmp, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.soil, { qos: 0 }, (state: any) => {console.log({state}); });
     this.client.subscribe(env.topic.light, { qos: 0 }, (state: any) => {console.log({state}); });
-
-    });
+    this.client.subscribe(env.topic.lat, { qos: 0 }, (state: any) => {console.log({state}); });
+    this.client.subscribe(env.topic.lng, { qos: 0 }, (state: any) => {console.log({state}); });  
+  });
 
     // Handle error
     this.client.on('error', (err) => {
@@ -43,7 +42,7 @@ export class MqttService implements OnDestroy {
     return new Observable(subscriber => {
     try {
       this.client.on('message', (topic, message, packet) => {
-      subscriber.next(`${message.toString()}/${topic}`);
+      subscriber.next(`${message.toString()}::${topic}`);
     });
    } catch (e) {
       subscriber.error(e);

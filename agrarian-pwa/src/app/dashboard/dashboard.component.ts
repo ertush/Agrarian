@@ -1,3 +1,4 @@
+import { environment as env} from './../../environments/environment';
 import { ChartsAreaService } from './../shared/charts-area.service';
 import { Component, ViewEncapsulation, HostBinding, OnDestroy, ViewChild } from '@angular/core';
 import 'hammerjs';
@@ -7,8 +8,8 @@ import { TabStripComponent } from '@progress/kendo-angular-layout/dist/es2015/ta
 import { MqttService } from './../shared/mqtt.service';
 import { ChartTempService } from '../shared/chart-temp.service';
 import { ChartDonutService } from '../shared/chart-donut.service';
-import { environment as env  } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 
 
 
@@ -50,10 +51,10 @@ export class DashboardComponent implements OnDestroy {
     atm = [];
     isMobile: boolean;
 
-    lat = -1.45;
-    lng = 36.97;
+    lat = 0.0; // -1.45;
+    lng = 0.0; // 36.97;
 
-    pageTitle = 'Statistics';
+    pageTitle = 'Dashboard';
 
     @HostBinding('attr.id') get get_id() { return 'dashboard'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
@@ -82,14 +83,14 @@ export class DashboardComponent implements OnDestroy {
         /* Line Real time chart */
         this.MqttClientService.fetchData()
         .subscribe(m => {
-          const payload = m.split('/')[0];
-          const topic = m.split('/')[1];
+          const payload = m.split('::')[0];
+          const topic = m.split('::')[1].split('/')[1];
 
             // All Data Section
             // Donut Chart and Line Chart
 
             this.isLoading = false;
-            if (topic !== 'custom') {
+           
               this.chartDonutService.loadData(payload, topic).subscribe(data => {
 
                 this._espData.push(data);
@@ -136,11 +137,9 @@ export class DashboardComponent implements OnDestroy {
 
               });
 
-          }
-
-
+          // console.log({allData: this.allData});
           switch (topic) {
-              case 'temperature':
+              case env.topic.temp:
                 this.isLoading = false;
 
                 // Temperature, Humidity, AtPressure Area Chart
@@ -173,7 +172,7 @@ export class DashboardComponent implements OnDestroy {
 
             break;
 
-                case 'humidity':
+                case env.topic.humidity:
 
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
@@ -182,11 +181,21 @@ export class DashboardComponent implements OnDestroy {
                  });
                 break;
 
-                case 'atpressure':
+                case env.topic.atmp:
                     // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
                  });
+                break;
+
+                case env.topic.lat:
+                  this.lat = parseFloat(payload);
+                  
+                  break;
+
+                case env.topic.lng:
+                    this.lng = parseFloat(payload);
+                    
                 break;
 
               default:

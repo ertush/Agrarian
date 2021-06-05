@@ -1,7 +1,7 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 
@@ -11,12 +11,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     animations: [trigger(
         'toggleNav',
         [
-            state( 'collapsed, void', style({transform: 'translateX(-100%)'}) ),
-            state( 'expanded', style({transform: 'translateX(0)'}) ),
-            transition( 'collapsed <=> expanded',
+            state('collapsed, void', style({ transform: 'translateX(-100%)' })),
+            state('expanded', style({ transform: 'translateX(0)' })),
+            transition('collapsed <=> expanded',
                 [
-                    animate( 200 ),
-                    animate( 200 )
+                    animate(200),
+                    animate(200)
                 ]
             )
         ]
@@ -27,34 +27,46 @@ export class MainMenuComponent implements OnInit {
     year = new Date().getFullYear();
     navState: string;
     menuTitle: string;
+    location = 'Unknown';
     isMobile: boolean;
     url;
 
     return = '';
     user: any;
 
-    // defaultPhoto: string = '../../assets/avatar-placeholder.png';
 
     constructor(
         private router: Router,
         private deviceService: DeviceDetectorService,
         private afAuth: AngularFireAuth,
-        private route: ActivatedRoute
-        ) {
-        if ( window.innerWidth < 1200 ) {
+        private route: ActivatedRoute,
+    ) {
+
+        this.router.events.subscribe(event => {
+            if(event instanceof NavigationEnd){
+                this.url = event.urlAfterRedirects;
+            }
+        });
+
+        this.url = document.location.hash;
+
+        if (window.innerWidth < 1200) {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';
         }
         this.menuTitle = 'Home';
 
+
         this.afAuth.authState.subscribe(user => {
-            if(user){
+            if (user) {
+
                 this.user = user;
+
             }
         });
 
-    
+
         // Load default user if user not set
         if (this.user === undefined) {
             this.user = {
@@ -68,15 +80,12 @@ export class MainMenuComponent implements OnInit {
 
     ngOnInit(): void {
         this.isMobile = this.deviceService.isMobile();
-       
-        this.route.queryParams
-        .subscribe(params => { 
-            this.return = params['return'] || '/dashboard';
-        });
 
-        this.url = document.location.hash;
-        console.log({url: this.url});
-     
+        this.route.queryParams
+            .subscribe(params => {
+                this.return = params['return'] || '/dashboard';
+            });
+        
     }
 
     @HostBinding('attr.id') protected get id(): string {
@@ -89,7 +98,7 @@ export class MainMenuComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-        if ( event.target.innerWidth < 1200 ) {
+        if (event.target.innerWidth < 1200) {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';
@@ -107,16 +116,16 @@ export class MainMenuComponent implements OnInit {
             this.toggleNav();
             this.menuTitle = 'Home';
         }
-        
+
         if (this.afAuth.auth.currentUser) {
             this.afAuth.auth.signOut();
-           this.router.navigate(['/signin']);
+            this.router.navigate(['/signin']);
         }
     }
 
 
     toggleNav() {
-        if ( this.navState === 'expanded' ) {
+        if (this.navState === 'expanded') {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';
@@ -133,7 +142,7 @@ export class MainMenuComponent implements OnInit {
 
         this.menuTitle = (path.split('/')[1] === 'issues' ? 'reports' : path.split('/')[1]);
 
-        this.router.navigate([path]);
+        this.router.navigate([path], {state: { path: `${path}`}});
     }
 
 

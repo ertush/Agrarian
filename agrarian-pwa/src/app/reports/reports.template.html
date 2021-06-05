@@ -1,26 +1,24 @@
-<div id="header" class="row">
-    <div class="col-sm">
-        <h4>Issues</h4>
-        <p class="h2">{{range.from | date}} - {{range.to | date}}</p>
+<div class="container">
+
+    <div id="header" class="row">
+        <div class="col-sm">
+            <h4>Reports</h4>
+            <!-- <p class="h2">{{range.from | date}} - {{range.to | date}}</p> -->
+        </div>
+        <div class="col-sm text-sm-right p-0 p-sm-3">
+            <kendo-buttongroup [disabled]="isLoading" [selection]="'single'">
+                <button kendoRippleContainer kendoButton [disabled]="!isLoading"  [selected]="">3 Months</button>
+                <button kendoRippleContainer kendoButton [disabled]="!isLoading"  [selected]="">6 Months</button>
+                <button kendoRippleContainer kendoButton [disabled]="!isLoading"  [selected]="">1 Year</button>
+            </kendo-buttongroup>
+        </div>
     </div>
-    <div class="col-sm text-sm-right p-0 p-sm-3">
-        <kendo-buttongroup [disabled]="isLoading" [selection]="'single'">
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(3)" [selected]="selectedPeriod === 3 ? true : false">3 Months</button>
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(6)" [selected]="selectedPeriod === 6 ? true : false">6 Months</button>
-            <button kendoRippleContainer kendoButton [disabled]="isLoading" (mousedown)="onFilterClick(12)" [selected]="selectedPeriod === 12 ? true : false">1 Year</button>
-        </kendo-buttongroup>
-    </div>
-</div>
+    
+    <app-page-spinner *ngIf="isLoading"></app-page-spinner>
+    
 
-<app-page-spinner *ngIf="isLoading"></app-page-spinner>
-
-<div *ngIf="!isLoading && !view">
-    <img class="text-center mt-3" width="100%" height="100%" src="../../assets/noConnection.gif">
-</div>
-
-
-<kendo-grid
-    *ngIf="view"
+    <kendo-grid
+    *ngIf="!isLoading"
     [data]="view"
     [pageSize]="pageSize"
     [pageable]="true"
@@ -32,50 +30,53 @@
    
     <kendo-grid-column field="number" title="ID" width="80">
         <ng-template kendoGridCellTemplate let-dataItem>
-          <a href="dataItem.html_url">#{{ dataItem.number }}</a>
+            <!-- dataItem.number -->
+          <a href="dataItem.html_url">#{{ '-' }}</a> 
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="title" title="Title">
+    <kendo-grid-column field="title" title="Device">
         <ng-template kendoGridCellTemplate let-dataItem>
           <span [ngClass]="{
               'issue-status': true,
               'issue-open': dataItem.state === 'open',
               'issue-closed': dataItem.state !== 'open' }"></span>
-            {{ dataItem.title }}
+            {{ '-' }}
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="labels" title="Labels" media="sm">
+    <kendo-grid-column field="labels" title="Device Group" media="sm">
         <ng-template kendoGridCellTemplate let-dataItem>
             <span *ngFor="let label of dataItem.labels" class="badge" [labelClass]="label.name">
-                {{ label.name }}
+                {{ '-' }}
             </span>
         </ng-template>
     </kendo-grid-column>
-     <kendo-grid-column field="milestone" title="Milestone" width="200" media="xl">
+     <kendo-grid-column field="milestone" title="Location" width="200" media="xl">
         <ng-template kendoGridCellTemplate let-dataItem>
-             {{ dataItem.milestone ? dataItem.milestone.title : '' }}
+             {{ dataItem.milestone ? dataItem.milestone.title : '-' }}
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="assignee" title="Assignee" width="200" media="xl">
+    <kendo-grid-column field="assignee" title="Owner" width="200" media="xl">
          <ng-template kendoGridCellTemplate let-dataItem>
              <img *ngIf="dataItem.assignee" [src]="dataItem.assignee? dataItem.assignee.avatar_url : undefined" [ngStyle]="{'width': '30px', 'height': '30px'}" class="img-circle" />
-            {{ dataItem.assignee ? dataItem.assignee.login : '' }}
+            {{ dataItem.assignee ? dataItem.assignee.login : '-' }}
         </ng-template>
     </kendo-grid-column>
+
     <ng-template kendoGridDetailTemplate let-dataItem let-rowIndex="rowIndex">
         <div class="row my-4">
             <div class="col-sm-12">
                 <span class="badge" [ngClass]="{
                     'badge-success': dataItem.state === 'open',
                     'badge-danger': dataItem.state === 'closed'
-                }">{{ dataItem.state }}</span>
+                }">{{ '-' }}</span>
                 <h3 class="h1">
-                    {{ dataItem.title }}
-                    <span class="text-muted">#{{ dataItem.number }}</span>
+                    {{ '-' }}
+                    <!-- dataItem.number -->
+                    <span class="text-muted">#{{ '-' }}</span>
                 </h3>
             </div>
         </div>
-        <div class="row my-4">
+        <!-- <div class="row my-4">
             <div class="col-sm-2">
                 <span class="small d-block text-muted">Created on</span>
                 {{ dataItem.created_at | date }}
@@ -85,7 +86,7 @@
                 {{ dataItem.closed_at | date }}
             </div>
             <div class="col-sm-2">
-                <span class="small d-block text-muted">Milestone</span>
+                <span class="small d-block tex -muted">Milestone</span>
                 {{ dataItem.milestone ? dataItem.milestone.title : '' }}
             </div>
             <div class="col-sm-2">
@@ -109,6 +110,8 @@
                 <h4 class="small text-muted">Description</h4>
                 <app-markdown [data]="dataItem.body"></app-markdown>
             </div>
-        </div>
+        </div> -->
     </ng-template>
 </kendo-grid>
+</div>
+

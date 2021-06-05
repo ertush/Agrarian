@@ -1,23 +1,11 @@
-<!-- <div id="header" class="row">
-    <div class="col-sm">
-        <h4>Statistics</h4>
-        <p class="h2">{{ rangeStart | date }}  {{ today | date }}</p>
-    </div>
-    <div class="col-sm text-sm-right p-0 p-sm-3">
-        <kendo-buttongroup [selection]="'single'">
-            <button kendoRippleContainer kendoButton [togglable]="true" [selected]="true">3 Months</button>
-            <button kendoRippleContainer kendoButton [togglable]="true">6 Months</button>
-            <button kendoRippleContainer kendoButton [togglable]="true">1 Year</button>
-        </kendo-buttongroup>
-    </div>
-</div> -->
+
 <app-header [range1]="rangeStart" [range2]="today" [isLoading]="isLoading"  [title]="pageTitle"></app-header>
 
 <div id="statistics">
   <kendo-tabstrip #tabStrip>
       <kendo-tabstrip-tab  [title]="'Graph'"  [selected]="false">
         <ng-template kendoTabContent> 
-            <app-temp [loading]="isLoading" [style]="style"  [tempData]="_tempData" [min]="min" [max]="max" (dropDownSelect)="onDropDownSelect($event)"></app-temp>
+            <app-temp [loading]="isLoading" [style]="style"  [data]="_tempData" [min]="min" [max]="max" (dropDownSelect)="onDropDownSelect($event)"></app-temp>
             <app-default [isChartLoading]="_csData.temperature.length > 0" [loading]="isLoading" [csdata]="_csData"  [esdata]="allData"  [dataarr]="_tempHumidityData" [rate]="30"></app-default>
         </ng-template>
       </kendo-tabstrip-tab>
