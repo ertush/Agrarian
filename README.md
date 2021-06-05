@@ -4,11 +4,7 @@
 ![agrarian-app-ci-workflow](https://github.com/ertush/Agrarian/workflows/agrarian-app-ci-workflow/badge.svg)
 ## Agrarian Smart Farm Solution
 
-### Installing
-
-To Contribute Clone the project and ensure that the firmware file is put inside a folder named as the firmware file before openening it on arduino ide.
-
-To have the dashboard nodes on Node-red import the json from flows.json
+Agrarian is a customer focused, data-driven solution that keeps track of farmland conditions and educates the farmer on optimum farming inputs and crops to cultivate for optimum and quality produce remotely and in real-time 
 
 ### Parts
 
@@ -33,26 +29,69 @@ To have the dashboard nodes on Node-red import the json from flows.json
  
 ![](/screenshots/Circuit.png)
 
+### Prototype (AG11) v1
+
+
+![](/screenshots/ag11-1.jpg)
+
 ### Dependecies
 
-Node-red, Mqttbroker e.g Mosquitto
+Agrarian-rest-api and Mqttbroker e.g Mosquitto
 
-### App dashboard
+### App ScreenShots
 
-![](/screenshots/Welcome.png)
+### Mobile
+<table>
+    <tr>
+    <td height=300px width=33%>
 
-![](/screenshots/Register.png)
+![](/screenshots/mobile-sc1.png)
+    </td>
+    <td height=300px width=33%>
+    
+![](/screenshots/mobile-sc2.png)
+    </td>
+    <td height=300px width=33%>
+    
+![](/screenshots/mobile-sc3.png)
+    </td>
+    </tr>
+    <tr>
+    <td height=300px width=33%>
 
-![](/screenshots/ForgotPasswd.png)  
+![](/screenshots/mobile-sc4.png)
+    </td>
+    <td height=300px width=33%>
+    
+![](/screenshots/mobile-sc5.png)
+    </td>
+    <td height=300px width=33%>
+    
+![](/screenshots/mobile-sc6.png)
+    </td>
+    </tr>
+</table>
 
-![](/screenshots/Dashboard-1.png)
+## Desktop
+<table>
+    <tr height=300px width=100%>
+    <td>
+        
+![](/screenshots/desk-sc2.png)
+    </td>
+    </tr>
+    <tr height=300px width=100%>
+    <td>
+            
+![](/screenshots/desk-sc3.png)
+    </td>
+    </tr>
+    <tr  height=300px width=100%>
+    <td>
+            
+![](/screenshots/desk-sc1.png)
+    </td>
+    </tr>
+</table>
 
-![](/screenshots/Dashboard-2.png)
 
-![](/screenshots/Options-1.png)
-
-![](/screenshots/UserProfile.png)
-
-![](/screenshots/Options-2.png)
-
-![](/screenshots/About.png)
