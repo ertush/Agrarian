@@ -3,12 +3,11 @@
     "description": "IoT based dashboard for precision farming",
     "version": "0.0.1",
     "dependencies": {
-        "node-red-dashboard": "2.15.5",
         "node-red-contrib-firebase": "1.1.1",
         "node-red-contrib-firestore": "1.0.2",
-        "node-red-node-twilio": "0.1.0",
         "node-red-firebase": "0.1.0",
-        "node-red-node-mysql": "0.0.18"
+        "node-red-node-mysql": "0.0.18",
+        "node-red-node-twilio": "0.1.0"
     },
     "node-red": {
         "settings": {
