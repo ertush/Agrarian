@@ -53,7 +53,7 @@ export class ChartDonutComponent implements OnInit{
         this.timedOut = false;
         if (this.timeOut) clearTimeout(this.timeOut);
 
-        this.dataset = data.filter(val => (val.topic !== 'lat' && val.topic !== 'lng'));
+        this.dataset = data;
         data.forEach(series =>  {
             if (series.topic === 'soil') {
                 this.setDonutLegend({

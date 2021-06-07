@@ -1,6 +1,6 @@
 import { environment as env} from './../../environments/environment';
 import { ChartsAreaService } from './../shared/charts-area.service';
-import { Component, ViewEncapsulation, HostBinding, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import 'hammerjs';
 import { Subscription } from 'rxjs';
 import { TabStripComponent } from '@progress/kendo-angular-layout/dist/es2015/tabstrip/tabstrip.component';
@@ -20,7 +20,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
     templateUrl: './dashboard.template.html'
 })
 
-export class DashboardComponent implements OnDestroy {
+export class DashboardComponent implements OnDestroy, OnInit {
 
     min: Date = new Date();
     max: Date = new Date(this.min.getTime() + 60000);
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnDestroy {
         // Auth Guard
 
         this.afAuth.authState.subscribe(user => {
-          // console.log({user}); // debug
+          
             if (user) {
                 this.user = user;
             } else {
@@ -137,9 +137,9 @@ export class DashboardComponent implements OnDestroy {
 
               });
 
-          // console.log({allData: this.allData});
+          
           switch (topic) {
-              case env.topic.temp:
+              case env.topic.temp.split('/')[1]:
                 this.isLoading = false;
 
                 // Temperature, Humidity, AtPressure Area Chart
@@ -172,7 +172,7 @@ export class DashboardComponent implements OnDestroy {
 
             break;
 
-                case env.topic.humidity:
+                case env.topic.humidity.split('/')[1]:
 
                 // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
@@ -181,19 +181,19 @@ export class DashboardComponent implements OnDestroy {
                  });
                 break;
 
-                case env.topic.atmp:
+                case env.topic.atmp.split('/')[1]:
                     // Temperature, Humidity, AtPressure Area Chart
                 this.chartAreaService.loadData(payload, topic).subscribe(data => {
                   this._tempHumidityData = data;
                  });
                 break;
 
-                case env.topic.lat:
+                case env.topic.lat.split('/')[1]:
                   this.lat = parseFloat(payload);
                   
                   break;
 
-                case env.topic.lng:
+                case env.topic.lng.split('/')[1]:
                     this.lng = parseFloat(payload);
                     
                 break;
@@ -211,6 +211,13 @@ export class DashboardComponent implements OnDestroy {
         }
         );
     }
+
+  ngOnInit(): void {
+    if(this.allData !== undefined){
+    this.allData = this.allData.filter(val => (val.topic !== 'esp8266/lat' && val.topic !== 'esp8266/lng'));
+    }
+    console.log({allData: this.allData}); //debug
+  }
 
     onDropDownSelect(val: string) {
       const tabs = {Graph: 0, Map: 1, Weather: 2, Chart: 3};

@@ -26,26 +26,26 @@ export class CardChartComponent implements OnInit {
   isMobile: boolean;
 
   @Input() set cardData(_data){
-    console.log({_data}) //debug
+
     if(_data !== undefined) {
       _data.map(item => {
         switch(item.topic){
-          case env.topic.temp:
+          case env.topic.temp.split('/')[1]:
             const ceilTemp = 30;
             const pcntTemp = Math.round((item.payload * 100) / ceilTemp);
             this.tempArray = `${item.payload}, ${pcntTemp}`;
           break;
-          case env.topic.humidity:
+          case env.topic.humidity.split('/')[1]:
             const ceilHumidity = 70;
             const pcntHumidity = Math.round((item.payload * 100) / ceilHumidity);
             this.humidityArray = `${item.payload}, ${pcntHumidity}`;
           break;
-          case env.topic.soil:
+          case env.topic.soil.split('/')[1]:
             const ceilSoil = 15;
             const pcntSoil = Math.round((item.payload * 100) / ceilSoil);
             this.soilArray = `${item.payload}, ${pcntSoil}`;
           break;
-          case env.topic.light:
+          case env.topic.light.split('/')[1]:
             const ceilLight = 10;
             const pcntLight = Math.round((item.payload * 100) / ceilLight);
             this.lumensArray = `${item.payload}, ${pcntLight}`;

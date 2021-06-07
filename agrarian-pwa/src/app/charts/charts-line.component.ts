@@ -102,7 +102,7 @@ export class ChartsLineComponent implements OnInit, OnChanges {
     // this.seriesColors.forEach(e => {
     //     this.addSeries({ label: e.label, value: e.value, active: true }, false); 
     //   });
-
+    console.log({data: this.data});
     this.seriesColors.filter(color => color.active === true).forEach(e => {
       this.addSeries({ label: e.label, value: e.value, active: true }, false);
   });
