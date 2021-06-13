@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { UserModel } from '../models/user';
 
 
 @Injectable({
@@ -8,6 +8,6 @@ import { User } from '../models/user';
 
 export class AuthService {
 
-public user: User;
+public user: UserModel;
 constructor() {}
 }

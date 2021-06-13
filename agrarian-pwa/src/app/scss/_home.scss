@@ -26,7 +26,6 @@
 
   .title{
     position: absolute;
-    top:210px;
     left:80px;
     font-size: 2rem;
     font-weight: 800;
@@ -169,6 +168,14 @@
   }
 }
 
+.modal-button{
+  border-radius: .5rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 
 
 @media screen and (max-width: 800px) {

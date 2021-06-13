@@ -1,14 +1,11 @@
-// import { UserModel } from './../models/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { formValidationMessages } from './validation.messages';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ViewEncapsulation, HostBinding, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import isMobile from '../shared/deviceUtil';
 import * as firebase from 'firebase/app';
 import { TextBoxComponent } from '@progress/kendo-angular-inputs';
 import { DeviceDetectorService } from 'ngx-device-detector';
-// import { User } from '../models/user';
 
 
 @Component({
@@ -77,21 +74,22 @@ export class SigninComponent implements OnInit {
      }
 
     constructor(
-        private router: Router, 
+        private router: Router,
         private afAuth: AngularFireAuth,
         private deviceDetectorService: DeviceDetectorService,
         ) {
+            
         this.isSignedIn = false;
         this.isSignUp = false;
         this.marginTopExp = 22;
-      
+
         this.error = '';
 
         this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
         this.afAuth.auth.getRedirectResult()
         .then(result => {
-            if(result.user) {
+            if (result.user) {
                 this.isSignedIn = true;
                 this.router.navigate(['./home']);
             }
@@ -101,7 +99,7 @@ export class SigninComponent implements OnInit {
             this.error = error.message;
         });
 
-       
+
 
         this.afAuth.authState.subscribe(auth => {
             if (!auth) {
@@ -133,11 +131,22 @@ export class SigninComponent implements OnInit {
 
     }
 
-    sendMail(): void{
+    showPwdResetDialogue(): void {
         this.showDialogue = true;
+
     }
 
-    onSubmissionDialogClose(): void{
+    onDialogSubmission(resetEmail): void {
+        console.log({resetEmail});
+        this.afAuth.auth.sendPasswordResetEmail(resetEmail)
+        .then(value => {
+            console.log('Password reset is successful: ', value);
+        })
+        .catch(e => console.log(e.message));
+        this.showDialogue = false;
+    }
+
+    onDialogClose() {
         this.showDialogue = false;
     }
 
@@ -145,9 +154,13 @@ export class SigninComponent implements OnInit {
         this.isSignedIn = false;
         this.afAuth.auth.signInWithEmailAndPassword(formValues.userEmail, formValues.password)
         .then((success) => {
-            if (success.user) { 
+            if (success.user) {
                 this.isSignedIn = true;
-                this.router.navigate(['./home']);
+                if (success.user.emailVerified) {
+                    this.router.navigate(['./home'], );
+                } else {
+                    this.router.navigate(['./home'], {queryParams : {emailVerified: false}});
+                }
             }
         })
         .catch(error => this.error = error.message);
@@ -160,13 +173,13 @@ export class SigninComponent implements OnInit {
     }
 
     onCreateAccount(formValues: any): void {
-        
+
         localStorage.setItem('userName', formValues.userName);
 
         this.afAuth.auth.createUserWithEmailAndPassword(formValues.signUpEmail, formValues.newPassword)
         .then((success) => {
             this.isSignUp = false;
-            if(!success.user.emailVerified){
+            if (!success.user.emailVerified) {
                 success.user.sendEmailVerification();
             }
 
@@ -175,7 +188,7 @@ export class SigninComponent implements OnInit {
         .catch(err => {
             if (err.code == 'auth/weak-password') this.error = err;
             this.error = err;
-            console.log(err.message); //message
+            console.log(err.message); // message
         });
     }
 

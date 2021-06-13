@@ -36,7 +36,7 @@
             {{  validation.message }}
           </kendo-formerror>
           <p class="text-xs-right small">
-            <a href="#" (click)="sendMail()">Forgot it?</a>
+            <a href="#" (click)="showPwdResetDialogue()">Forgot it?</a>
           </p>
         </div>
         <div class="form-group mb-0 btn-group">
@@ -133,10 +133,20 @@
     <!-- Endof Signup -->
     
   </div>
-  <kendo-dialog title="Password Reset" *ngIf="showDialogue" (close)="onSubmissionDialogClose()">
-    <p>A password reset email has been sent</p>
+  <kendo-dialog title="Password Reset" class="pl-3 pr-3" *ngIf="showDialogue" (close)="onDialogClose()">
+    <p >A password reset email will be sent to the email you enter</p>
+    <div class="
+    mb-1
+    d-flex 
+    justify-content-flex-start 
+    align-items-center"
+    >
+      <kendo-textbox-container style="width: 100%;"  floatingLabel="Enter email to reset">
+          <kendo-textbox #confirmDelete style="font-size:15px; width:100%"></kendo-textbox>
+      </kendo-textbox-container>
+      </div>
     <kendo-dialog-actions>
-        <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onSubmissionDialogClose()">OK</button>
+        <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onDialogSubmission(resetEmail.value)">OK</button>
     </kendo-dialog-actions>
   </kendo-dialog> 
   
@@ -199,7 +209,7 @@
           {{  validation.message }}
         </kendo-formerror>
         <p class="text-xs-right small">
-          <a href="#" (click)="sendMail()">Forgot it?</a>
+          <a href="#" (mousedown)="showPwdResetDialogue()">Forgot it?</a>
         </p>
       </div>
       <div class="form-group mb-0 btn-group">
@@ -294,6 +304,23 @@
     </form> 
     <!-- Endof SignUp Form -->
   </div>
+  <kendo-dialog title="Password Reset" *ngIf="showDialogue" (close)="onDialogClose()">
+    <p>A password reset email will be sent to the email you enter</p>
+    <div class="
+    mb-1
+    d-flex 
+    justify-content-flex-start 
+    align-items-center"
+    >
+      <kendo-textbox-container  style="width: 100%;" floatingLabel="Enter email to reset">
+          <kendo-textbox #resetEmail style="font-size:15px; width:100%"></kendo-textbox>
+      </kendo-textbox-container>
+      </div>
+    <kendo-dialog-actions>
+        <button kendoRippleContainer class="k-button k-shadow ag-theme-btn" (mousedown)="onDialogSubmission(resetEmail.value)">OK</button>
+    </kendo-dialog-actions>
+  </kendo-dialog> 
+  
 </div>
 
 
