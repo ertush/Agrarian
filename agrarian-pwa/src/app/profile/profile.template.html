@@ -37,20 +37,21 @@
                                         ">
                                         <li style="flex: 1" class="mb-4">
                                             <i class="fab fa-twitter" style="font-size:15px; color: rgb(88, 208, 255)"></i>
-                                            <span class="ml-1">@twitter</span>
+                                            <span class="ml-1">{{ '-' }}</span>
                                         </li>
                                         <li style="flex: 1" class="mb-4">
-                                            <i class="fab fa-facebook" style="font-size:15px; color: rgb(88, 119, 255)"></i>
-                                            <span class="ml-1">@facebook</span>
-                                        </li>
-                                        <li style="flex: 1" class="mb-4">
-                                            <i class="fab fa-google-plus" style="font-size:15px; color: rgb(255, 88, 88)"></i>
-                                            <span class="ml-1">@google+</span>
+                                            <i class="fab fa-google-plus" style="font-size:15px; color: rgb(184, 8, 8)"></i>
+                                            <span class="ml-1">{{ user.providerData[0].provider === 'google.com' ? user.email.split('@')[0] : '-' }}</span>
                                         </li>
                                         <li style="flex: 1" class="mb-4">
                                             <i class="fas fa-phone-alt" style="font-size:15px; color: rgb(93, 91, 91)"></i>
-                                            <span class="ml-1">{{ user.phoneNumber  || '000-000' }}</span>
+                                            <span class="ml-1">{{ user.phoneNumber  || '-' }}</span>
                                         </li>
+                                        <li style="flex: 1" class="mb-4">
+                                            <i class="fas fa-envelope" style="font-size:15px; color: rgb(93, 91, 91)"></i>
+                                            <span class="ml-2">{{ user.email.split('@')[0] + '\n@'+ user.email.split('@')[1] }}</span>
+                                        </li>
+                                      
                                     </ul>
                             </div>
                             

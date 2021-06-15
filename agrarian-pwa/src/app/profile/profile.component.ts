@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit{
     userName: string;
     defaultPhoto = '../../assets/avatar-placeholder.png';
 
+    //user data
+
     @HostBinding('attr.id') get get_id() { return 'profile'; }
     @HostBinding('class') get get_class() { return 'container-fluid'; }
 
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit{
                 if (user) {
                     this.isLoading = false;
                     this.user = user;
+                    console.log(user) //debug
                 }
             },error => { 
                 this.errorCode = error.code;
